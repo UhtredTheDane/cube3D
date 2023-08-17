@@ -10,16 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "main.h"
+
 int main(int argc, char **argv)
 {
-  size_t size_name_map;
+  size_t index_format;
   
   if (argc != 2)
   {
     printf("Usage: ./cube3D YourMap.cub\n");
     return (1);
   }
-  size_name_map = ft_strlen(argv[1]);
-  if ()
-  
+  index_format = ft_strlen(argv[1]) - 4;
+  i = 0;
+  char *format = ".cub";
+
+  if (ft_strncmp(argv[1][index_format], format, 4) != 0)
+    return (2);
+  return (0);
 }
