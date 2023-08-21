@@ -14,20 +14,20 @@
 
 int main(int argc, char **argv)
 {
-  size_t index_format;
-  
   if (argc != 2)
   {
     printf("Usage: ./cube3D YourMap.cub\n");
     return (1);
   }
+  size_t index_format;
   index_format = ft_strlen(argv[1]) - 4;
   char *format = ".cub";
-
   if (ft_strncmp(argv[1] + index_format, format, 4) != 0)
 	{
-	printf("Wrong format\n");
+	  printf("Wrong format\n");
     return (2);
    }
+
+  
   return (0);
 }
