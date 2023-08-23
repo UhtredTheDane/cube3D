@@ -14,6 +14,7 @@ CC = gcc
 CFLAGS = -Wall -Werror -Wextra
 NAME = cube3D
 LIBFT = ./libft/libft.a
+GET = ./get_next_line/get_next_line.a
 SRC = $(wildcard srcs/*.c)
 OBJ = $(SRC:.c=.o)
 
@@ -28,9 +29,14 @@ $(NAME): $(OBJ) $(LIBFT)
 $(LIBFT):
 	make -C libft
 
+$(GET):
+	make -C get_next_line
+
 clean:
 	make -C libft clean
+	make -C get_next_line clean
 	rm -rf $(LIBFT)
+	rm -rf $(GET)
 	rm -rf $(OBJ)
 
 fclean: clean
