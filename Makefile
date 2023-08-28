@@ -6,7 +6,7 @@
 #    By: agengemb <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/17 15:45:22 by agengemb          #+#    #+#              #
-#    Updated: 2023/08/28 12:00:08 by agengemb         ###   ########.fr        #
+#    Updated: 2023/08/28 16:14:25 by agengemb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ clean:
 	make -C get_next_line clean
 	rm -rf $(LIBFT)
 	rm -rf $(GET)
-	rm -rf $(OBJ)
+	rm -rf $(OBJ) $(OBJ2)
 
 fclean: clean
 	rm -rf $(NAME)
