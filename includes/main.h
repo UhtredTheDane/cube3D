@@ -16,5 +16,6 @@
 
 # include <stdio.h>
 # include "../libft/libft.h"
+# include "../includes/parsing.h"
 
 #endif

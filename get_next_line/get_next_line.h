@@ -15,18 +15,12 @@
 
 # include <unistd.h>
 # include <stdlib.h>
-
-typedef struct s_list
-{
-	char			content;
-	struct s_list	*next;
-
-}			t_list;
+# include "../libft/libft.h"
 
 char	*get_next_line(int fd);
 char	*create_buffer(int fd);
 int		is_contains_nl(char *str);
-t_list	*ft_lstnew(char content);
+
 void	push_back(t_list **lst, t_list *new);
 void	pop_front(t_list **lst);
 t_list	*ft_lstlast(t_list *lst);

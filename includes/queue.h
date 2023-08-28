@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   queue.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/17 14:58:12 by agengemb          #+#    #+#             */
-/*   Updated: 2023/08/17 17:28:30 by agengemb         ###   ########.fr       */
+/*   Created: 2023/08/28 10:36:44 by agengemb          #+#    #+#             */
+/*   Updated: 2023/08/28 10:36:45 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/main.h"
+#ifndef QUEUE_H
+# define QUEUE_H
 
-int main(int argc, char **argv)
+# include <stdlib.h>
+
+typedef struct s_queue
 {
-  if (argc != 2)
-  {
-    printf("Usage: ./cube3D YourMap.cub\n");
-    return (1);
-  }
-  size_t index_format;
-  index_format = ft_strlen(argv[1]) - 4;
-  char *format = ".cub";
-  if (ft_strncmp(argv[1] + index_format, format, 4) != 0)
-	{
-	  printf("Wrong format\n");
-    return (2);
-  }
+	char			*content;
+	struct s_queue	*next;
+}			t_queue;
 
-  read_map(argv[1]);
-  return (0);
-}
+t_queue	*ft_queuenew(char *content);
+void	queue_add(t_queue **queue, t_queue *new);
+void	queue_pop(t_queue **queue);
+int		ft_queuesize(t_queue *queue);
+void	free_queue(t_queue *queue);
+#endif

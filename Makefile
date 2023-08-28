@@ -6,7 +6,7 @@
 #    By: agengemb <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/17 15:45:22 by agengemb          #+#    #+#              #
-#    Updated: 2023/08/17 17:22:27 by agengemb         ###   ########.fr        #
+#    Updated: 2023/08/28 12:00:08 by agengemb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,11 +16,13 @@ NAME = cube3D
 LIBFT = ./libft/libft.a
 GET = ./get_next_line/get_next_line.a
 SRC = $(wildcard srcs/*.c)
+SRC2 = $(wildcard srcs/*/*.c)
 OBJ = $(SRC:.c=.o)
+OBJ2 = $(SRC2:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(LIBFT)
+$(NAME): $(OBJ) $(OBJ2) $(LIBFT) $(GET)
 	$(CC) $^ -o $@
 
 %o: %.c

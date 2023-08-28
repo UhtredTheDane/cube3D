@@ -10,23 +10,237 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fcntl.h>
+#include "../../includes/parsing.h"
 
-int read_map(char *file_ame)
+///usr/include/X11/X.h
+
+t_queue	*load_map_in_queue(int map_fd, size_t *row_nb)
 {
-    t_map *map;
+	char	*line;
+	t_queue	*queue;
+	t_queue	*elem;
+    size_t  size_line;
 
-    if (open(file_name, O_RDONLY) == -1)
+	line = "";
+	queue = NULL;
+	while (line != NULL)
+	{
+		line = get_next_line(map_fd);
+		if (line != NULL)
+		{
+            size_line = ft_strlen(line);
+			if (size_line > *row_nb)
+                *row_nb = size_line;
+			elem = ft_queuenew(line);
+			if (elem)
+				queue_add(&queue, elem);
+		}
+	}
+	return (queue);
+}
+
+t_queue *read_map(char *file_name)
+{
+    t_queue *queue;
+    int map_fd;
+    size_t  row_nb = 0;
+
+    if ((map_fd = open(file_name, O_RDONLY)) == -1)
     {
-            perror("Can't open %s", file_name);
-            return (-1);
+            perror("Can't open map file");
+            return (NULL);
     }
-    
-    map = malloc(sizeof(t_map));
-    if (!map)
+    queue = load_map_in_queue(map_fd, &row_nb);
+    if (!queue)
     {
-        printf("Error: Map malloc\n");
-        return (-2);
+        printf("Can't load map\n");
+        return (NULL);
     }
-    
+    close(map_fd);
+    return (queue);  
+}
+
+t_map	*init_map(size_t line_nb, size_t row_nb)
+{
+	t_map	*new_map;
+
+	new_map = malloc(sizeof(t_map));
+	if (!new_map)
+		return (NULL);
+	new_map->line_nb = line_nb;
+	new_map->row_nb = row_nb;
+	new_map->player = 0;
+	return (new_map);
+}
+
+int	create_2d_tab(t_map *map, t_block **block_map)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < map->line_nb)
+	{
+		block_map[i] = malloc(sizeof(t_block) * map->row_nb);
+		if (!block_map[i])
+		{
+			free_block_map(block_map, i);
+			return (0);
+		}
+		++i;
+	}
+	return (1);
+}
+
+int	check_block(void *mlx, t_map *map, char symbol)
+{
+	if (symbol == '1' || symbol == '0')
+		return (1);
+	else if (symbol == 'N' || symbol == 'S' || symbol == 'E' || symbol == 'W')
+	{
+		if (map->player)
+			break;
+		map->player = 1;
+		return (1);
+	}
+	printf("Error\nUn blocks de la map n'est pas valide\n");
+	return (0);
+}
+
+void	init_block(t_block *block, char symbol)
+{
+	block->type = symbol;
+}
+
+int	fill_map(void *mlx, t_map *map, t_block **block_map, t_queue *queue)
+{
+	char	*line;
+	size_t	pos[2];
+
+	pos[0] = 0;
+	while (pos[0] < map->line_nb)
+	{
+		line = queue->content;
+		pos[1] = 0;
+		while (pos[1] < map->row_nb)
+		{
+			if (!check_block(mlx, map, line[pos[1]]))
+			{
+				free_queue(queue);
+				return (0);
+			}
+			init_block(&block_map[pos[0]][pos[1]], line[pos[1]]);
+			++pos[1];
+		}
+		queue_pop(&queue);
+		++pos[0];
+	}
+	return (1);
+}
+
+int	check_path(t_map *map, t_block **block_map, int i_start, int j_start)
+{
+	t_block	**copy_map;
+	size_t	i;
+	size_t	j;
+
+	copy_map = copy(map, block_map);
+	if (!copy_map)
+		return (0);
+	rec_fill(copy_map, i_start, j_start);
+	i = 0;
+	while (i < map->line_nb)
+	{
+		j = 0;
+		while (j < map->row_nb)
+		{
+			if (!check_remaining(map, copy_map, i, j))
+				return (0);
+			++j;
+		}
+		++i;
+	}
+	free_block_map(copy_map, map->line_nb);
+	return (1);
+}
+
+void	rec_fill(t_block **block_map, int i, int j)
+{
+	block_map[i][j].type = 'G';
+	if (block_map[i - 1][j].type != 'G' && block_map[i - 1][j].type != '1')
+		rec_fill(block_map, i - 1, j);
+	if (block_map[i + 1][j].type != 'G' && block_map[i + 1][j].type != '1')
+		rec_fill(block_map, i + 1, j);
+	if (block_map[i][j + 1].type != 'G' && block_map[i][j + 1].type != '1')
+		rec_fill(block_map, i, j + 1);
+	if (block_map[i][j - 1].type != 'G' && block_map[i][j - 1].type != '1')
+		rec_fill(block_map, i, j - 1);
+}
+
+int	check_remaining(t_map *map, t_block **copy_map, size_t i, size_t j)
+{
+	if (copy_map[i][j].type == 'E' || copy_map[i][j].type == 'C')
+	{
+		free_block_map(copy_map, map->line_nb);
+		printf("Error\nIl n'existe pas de chemin valide\n");
+		return (0);
+	}
+	return (1);
+}
+
+int	check_map(t_map *map, t_block **block_map, int i_start, int j_start)
+{
+	t_block	**copy_map;
+	size_t	i;
+	size_t	j;
+
+	copy_map = copy(map, block_map);
+	if (!copy_map)
+		return (0);
+	rec_fill(copy_map, i_start, j_start);
+	i = 0;
+	while (i < map->line_nb)
+	{
+		j = 0;
+		while (j < map->row_nb)
+		{
+			if (!check_remaining(map, copy_map, i, j))
+				return (0);
+			++j;
+		}
+		++i;
+	}
+	free_block_map(copy_map, map->line_nb);
+	return (1);
+}
+
+int	init_block_map(void *mlx, t_map *map, t_queue *queue)
+{
+	t_block	**block_map;
+
+	block_map = malloc(sizeof(t_block *) * map->line_nb);
+	if (!block_map || !create_2d_tab(map, block_map))
+		return (0);
+	map->block_map = block_map;
+	if (!fill_map(mlx, map, block_map, queue)
+		|| !check_map(map, block_map, map->player->i, map->player->j))
+	{
+		free_block_map(block_map, map->line_nb);
+		return (0);
+	}
+	return (1);
+}
+
+t_map	*create_map(void *mlx, t_queue *queue, size_t line_nb, size_t row_nb)
+{
+	t_map	*new_map;
+
+	new_map = init_map(line_nb, row_nb);
+	if (!new_map)
+		return (NULL);
+	if (!init_block_map(mlx, new_map, queue))
+	{
+		free(new_map);
+		return (NULL);
+	}
+	return (new_map);
 }
