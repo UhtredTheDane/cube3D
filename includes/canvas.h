@@ -6,6 +6,7 @@
 # include "../mlx_linux/mlx.h"
 # include "map.h"
 # include "queue.h"
+# include "parsing.h"
 
 typedef struct s_map	t_map;
 

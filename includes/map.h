@@ -5,6 +5,7 @@
 # include <stddef.h>
 # include <unistd.h>
 # include "block.h"
+# include "parsing.h"
 
 typedef struct s_map
 {
@@ -13,5 +14,6 @@ typedef struct s_map
 	size_t		line_nb;
 	t_block		**block_map;
 }	t_map;
+
 
 #endif

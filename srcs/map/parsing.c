@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 18:15:54 by agengemb          #+#    #+#             */
-/*   Updated: 2023/08/21 18:15:56 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/08/31 17:58:50 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,17 @@ t_queue	*load_map_in_queue(int map_fd, size_t *row_nb)
 	return (queue);
 }
 
-t_queue *read_map(char *file_name)
+t_queue *read_map(char *file_name, size_t *row_nb)
 {
     t_queue *queue;
     int map_fd;
-    size_t  row_nb = 0;
 
     if ((map_fd = open(file_name, O_RDONLY)) == -1)
     {
             perror("Can't open map file");
             return (NULL);
     }
-    queue = load_map_in_queue(map_fd, &row_nb);
+    queue = load_map_in_queue(map_fd, row_nb);
     if (!queue)
     {
         printf("Can't load map\n");
@@ -93,12 +92,14 @@ int	create_2d_tab(t_map *map, t_block **block_map)
 
 int	check_block(void *mlx, t_map *map, char symbol)
 {
+	if (mlx == NULL)
+		printf("error");
 	if (symbol == '1' || symbol == '0')
 		return (1);
 	else if (symbol == 'N' || symbol == 'S' || symbol == 'E' || symbol == 'W')
 	{
 		if (map->player)
-			break;
+			return (0);
 		map->player = 1;
 		return (1);
 	}
@@ -187,6 +188,35 @@ int	check_remaining(t_map *map, t_block **copy_map, size_t i, size_t j)
 	return (1);
 }
 
+t_block **copy(t_map *map, t_block **block_map)
+{
+	size_t i;
+	size_t j;
+	t_block **back;
+
+	back = malloc(sizeof(t_block *) * map->line_nb);
+	if (!back)
+		return (NULL);
+	i = 0;
+	while (i < map->line_nb)
+	{
+		back[i] = malloc(sizeof(t_block) * map->row_nb);
+		if (!back[i])
+		{
+			free_block_map(back, i);
+			return (NULL);
+		}
+		j = 0;
+		while (j < map->row_nb)
+		{
+			back[i][j] = block_map[i][j];
+			++j;
+		}
+		++i;
+	}
+	return (back);
+}
+
 int	check_map(t_map *map, t_block **block_map, int i_start, int j_start)
 {
 	t_block	**copy_map;
@@ -217,12 +247,14 @@ int	init_block_map(void *mlx, t_map *map, t_queue *queue)
 {
 	t_block	**block_map;
 
+	if (mlx == NULL)
+		printf("erreur");
 	block_map = malloc(sizeof(t_block *) * map->line_nb);
 	if (!block_map || !create_2d_tab(map, block_map))
 		return (0);
 	map->block_map = block_map;
 	if (!fill_map(mlx, map, block_map, queue)
-		|| !check_map(map, block_map, map->player->i, map->player->j))
+		|| !check_map(map, block_map, 5, 5))
 	{
 		free_block_map(block_map, map->line_nb);
 		return (0);

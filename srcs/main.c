@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 14:58:12 by agengemb          #+#    #+#             */
-/*   Updated: 2023/08/17 17:28:30 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/08/31 17:59:06 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,17 @@ int main(int argc, char **argv)
 	  printf("Wrong format\n");
     return (2);
   }
+	t_queue *queue;
+size_t row_nb;
+  queue = read_map(argv[1], &row_nb);
+  if (!queue)
+	  return (0);
+  t_canvas *canvas;
+  canvas = create_canvas(queue, ft_queuesize(queue), row_nb);
+ if (!canvas)
+	{
+		return (0);
+	}
 
-  read_map(argv[1]);
   return (0);
 }
