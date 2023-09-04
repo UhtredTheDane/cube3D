@@ -27,17 +27,20 @@ int main(int argc, char **argv)
 	  printf("Wrong format\n");
     return (2);
   }
-	t_queue *queue;
+	t_list *list;
 size_t row_nb;
-  queue = read_map(argv[1], &row_nb);
-  if (!queue)
+ 
+ row_nb = 0;
+  list = read_map(argv[1], &row_nb);
+  
+  if (!list)
 	  return (0);
   t_canvas *canvas;
-  canvas = create_canvas(queue, ft_queuesize(queue), row_nb);
+  canvas = create_canvas(list, ft_lstsize(list), row_nb);
+
  if (!canvas)
 	{
 		return (0);
 	}
-
   return (0);
 }

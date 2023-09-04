@@ -6,7 +6,7 @@
 #    By: agengemb <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/17 15:45:22 by agengemb          #+#    #+#              #
-#    Updated: 2023/08/31 17:24:24 by agengemb         ###   ########.fr        #
+#    Updated: 2023/09/04 10:13:25 by agengemb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ OBJ2 = $(SRC2:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ) $(OBJ2) $(LIBFT) $(GET)
+	make -C mlx_linux
 	$(CC) $^ -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $@
 
 %o: %.c

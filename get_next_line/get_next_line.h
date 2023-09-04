@@ -17,14 +17,12 @@
 # include <stdlib.h>
 # include "../libft/libft.h"
 
+void	pop_char(t_list **lst);
 char	*get_next_line(int fd);
 char	*create_buffer(int fd);
 int		is_contains_nl(char *str);
 
-void	push_back(t_list **lst, t_list *new);
-void	pop_front(t_list **lst);
-t_list	*ft_lstlast(t_list *lst);
-int		ft_lstsize(t_list *list);
 t_list	*create_stash(char *buffer, t_list *stash, int octets_read);
 char	*create_line(t_list **stash);
+
 #endif

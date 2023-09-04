@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 /*
  * Description:
@@ -25,8 +26,10 @@ int	ft_lstsize(t_list *lst)
 	size = 0;
 	while (lst)
 	{
+		printf("clst: %s\n", (char *)lst->content);
 		size++;
 		lst = lst->next;
+
 	}
 	return (size);
 }

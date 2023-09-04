@@ -34,8 +34,8 @@ t_list	*create_stash(char *buffer, t_list *stash, int octets_read)
 	i = 0;
 	while (i < octets_read)
 	{
-		new = ft_lstnew(*(buffer + i));
-		push_back(&stash, new);
+		new = ft_lstnew(buffer + i);
+		ft_lstadd_back(&stash, new);
 		i++;
 	}
 	return (stash);
@@ -54,16 +54,16 @@ char	*create_line(t_list **stash)
 		return (NULL);
 	elem = *stash;
 	i = 0;
-	while (i < size_stash && elem->content != '\n')
+	while (i < size_stash && *(char *)elem->content != '\n')
 	{
-		*(line + i++) = elem->content;
-		pop_front(stash);
+		*(line + i++) = *(char*) elem->content;
+		pop_char(stash);
 		elem = *stash;
-	}	
-	if (elem && elem->content == '\n')
+	}
+	if (elem && *(char *)elem->content == '\n')
 	{
 		*(line + i++) = '\n';
-		pop_front(stash);
+		pop_char(stash);
 	}
 	*(line + i) = '\0';
 	return (line);

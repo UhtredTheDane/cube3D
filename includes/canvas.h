@@ -5,7 +5,7 @@
 # include <stddef.h>
 # include "../mlx_linux/mlx.h"
 # include "map.h"
-# include "queue.h"
+# include "../libft/libft.h"
 # include "parsing.h"
 
 typedef struct s_map	t_map;
@@ -17,6 +17,6 @@ typedef struct s_canvas
 	t_map	*map;
 }			t_canvas;
 
-t_canvas	*create_canvas(t_queue *queue, size_t line_nb, size_t row_nb);
+t_canvas	*create_canvas(t_list *list, size_t line_nb, size_t row_nb);
 
 #endif

@@ -14,15 +14,33 @@
 
 ///usr/include/X11/X.h
 
-t_queue	*load_map_in_queue(int map_fd, size_t *row_nb)
+char *create_wrapper(size_t row_nb)
+{
+	char *wrapper;
+	size_t	i;
+
+	wrapper = malloc(sizeof(char) * row_nb + 1);
+	if (!wrapper)
+		return (NULL);
+	while (i < row_nb)
+	{
+		wrapper[i] = ' ';
+		++i;
+	}
+	wrapper[i] = '\0';
+	return (wrapper);
+}
+
+t_list	*load_map_in_lst(int map_fd, size_t *row_nb)
 {
 	char	*line;
-	t_queue	*queue;
-	t_queue	*elem;
+	t_list	*lst;
+	t_list	*elem;
     size_t  size_line;
+	char *wrapper;
 
 	line = "";
-	queue = NULL;
+	lst = NULL;
 	while (line != NULL)
 	{
 		line = get_next_line(map_fd);
@@ -31,17 +49,22 @@ t_queue	*load_map_in_queue(int map_fd, size_t *row_nb)
             size_line = ft_strlen(line);
 			if (size_line > *row_nb)
                 *row_nb = size_line;
-			elem = ft_queuenew(line);
+			elem = ft_lstnew(line);
 			if (elem)
-				queue_add(&queue, elem);
+				ft_lstadd_back(&lst, elem);
 		}
 	}
-	return (queue);
+	wrapper = create_wrapper(*row_nb);
+	t_list *wrap = ft_lstnew(wrapper);
+	ft_lstadd_front(&lst, wrap);
+	ft_lstadd_back(&lst, wrap);
+
+	return (lst);
 }
 
-t_queue *read_map(char *file_name, size_t *row_nb)
+t_list *read_map(char *file_name, size_t *row_nb)
 {
-    t_queue *queue;
+    t_list *lst;
     int map_fd;
 
     if ((map_fd = open(file_name, O_RDONLY)) == -1)
@@ -49,14 +72,14 @@ t_queue *read_map(char *file_name, size_t *row_nb)
             perror("Can't open map file");
             return (NULL);
     }
-    queue = load_map_in_queue(map_fd, row_nb);
-    if (!queue)
+    lst = load_map_in_lst(map_fd, row_nb);
+    if (!lst)
     {
         printf("Can't load map\n");
         return (NULL);
     }
     close(map_fd);
-    return (queue);  
+    return (lst);  
 }
 
 t_map	*init_map(size_t line_nb, size_t row_nb)
@@ -112,7 +135,7 @@ void	init_block(t_block *block, char symbol)
 	block->type = symbol;
 }
 
-int	fill_map(void *mlx, t_map *map, t_block **block_map, t_queue *queue)
+int	fill_map(void *mlx, t_map *map, t_block **block_map, t_list *list)
 {
 	char	*line;
 	size_t	pos[2];
@@ -120,19 +143,19 @@ int	fill_map(void *mlx, t_map *map, t_block **block_map, t_queue *queue)
 	pos[0] = 0;
 	while (pos[0] < map->line_nb)
 	{
-		line = queue->content;
+		line = list->content;
 		pos[1] = 0;
 		while (pos[1] < map->row_nb)
 		{
 			if (!check_block(mlx, map, line[pos[1]]))
 			{
-				free_queue(queue);
+				ft_lstclear(&list, free);
 				return (0);
 			}
 			init_block(&block_map[pos[0]][pos[1]], line[pos[1]]);
 			++pos[1];
 		}
-		queue_pop(&queue);
+		ft_lstpop(&list);
 		++pos[0];
 	}
 	return (1);
@@ -243,7 +266,7 @@ int	check_map(t_map *map, t_block **block_map, int i_start, int j_start)
 	return (1);
 }
 
-int	init_block_map(void *mlx, t_map *map, t_queue *queue)
+int	init_block_map(void *mlx, t_map *map, t_list *lst)
 {
 	t_block	**block_map;
 
@@ -253,7 +276,7 @@ int	init_block_map(void *mlx, t_map *map, t_queue *queue)
 	if (!block_map || !create_2d_tab(map, block_map))
 		return (0);
 	map->block_map = block_map;
-	if (!fill_map(mlx, map, block_map, queue)
+	if (!fill_map(mlx, map, block_map, lst)
 		|| !check_map(map, block_map, 5, 5))
 	{
 		free_block_map(block_map, map->line_nb);
@@ -262,14 +285,14 @@ int	init_block_map(void *mlx, t_map *map, t_queue *queue)
 	return (1);
 }
 
-t_map	*create_map(void *mlx, t_queue *queue, size_t line_nb, size_t row_nb)
+t_map	*create_map(void *mlx, t_list *lst, size_t line_nb, size_t row_nb)
 {
 	t_map	*new_map;
 
 	new_map = init_map(line_nb, row_nb);
 	if (!new_map)
 		return (NULL);
-	if (!init_block_map(mlx, new_map, queue))
+	if (!init_block_map(mlx, new_map, lst))
 	{
 		free(new_map);
 		return (NULL);
