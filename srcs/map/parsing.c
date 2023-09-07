@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 18:15:54 by agengemb          #+#    #+#             */
-/*   Updated: 2023/09/07 02:45:10 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/09/07 21:24:52 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ char *create_wrapper(size_t row_nb)
 	wrapper = malloc(sizeof(char) * row_nb + 1);
 	if (!wrapper)
 		return (NULL);
+	i = 0;
 	while (i < row_nb)
 	{
-		printf("i: %ld\n", i);
 		wrapper[i] = ' ';
 		++i;
 	}
@@ -38,8 +38,9 @@ t_list	*load_map_in_lst(int map_fd, size_t *row_nb)
 	t_list	*lst;
 	t_list	*elem;
     size_t  size_line;
-	//char *wrapper;
-
+	char *wrapper1;
+	char *wrapper2;
+	char *line_ok;
 	line = "";
 	lst = NULL;
 	while (line != NULL)
@@ -47,18 +48,26 @@ t_list	*load_map_in_lst(int map_fd, size_t *row_nb)
 		line = get_next_line(map_fd);
 		if (line != NULL)
 		{
-            size_line = ft_strlen(line);
+            		size_line = ft_strlen(line);
+			line_ok = malloc(sizeof(char) * (size_line + 2));
+			if (!line_ok)
+				return (NULL);
+			line_ok[0] = ' ';
+			ft_strlcat(line_ok + 1, line, size_line + 1);
+			line_ok[size_line] = ' ';
 			if (size_line > *row_nb)
                 *row_nb = size_line;
-			elem = ft_lstnew(line);
+			elem = ft_lstnew(line_ok);
 			if (elem)
 				ft_lstadd_back(&lst, elem);
 		}
 	}
-	/*wrapper = create_wrapper(*row_nb);
-	t_list *wrap = ft_lstnew(wrapper);
-	ft_lstadd_front(&lst, wrap);
-	ft_lstadd_back(&lst, wrap);*/
+	wrapper1 = create_wrapper(*row_nb);
+	wrapper2 = create_wrapper(*row_nb);
+	t_list *wrap1 = ft_lstnew(wrapper1);
+	t_list *wrap2 = ft_lstnew(wrapper2);
+	ft_lstadd_front(&lst, wrap1);
+	ft_lstadd_back(&lst, wrap2);
 
 	return (lst);
 }
@@ -119,7 +128,7 @@ int	check_block(void *mlx, t_map *map, char symbol)
 	if (mlx == NULL)
 		printf("error");
 
-	if (symbol == '1' || symbol == '0' || symbol == ' ' || symbol == '\n')
+	if (symbol == '1' || symbol == '0' || symbol == ' ')
 		return (1);
 	else if (symbol == 'N' || symbol == 'S' || symbol == 'E' || symbol == 'W')
 	{
@@ -128,7 +137,6 @@ int	check_block(void *mlx, t_map *map, char symbol)
 		map->player = 1;
 		return (1);
 	}
-	printf("char: %d\n", (int)symbol);
 	printf("Error\nUn blocks de la map n'est pas valide\n");
 	return (0);
 }
@@ -143,6 +151,7 @@ int	fill_map(void *mlx, t_map *map, t_block **block_map, t_list *list)
 	char	*line;
 	size_t	pos[2];
 
+	mlx = (void *) mlx;
 	pos[0] = 0;
 	while (pos[0] < map->line_nb)
 	{
@@ -152,7 +161,6 @@ int	fill_map(void *mlx, t_map *map, t_block **block_map, t_list *list)
 		{
 			if (!check_block(mlx, map, line[pos[1]]))
 			{
-				printf("line: %s\n", line);
 				ft_lstclear(&list, free);
 				return (0);
 			}
@@ -174,7 +182,7 @@ int	check_path(t_map *map, t_block **block_map, int i_start, int j_start)
 	copy_map = copy(map, block_map);
 	if (!copy_map)
 		return (0);
-	rec_fill(copy_map, i_start, j_start);
+	rec_fill(map, copy_map, i_start, j_start);
 	i = 0;
 	while (i < map->line_nb)
 	{
@@ -191,24 +199,25 @@ int	check_path(t_map *map, t_block **block_map, int i_start, int j_start)
 	return (1);
 }
 
-void	rec_fill(t_block **block_map, int i, int j)
+void	rec_fill(t_map *map, t_block **block_map, int i, int j)
 {
-	block_map[i][j].type = 'G';
-	if (block_map[i - 1][j].type != 'G' && block_map[i - 1][j].type != '1')
-		rec_fill(block_map, i - 1, j);
-	if (block_map[i + 1][j].type != 'G' && block_map[i + 1][j].type != '1')
-		rec_fill(block_map, i + 1, j);
-	if (block_map[i][j + 1].type != 'G' && block_map[i][j + 1].type != '1')
-		rec_fill(block_map, i, j + 1);
-	if (block_map[i][j - 1].type != 'G' && block_map[i][j - 1].type != '1')
-		rec_fill(block_map, i, j - 1);
+	block_map[i][j].type = 'V';
+	if (i > 0 && block_map[i - 1][j].type != 'V' && block_map[i - 1][j].type != '1')
+		rec_fill(map, block_map, i - 1, j);
+	if (i < (int)map->line_nb - 1 && block_map[i + 1][j].type != 'V' && block_map[i + 1][j].type != '1')
+		rec_fill(map, block_map, i + 1, j);
+	if (j < (int)map->row_nb - 1 && block_map[i][j + 1].type != 'V' && block_map[i][j + 1].type != '1')
+		rec_fill(map, block_map, i, j + 1);
+	if (j > 0 && block_map[i][j - 1].type != 'V' && block_map[i][j - 1].type != '1')
+		rec_fill(map, block_map, i, j - 1);
 }
 
 int	check_remaining(t_map *map, t_block **copy_map, size_t i, size_t j)
 {
-	if (copy_map[i][j].type == 'E' || copy_map[i][j].type == 'C')
+	if (copy_map[i][j].type != 'V'  && copy_map[i][j].type != '1' && copy_map[i][j].type != ' ')
 	{
 		free_block_map(copy_map, map->line_nb);
+		printf("copy_map: %c\n", copy_map[i][j].type);
 		printf("Error\nIl n'existe pas de chemin valide\n");
 		return (0);
 	}
@@ -253,21 +262,24 @@ int	check_map(t_map *map, t_block **block_map, int i_start, int j_start)
 	copy_map = copy(map, block_map);
 	if (!copy_map)
 		return (0);
-	rec_fill(copy_map, i_start, j_start);
+	rec_fill(map, copy_map, i_start, j_start);
 	i = 0;
 	while (i < map->line_nb)
 	{
 		j = 0;
 		while (j < map->row_nb)
 		{
-			if (!check_remaining(map, copy_map, i, j))
-				return (0);
+			if (copy_map[i][j].type == 'E' || copy_map[i][j].type == 'W' || copy_map[i][j].type == 'S' || copy_map[i][j].type == 'N')
+			{
+				free_block_map(copy_map, map->line_nb);
+				return (1);
+			}
 			++j;
 		}
 		++i;
 	}
 	free_block_map(copy_map, map->line_nb);
-	return (1);
+	return (0);
 }
 
 int	init_block_map(void *mlx, t_map *map, t_list *lst)
@@ -280,7 +292,7 @@ int	init_block_map(void *mlx, t_map *map, t_list *lst)
 	if (!block_map || !create_2d_tab(map, block_map))
 		return (0);
 	map->block_map = block_map;
-	if (!fill_map(mlx, map, block_map, lst))
+	if (!fill_map(mlx, map, block_map, lst) || !check_map(map, block_map, 0, 0))
 	{
 		free_block_map(block_map, map->line_nb);
 		return (0);

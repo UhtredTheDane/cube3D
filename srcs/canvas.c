@@ -32,5 +32,13 @@ t_canvas	*create_canvas(t_list *list, size_t line_nb, size_t row_nb)
 		destroy_canvas(new_canvas);
 		return (NULL);
 	}
+	for (size_t i = 0; i < line_nb; ++i)
+	{
+		for (size_t j = 0; j < row_nb; ++j)
+		{
+			printf("%c", new_canvas->map->block_map[i][j].type);
+		}
+		printf("\n");
+	}
 	return (new_canvas);
 }

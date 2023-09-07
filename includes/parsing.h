@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 18:15:42 by agengemb          #+#    #+#             */
-/*   Updated: 2023/08/31 18:02:14 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/09/07 21:02:35 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int check_block(void *mlx, t_map *map, char symbol);
 void init_block(t_block *block, char symbol);
 int fill_map(void *mlx, t_map *map, t_block **block_map, t_list *list);
 int check_path(t_map *map, t_block **block_map, int i_start, int j_start);
-void rec_fill(t_block **block_map, int i, int j);
+void rec_fill(t_map *map, t_block **block_map, int i, int j);
 int check_remaining(t_map *map, t_block **copy_map, size_t i, size_t j);
 int check_map(t_map *map, t_block **block_map, int i_start, int j_start);
 int init_block_map(void *mlx, t_map *map, t_list *list);
