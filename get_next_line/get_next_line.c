@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 10:42:02 by agengemb          #+#    #+#             */
-/*   Updated: 2022/09/30 16:24:04 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/09/07 02:22:45 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,44 +26,44 @@ int	is_contains_nl(char	*str)
 	return (0);
 }
 
-t_list	*create_stash(char *buffer, t_list *stash, int octets_read)
+t_lst	*create_stash(char *buffer, t_lst *stash, int octets_read)
 {
 	int		i;
-	t_list	*new;
+	t_lst	*new;
 
 	i = 0;
 	while (i < octets_read)
 	{
-		new = ft_lstnew(buffer + i);
-		ft_lstadd_back(&stash, new);
+		new = lstnew(*(buffer + i));
+		push_back(&stash, new);
 		i++;
 	}
 	return (stash);
 }
 
-char	*create_line(t_list **stash)
+char	*create_line(t_lst **stash)
 {
 	char	*line;
 	int		size_stash;
 	int		i;
-	t_list	*elem;
+	t_lst	*elem;
 
-	size_stash = ft_lstsize(*stash);
+	size_stash = lstsize(*stash);
 	line = malloc(sizeof(char) * (size_stash + 1));
 	if (!line)
 		return (NULL);
 	elem = *stash;
 	i = 0;
-	while (i < size_stash && *(char *)elem->content != '\n')
+	while (i < size_stash && elem->content != '\n')
 	{
-		*(line + i++) = *(char*) elem->content;
-		pop_char(stash);
+		*(line + i++) = elem->content;
+		pop_front(stash);
 		elem = *stash;
-	}
-	if (elem && *(char *)elem->content == '\n')
+	}	
+	if (elem && elem->content == '\n')
 	{
 		*(line + i++) = '\n';
-		pop_char(stash);
+		pop_front(stash);
 	}
 	*(line + i) = '\0';
 	return (line);
@@ -87,7 +87,7 @@ char	*create_buffer(int fd)
 
 char	*get_next_line(int fd)
 {
-	static t_list	*stash = NULL;
+	static t_lst	*stash = NULL;
 	char			*buffer;
 	char			*line;
 	int				octets_read;

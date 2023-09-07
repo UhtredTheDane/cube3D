@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 18:15:54 by agengemb          #+#    #+#             */
-/*   Updated: 2023/08/31 17:58:50 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/09/07 02:45:10 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ char *create_wrapper(size_t row_nb)
 		return (NULL);
 	while (i < row_nb)
 	{
+		printf("i: %ld\n", i);
 		wrapper[i] = ' ';
 		++i;
 	}
@@ -37,7 +38,7 @@ t_list	*load_map_in_lst(int map_fd, size_t *row_nb)
 	t_list	*lst;
 	t_list	*elem;
     size_t  size_line;
-	char *wrapper;
+	//char *wrapper;
 
 	line = "";
 	lst = NULL;
@@ -54,10 +55,10 @@ t_list	*load_map_in_lst(int map_fd, size_t *row_nb)
 				ft_lstadd_back(&lst, elem);
 		}
 	}
-	wrapper = create_wrapper(*row_nb);
+	/*wrapper = create_wrapper(*row_nb);
 	t_list *wrap = ft_lstnew(wrapper);
 	ft_lstadd_front(&lst, wrap);
-	ft_lstadd_back(&lst, wrap);
+	ft_lstadd_back(&lst, wrap);*/
 
 	return (lst);
 }
@@ -102,7 +103,7 @@ int	create_2d_tab(t_map *map, t_block **block_map)
 	i = 0;
 	while (i < map->line_nb)
 	{
-		block_map[i] = malloc(sizeof(t_block) * map->row_nb);
+		block_map[i] = malloc(sizeof(t_block) * map->row_nb - 1);
 		if (!block_map[i])
 		{
 			free_block_map(block_map, i);
@@ -117,7 +118,8 @@ int	check_block(void *mlx, t_map *map, char symbol)
 {
 	if (mlx == NULL)
 		printf("error");
-	if (symbol == '1' || symbol == '0')
+
+	if (symbol == '1' || symbol == '0' || symbol == ' ' || symbol == '\n')
 		return (1);
 	else if (symbol == 'N' || symbol == 'S' || symbol == 'E' || symbol == 'W')
 	{
@@ -126,6 +128,7 @@ int	check_block(void *mlx, t_map *map, char symbol)
 		map->player = 1;
 		return (1);
 	}
+	printf("char: %d\n", (int)symbol);
 	printf("Error\nUn blocks de la map n'est pas valide\n");
 	return (0);
 }
@@ -149,6 +152,7 @@ int	fill_map(void *mlx, t_map *map, t_block **block_map, t_list *list)
 		{
 			if (!check_block(mlx, map, line[pos[1]]))
 			{
+				printf("line: %s\n", line);
 				ft_lstclear(&list, free);
 				return (0);
 			}
@@ -276,8 +280,7 @@ int	init_block_map(void *mlx, t_map *map, t_list *lst)
 	if (!block_map || !create_2d_tab(map, block_map))
 		return (0);
 	map->block_map = block_map;
-	if (!fill_map(mlx, map, block_map, lst)
-		|| !check_map(map, block_map, 5, 5))
+	if (!fill_map(mlx, map, block_map, lst))
 	{
 		free_block_map(block_map, map->line_nb);
 		return (0);
@@ -288,7 +291,7 @@ int	init_block_map(void *mlx, t_map *map, t_list *lst)
 t_map	*create_map(void *mlx, t_list *lst, size_t line_nb, size_t row_nb)
 {
 	t_map	*new_map;
-
+	
 	new_map = init_map(line_nb, row_nb);
 	if (!new_map)
 		return (NULL);

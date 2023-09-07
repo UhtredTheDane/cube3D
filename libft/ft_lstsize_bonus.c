@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 15:43:08 by agengemb          #+#    #+#             */
-/*   Updated: 2022/07/21 15:43:46 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/09/07 02:30:04 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,8 @@ int	ft_lstsize(t_list *lst)
 	size = 0;
 	while (lst)
 	{
-		printf("clst: %s\n", (char *)lst->content);
 		size++;
 		lst = lst->next;
-
 	}
 	return (size);
 }
