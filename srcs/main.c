@@ -31,5 +31,8 @@ int main(int argc, char **argv)
 	canvas = create_canvas(argv[1]);
  	if (!canvas)
 		return (0);
+	free_block_map(canvas->map->block_map, canvas->map->line_nb);
+	free(canvas->map);
+	destroy_canvas(canvas);
 	return (0);
 }

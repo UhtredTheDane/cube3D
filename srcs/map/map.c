@@ -104,9 +104,14 @@ t_map	*create_map(void *mlx, char *file_name)
 		return (NULL);
 	lst = read_map(new_map, file_name);
 	if (!lst)
+	{
+		free(new_map);
 		return (NULL);
+	}
 	if (!init_block_map(mlx, new_map, lst))
 	{
+		while (lst)
+			ft_lstpop(&list)
 		free(new_map);
 		return (NULL);
 	}

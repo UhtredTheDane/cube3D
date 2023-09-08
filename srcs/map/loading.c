@@ -93,53 +93,63 @@ int load_texture(t_map *map, int num_face, int map_fd)
 {
 	char *line;
 	char *face;
-	char **map_face;
+	//char **map_face;
 	char *tempo_line;
 
+	map = (t_map *) map;
 	line = get_next_line(map_fd);
 	while (ft_strncmp(line, "\n", 1) == 0)
+	{
+		free(line);
 		line = get_next_line(map_fd);
+	}
 	if (line)
 	{
 		if (num_face == 0)
 		{
-			map_face = &map->NO_path;	
+			//map_face = &map->NO_path;	
 			face = "NO";
 		}
 		else if (num_face == 1)
 		{
-			map_face = &map->SO_path;
+			//map_face = &map->SO_path;
 			face = "SO";
 		}
 		else if (num_face == 2)
 		{
-			map_face = &map->WE_path;
+			//map_face = &map->WE_path;
 			face = "WE";
 		}
 		else
 		{
-			map_face = &map->EA_path;
+			//map_face = &map->EA_path;
 			face = "EA";
 		}
+
 		size_t size = ft_strlen(line);
 		line[size - 1] = '\0';
+
 		// trim avant id
 		tempo_line = ft_strtrim(line, " ");
 		free(line);
+
 		if (ft_strncmp(tempo_line, face, 2) == 0)
 		{
 			int fd_test;
+
 			// trim entre id et path
 			line = ft_strtrim(tempo_line + 2, " ");
 			printf("tempo: %s\n", line);
 			free(tempo_line);
+
 			if ((fd_test = open(line, O_RDONLY)) == -1)
 			{
 				perror("La texture n'existe pas");
 				return (0);
 			}
 			close(fd_test);
-			*map_face = line;
+
+			//*map_face = line;
 			return (1);
 		}
 	}

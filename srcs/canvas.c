@@ -30,16 +30,22 @@ t_canvas	*create_canvas(char *file_name)
 	new_canvas->map = create_map(new_canvas->mlx, file_name);
 	if (!(new_canvas->map))
 	{
-		//free a refaire destroy_canvas(new_canvas);
+		free(new_canvas);
 		return (NULL);
 	}
 	new_canvas->mlx = mlx_init();
 	if (!(new_canvas->mlx))
+	{
+		free_block_map(new_canvas->map->block_map, new_canvas->map->line_nb);
+		free(map)
 		return (NULL);
+	}
 	new_canvas->window = mlx_new_window(new_canvas->mlx, new_canvas->map->row_nb * 48,
 			new_canvas->map->line_nb * 48, "cube3D");
 	if (!(new_canvas->window))
 	{
+		free_block_map(new_canvas->map->block_map, new_canvas->map->line_nb);
+		free(map)
 		free(new_canvas->mlx);
 		free(new_canvas);
 		return (NULL);
