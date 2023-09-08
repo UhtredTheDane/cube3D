@@ -16,7 +16,6 @@ int main(int argc, char **argv)
 {
 	size_t	index_format;
 	char	*format = ".cub";
-	size_t	row_nb;
 	if (argc != 2)
 	{
 		printf("Usage: ./cube3D YourMap.cub\n");
@@ -28,13 +27,8 @@ int main(int argc, char **argv)
 		printf("Wrong format\n");
 		return (2);
 	}
-	t_list *list;
- 	row_nb = 0;
-	list = read_map(argv[1], &row_nb); 
-	if (!list)
-		return (0);
 	t_canvas *canvas;
-	canvas = create_canvas(list, ft_lstsize(list), row_nb);
+	canvas = create_canvas(list, argv[1]);
  	if (!canvas)
 		return (0);
 	return (0);

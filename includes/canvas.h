@@ -17,6 +17,6 @@ typedef struct s_canvas
 	t_map	*map;
 }			t_canvas;
 
-t_canvas	*create_canvas(t_list *list, size_t line_nb, size_t row_nb);
+t_canvas	*create_canvas(t_list *list, char *file_name);
 
 #endif

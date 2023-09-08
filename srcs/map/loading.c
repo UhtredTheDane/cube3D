@@ -87,6 +87,21 @@ t_list	*load_map_in_lst(int map_fd, size_t *row_nb)
 	return (lst);
 }
 
+int load_texture(char *face, int fd)
+{
+	char *line
+
+	line = get_next_line(map_fd);
+	if (line)
+	{
+		if (ft_strncmp(line, face, 3) == 0)
+		{
+			return (1);
+		}
+	}
+	return (0);
+}
+
 t_list *read_map(char *file_name, size_t *row_nb)
 {
     t_list	*lst;
@@ -97,6 +112,11 @@ t_list *read_map(char *file_name, size_t *row_nb)
             perror("Can't open map file");
             return (NULL);
     }
+	/*if (!load_texture("NO ", fd) ||  !load_texture("SO ", fd) || !load_texture("WE ", fd) || !load_texture("EA ", fd))
+	{
+		printf("error loading texture\n");
+		return (NULL)
+	}*/
     lst = load_map_in_lst(map_fd, row_nb);
     if (!lst)
     {

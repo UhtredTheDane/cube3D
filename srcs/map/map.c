@@ -22,6 +22,10 @@ t_map	*init_map(size_t line_nb, size_t row_nb)
 	new_map->line_nb = line_nb;
 	new_map->row_nb = row_nb;
 	new_map->player = 0;
+	NO_path = NULL;
+	SO_path = NULL;
+	WE_path = NULL;
+	EA_path = NULL;
 	return (new_map);
 }
 void	init_block(t_block *block, char symbol)
@@ -91,11 +95,17 @@ int	init_block_map(void *mlx, t_map *map, t_list *lst)
 	return (1);
 }
 
-t_map	*create_map(void *mlx, t_list *lst, size_t line_nb, size_t row_nb)
+t_map	*create_map(void *mlx, char *file_name)
 {
 	t_map	*new_map;
-	
-	new_map = init_map(line_nb, row_nb);
+	t_list	*lst;
+	size_t	row_nb;
+
+	row_nb = 0;
+	lst = read_map(file_name, &row_nb);
+	if (!lst)
+		return NULL;
+	new_map = init_map(ft_lstsize(lst), row_nb);
 	if (!new_map)
 		return (NULL);
 	if (!init_block_map(mlx, new_map, lst))

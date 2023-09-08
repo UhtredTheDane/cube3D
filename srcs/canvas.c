@@ -20,7 +20,7 @@ void	destroy_canvas(t_canvas *canvas)
 	free(canvas);
 }
  
-t_canvas	*create_canvas(t_list *list, size_t line_nb, size_t row_nb)
+t_canvas	*create_canvas(t_list *list, char *file_name)
 {
 	t_canvas	*new_canvas;
 
@@ -37,8 +37,8 @@ t_canvas	*create_canvas(t_list *list, size_t line_nb, size_t row_nb)
 		free(new_canvas->mlx);
 		free(new_canvas);
 		return (NULL);
-	}
-	new_canvas->map = create_map(new_canvas->mlx, list, line_nb, row_nb);
+	} 
+	new_canvas->map = create_map(new_canvas->mlx, file_name);
 	if (!(new_canvas->map))
 	{
 		destroy_canvas(new_canvas);

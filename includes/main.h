@@ -16,6 +16,5 @@
 
 # include <stdio.h>
 # include "../libft/libft.h"
-# include "map/parsing.h"
 # include "canvas.h"
 #endif
