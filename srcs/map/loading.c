@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 23:25:28 by agengemb          #+#    #+#             */
-/*   Updated: 2023/09/07 23:44:58 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/09/09 00:19:27 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	add_wrappers(t_list **lst, size_t row_nb)
 	char *wrapper2;
 	t_list	*wrap1;
 	t_list	*wrap2;
-
+	// tester lst a null
 	wrapper1 = create_wrapper(row_nb);
 	wrapper2 = create_wrapper(row_nb);
 	wrap1 = ft_lstnew(wrapper1);
@@ -71,8 +71,10 @@ t_list	*load_map_in_lst(int map_fd, size_t *row_nb)
 	char	*line;
 	t_list	*lst;
 	
-	line = "";
 	lst = NULL;
+	line = get_next_line(map_fd);
+	while (ft_strncmp(line, "\n", 1) == 0)
+		line = get_next_line(map_fd);
 	while (line != NULL)
 	{
 		line = get_next_line(map_fd);
@@ -87,37 +89,81 @@ t_list	*load_map_in_lst(int map_fd, size_t *row_nb)
 	return (lst);
 }
 
-int load_texture(char *face, int fd)
+int load_texture(t_map *map, int num_face, int map_fd)
 {
-	char *line
+	char *line;
+	char *face;
+	char **map_face;
+	char *tempo_line;
 
 	line = get_next_line(map_fd);
+	while (ft_strncmp(line, "\n", 1) == 0)
+		line = get_next_line(map_fd);
 	if (line)
 	{
-		if (ft_strncmp(line, face, 3) == 0)
+		if (num_face == 0)
 		{
+			map_face = &map->NO_path;	
+			face = "NO";
+		}
+		else if (num_face == 1)
+		{
+			map_face = &map->SO_path;
+			face = "SO";
+		}
+		else if (num_face == 2)
+		{
+			map_face = &map->WE_path;
+			face = "WE";
+		}
+		else
+		{
+			map_face = &map->EA_path;
+			face = "EA";
+		}
+		size_t size = ft_strlen(line);
+		line[size - 1] = '\0';
+		// trim avant id
+		tempo_line = ft_strtrim(line, " ");
+		free(line);
+		if (ft_strncmp(tempo_line, face, 2) == 0)
+		{
+			int fd_test;
+			// trim entre id et path
+			line = ft_strtrim(tempo_line + 2, " ");
+			printf("tempo: %s\n", line);
+			free(tempo_line);
+			if ((fd_test = open(line, O_RDONLY)) == -1)
+			{
+				perror("La texture n'existe pas");
+				return (0);
+			}
+			close(fd_test);
+			*map_face = line;
 			return (1);
 		}
 	}
 	return (0);
 }
 
-t_list *read_map(char *file_name, size_t *row_nb)
+t_list *read_map(t_map *map, char *file_name)
 {
     t_list	*lst;
     int		map_fd;
 
+    map = (t_map *) map;
     if ((map_fd = open(file_name, O_RDONLY)) == -1)
     {
             perror("Can't open map file");
             return (NULL);
     }
-	/*if (!load_texture("NO ", fd) ||  !load_texture("SO ", fd) || !load_texture("WE ", fd) || !load_texture("EA ", fd))
+
+	if (!load_texture(map, 0, map_fd) ||  !load_texture(map, 1, map_fd) || !load_texture(map, 2, map_fd) || !load_texture(map, 3, map_fd))
 	{
 		printf("error loading texture\n");
-		return (NULL)
-	}*/
-    lst = load_map_in_lst(map_fd, row_nb);
+		return (NULL);
+	}
+    lst = load_map_in_lst(map_fd, &(map->row_nb));
     if (!lst)
     {
         printf("Can't load map\n");

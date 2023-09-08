@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 18:15:54 by agengemb          #+#    #+#             */
-/*   Updated: 2023/09/08 00:24:59 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/09/08 21:18:33 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@
 
 int	check_block(void *mlx, t_map *map, char symbol)
 {
-	if (mlx == NULL)
-		printf("error");
+	mlx = (void *) mlx;
 
 	if (symbol == '1' || symbol == '0' || symbol == ' ')
 		return (1);

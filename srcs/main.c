@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 14:58:12 by agengemb          #+#    #+#             */
-/*   Updated: 2023/09/07 23:02:24 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/09/08 21:08:52 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int main(int argc, char **argv)
 		return (2);
 	}
 	t_canvas *canvas;
-	canvas = create_canvas(list, argv[1]);
+	canvas = create_canvas(argv[1]);
  	if (!canvas)
 		return (0);
 	return (0);

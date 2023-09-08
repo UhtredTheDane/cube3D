@@ -4,7 +4,7 @@
 # include <stdlib.h>
 # include <stddef.h>
 # include "../mlx_linux/mlx.h"
-# include "map.h"
+# include "map/map.h"
 # include "../libft/libft.h"
 # include "map/parsing.h"
 
@@ -17,6 +17,6 @@ typedef struct s_canvas
 	t_map	*map;
 }			t_canvas;
 
-t_canvas	*create_canvas(t_list *list, char *file_name);
+t_canvas	*create_canvas(char *file_name);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 23:04:12 by agengemb          #+#    #+#             */
-/*   Updated: 2023/09/07 23:04:18 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/09/08 21:13:51 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,29 +20,29 @@ void	destroy_canvas(t_canvas *canvas)
 	free(canvas);
 }
  
-t_canvas	*create_canvas(t_list *list, char *file_name)
+t_canvas	*create_canvas(char *file_name)
 {
 	t_canvas	*new_canvas;
 
 	new_canvas = malloc(sizeof(t_canvas));
 	if (!new_canvas)
 		return (NULL);
+	new_canvas->map = create_map(new_canvas->mlx, file_name);
+	if (!(new_canvas->map))
+	{
+		//free a refaire destroy_canvas(new_canvas);
+		return (NULL);
+	}
 	new_canvas->mlx = mlx_init();
 	if (!(new_canvas->mlx))
 		return (NULL);
-	new_canvas->window = mlx_new_window(new_canvas->mlx, row_nb * 48,
-			line_nb * 48, "cube3D");
+	new_canvas->window = mlx_new_window(new_canvas->mlx, new_canvas->map->row_nb * 48,
+			new_canvas->map->line_nb * 48, "cube3D");
 	if (!(new_canvas->window))
 	{
 		free(new_canvas->mlx);
 		free(new_canvas);
 		return (NULL);
 	} 
-	new_canvas->map = create_map(new_canvas->mlx, file_name);
-	if (!(new_canvas->map))
-	{
-		destroy_canvas(new_canvas);
-		return (NULL);
-	}
 	return (new_canvas);
 }

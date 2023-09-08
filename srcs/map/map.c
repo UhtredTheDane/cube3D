@@ -6,26 +6,26 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 00:24:19 by agengemb          #+#    #+#             */
-/*   Updated: 2023/09/08 00:24:37 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/09/08 21:25:14 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../includes/map/map.h"
 
-t_map	*init_map(size_t line_nb, size_t row_nb)
+t_map	*init_map(void)
 {
 	t_map	*new_map;
 
 	new_map = malloc(sizeof(t_map));
 	if (!new_map)
 		return (NULL);
-	new_map->line_nb = line_nb;
-	new_map->row_nb = row_nb;
+	new_map->line_nb = 0;
+	new_map->row_nb = 0;
 	new_map->player = 0;
-	NO_path = NULL;
-	SO_path = NULL;
-	WE_path = NULL;
-	EA_path = NULL;
+	new_map->NO_path = NULL;
+	new_map->SO_path = NULL;
+	new_map->WE_path = NULL;
+	new_map->EA_path = NULL;
 	return (new_map);
 }
 void	init_block(t_block *block, char symbol)
@@ -81,8 +81,7 @@ int	init_block_map(void *mlx, t_map *map, t_list *lst)
 {
 	t_block	**block_map;
 
-	if (mlx == NULL)
-		printf("erreur");
+	mlx = (void *) mlx;
 	block_map = malloc(sizeof(t_block *) * map->line_nb);
 	if (!block_map || !create_2d_tab(map, block_map))
 		return (0);
@@ -99,14 +98,12 @@ t_map	*create_map(void *mlx, char *file_name)
 {
 	t_map	*new_map;
 	t_list	*lst;
-	size_t	row_nb;
 
-	row_nb = 0;
-	lst = read_map(file_name, &row_nb);
-	if (!lst)
-		return NULL;
-	new_map = init_map(ft_lstsize(lst), row_nb);
+	new_map = init_map();
 	if (!new_map)
+		return (NULL);
+	lst = read_map(new_map, file_name);
+	if (!lst)
 		return (NULL);
 	if (!init_block_map(mlx, new_map, lst))
 	{
