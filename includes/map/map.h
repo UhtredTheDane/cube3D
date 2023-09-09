@@ -16,6 +16,8 @@ typedef struct s_map
 	char		*SO_path;
 	char		*WE_path;
 	char		*EA_path;
+	int		floor_color;
+	int		ceiling_color;
 	t_block		**block_map;
 }	t_map;
 
