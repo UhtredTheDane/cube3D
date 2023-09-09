@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 23:25:28 by agengemb          #+#    #+#             */
-/*   Updated: 2023/09/09 00:19:27 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/09/09 21:42:54 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,9 @@ t_list *load_line(t_list **lst, char *line, size_t *row_nb)
 	if (!line_ok)
 		return (NULL);
 	line_ok[0] = ' ';
-	ft_strlcat(line_ok + 1, line, size_line + 1);
+	ft_strlcpy(line_ok + 1, line, size_line + 1);
 	line_ok[size_line] = ' ';
+	size_line = ft_strlen(line_ok);
 	if (size_line > *row_nb)
 		*row_nb = size_line;
 	elem = ft_lstnew(line_ok);
@@ -70,20 +71,30 @@ t_list	*load_map_in_lst(int map_fd, size_t *row_nb)
 {
 	char	*line;
 	t_list	*lst;
-	
+	int i;
+
 	lst = NULL;
 	line = get_next_line(map_fd);
 	while (ft_strncmp(line, "\n", 1) == 0)
+	{
+		free(line);
 		line = get_next_line(map_fd);
+	}
+	i = 0;
 	while (line != NULL)
 	{
-		line = get_next_line(map_fd);
-		if (line)	
+		if (i)
+		{
+			free(line);
+			line = get_next_line(map_fd);
+		}
+		if (line)
 		{
 			lst = load_line(&lst, line, row_nb);
 			if (!lst)
 				return (NULL);
 		}
+		++i;
 	}
 	add_wrappers(&lst, *row_nb);
 	return (lst);
@@ -93,7 +104,7 @@ int load_texture(t_map *map, int num_face, int map_fd)
 {
 	char *line;
 	char *face;
-	//char **map_face;
+	char **map_face;
 	char *tempo_line;
 
 	map = (t_map *) map;
@@ -107,22 +118,22 @@ int load_texture(t_map *map, int num_face, int map_fd)
 	{
 		if (num_face == 0)
 		{
-			//map_face = &map->NO_path;	
+			map_face = &map->NO_path;	
 			face = "NO";
 		}
 		else if (num_face == 1)
 		{
-			//map_face = &map->SO_path;
+			map_face = &map->SO_path;
 			face = "SO";
 		}
 		else if (num_face == 2)
 		{
-			//map_face = &map->WE_path;
+			map_face = &map->WE_path;
 			face = "WE";
 		}
 		else
 		{
-			//map_face = &map->EA_path;
+			map_face = &map->EA_path;
 			face = "EA";
 		}
 
@@ -139,7 +150,6 @@ int load_texture(t_map *map, int num_face, int map_fd)
 
 			// trim entre id et path
 			line = ft_strtrim(tempo_line + 2, " ");
-			printf("tempo: %s\n", line);
 			free(tempo_line);
 
 			if ((fd_test = open(line, O_RDONLY)) == -1)
@@ -149,7 +159,7 @@ int load_texture(t_map *map, int num_face, int map_fd)
 			}
 			close(fd_test);
 
-			//*map_face = line;
+			*map_face = line;
 			return (1);
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 23:04:12 by agengemb          #+#    #+#             */
-/*   Updated: 2023/09/08 21:13:51 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/09/09 00:52:38 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_canvas	*create_canvas(char *file_name)
 	if (!(new_canvas->mlx))
 	{
 		free_block_map(new_canvas->map->block_map, new_canvas->map->line_nb);
-		free(map)
+		free(new_canvas->map);
 		return (NULL);
 	}
 	new_canvas->window = mlx_new_window(new_canvas->mlx, new_canvas->map->row_nb * 48,
@@ -45,7 +45,7 @@ t_canvas	*create_canvas(char *file_name)
 	if (!(new_canvas->window))
 	{
 		free_block_map(new_canvas->map->block_map, new_canvas->map->line_nb);
-		free(map)
+		free(new_canvas->map);
 		free(new_canvas->mlx);
 		free(new_canvas);
 		return (NULL);

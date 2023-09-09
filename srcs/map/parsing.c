@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 18:15:54 by agengemb          #+#    #+#             */
-/*   Updated: 2023/09/08 21:18:33 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/09/09 01:22:14 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	check_block(void *mlx, t_map *map, char symbol)
 		map->player = 1;
 		return (1);
 	}
+	printf("symbol: %c\n", symbol);
 	printf("Error\nUn blocks de la map n'est pas valide\n");
 	return (0);
 }

@@ -18,5 +18,5 @@ typedef struct s_canvas
 }			t_canvas;
 
 t_canvas	*create_canvas(char *file_name);
-
+void	destroy_canvas(t_canvas *canvas);
 #endif

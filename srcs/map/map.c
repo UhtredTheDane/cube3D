@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 00:24:19 by agengemb          #+#    #+#             */
-/*   Updated: 2023/09/08 21:25:14 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/09/09 21:43:11 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,11 @@ int	fill_map(void *mlx, t_map *map, t_block **block_map, t_list *list)
 		pos[1] = 0;
 		while (pos[1] < map->row_nb)
 		{
-			if (!check_block(mlx, map, line[pos[1]]))
+			/*if (!check_block(mlx, map, line[pos[1]]))
 			{
 				ft_lstclear(&list, free);
 				return (0);
-			}
+			}*/
 			init_block(&block_map[pos[0]][pos[1]], line[pos[1]]);
 			++pos[1];
 		}
@@ -81,12 +81,11 @@ int	init_block_map(void *mlx, t_map *map, t_list *lst)
 {
 	t_block	**block_map;
 
-	mlx = (void *) mlx;
 	block_map = malloc(sizeof(t_block *) * map->line_nb);
 	if (!block_map || !create_2d_tab(map, block_map))
 		return (0);
 	map->block_map = block_map;
-	if (!fill_map(mlx, map, block_map, lst) || !check_map(map, block_map, 0, 0))
+	if (!fill_map(mlx, map, block_map, lst))// || !check_map(map, block_map, 0, 0))
 	{
 		free_block_map(block_map, map->line_nb);
 		return (0);
@@ -108,10 +107,12 @@ t_map	*create_map(void *mlx, char *file_name)
 		free(new_map);
 		return (NULL);
 	}
+	
+	new_map->line_nb = ft_lstsize(lst);
 	if (!init_block_map(mlx, new_map, lst))
 	{
 		while (lst)
-			ft_lstpop(&list)
+			ft_lstpop(&lst);
 		free(new_map);
 		return (NULL);
 	}
