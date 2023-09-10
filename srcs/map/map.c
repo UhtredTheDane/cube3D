@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 00:24:19 by agengemb          #+#    #+#             */
-/*   Updated: 2023/09/09 23:11:44 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/09/10 19:49:47 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ int	create_2d_tab(t_map *map, t_block **block_map)
 	i = 0;
 	while (i < map->line_nb)
 	{
-		printf("map->row_nb: %ld\n", map->row_nb);
 		block_map[i] = malloc(sizeof(t_block) * map->row_nb);
 		if (!block_map[i])
 		{
@@ -88,6 +87,7 @@ int	init_block_map(void *mlx, t_map *map, t_list *lst)
 	map->block_map = block_map;
 	if (!fill_map(mlx, map, block_map, lst) || !check_map(map, block_map, 0, 0))
 	{
+		printf("error map configuration\n");
 		free_block_map(block_map, map->line_nb);
 		return (0);
 	}
@@ -108,7 +108,6 @@ t_map	*create_map(void *mlx, char *file_name)
 		free(new_map);
 		return (NULL);
 	}
-	
 	new_map->line_nb = ft_lstsize(lst);
 	if (!init_block_map(mlx, new_map, lst))
 	{

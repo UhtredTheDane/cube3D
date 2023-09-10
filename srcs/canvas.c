@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 23:04:12 by agengemb          #+#    #+#             */
-/*   Updated: 2023/09/09 00:52:38 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/09/10 19:51:46 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,6 @@ t_canvas	*create_canvas(char *file_name)
 		free(new_canvas->mlx);
 		free(new_canvas);
 		return (NULL);
-	} 
+	}
 	return (new_canvas);
 }

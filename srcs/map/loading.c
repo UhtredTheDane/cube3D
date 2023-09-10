@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 23:25:28 by agengemb          #+#    #+#             */
-/*   Updated: 2023/09/10 00:38:20 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/09/10 19:41:15 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,25 +213,25 @@ int load_color(t_map *map, char *type, int map_fd)
 				char *virgule;
 				if (i == 0)
 				{
-
-					virgule = ft_strrchr(tempo_line, ',');
+					
+					virgule = ft_strchr(tempo_line, ',');
 					*virgule = '\0';
 					r = ft_atoi(tempo_line);
 				}
 				else if (i == 1)
-				{
-					virgule = ft_strrchr(tempo_line, ',');
+			{
+					virgule = ft_strchr(tempo_line, ',');
 					*virgule = '\0';
 					g = ft_atoi(tempo_line);
 				}
 				else
 				{	
-					virgule = ft_strrchr(tempo_line, '\n');
+					virgule = ft_strchr(tempo_line, '\n');
 					*virgule = '\0';
 					b = ft_atoi(tempo_line);
 				}
 				*virgule = ',';
-				tempo_line += virgule - tempo_line + 1;
+				tempo_line = tempo_line + (virgule - tempo_line) + 1;
 				++i;
 			}
 			*map_color = create_trgb(t, r, g, b);
@@ -253,10 +253,15 @@ t_list *read_map(t_map *map, char *file_name)
             return (NULL);
     }
 
-//	if (load_texture(t_map *map, int num_face, int map_fd))
 	if (!load_texture(map, 0, map_fd) ||  !load_texture(map, 1, map_fd) || !load_texture(map, 2, map_fd) || !load_texture(map, 3, map_fd))
 	{
 		printf("error loading texture\n");
+		return (NULL);
+	}
+
+	if (!load_color(map, "F", map_fd) || !load_color(map, "C", map_fd))
+	{
+		printf("error loading color\n");
 		return (NULL);
 	}
     lst = load_map_in_lst(map_fd, &(map->row_nb));
