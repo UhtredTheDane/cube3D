@@ -28,10 +28,7 @@ t_map	*init_map(void)
 	new_map->EA_path = NULL;
 	return (new_map);
 }
-void	init_block(t_block *block, char symbol)
-{
-	block->type = symbol;
-}
+
 int	fill_map(void *mlx, t_map *map, t_block **block_map, t_list *list)
 {
 	char	*line;
@@ -58,6 +55,7 @@ int	fill_map(void *mlx, t_map *map, t_block **block_map, t_list *list)
 	}
 	return (1);
 }
+
 int	create_2d_tab(t_map *map, t_block **block_map)
 {
 	size_t	i;
@@ -75,7 +73,6 @@ int	create_2d_tab(t_map *map, t_block **block_map)
 	}
 	return (1);
 }
-
 
 int	init_block_map(void *mlx, t_map *map, t_list *lst)
 {
@@ -102,7 +99,7 @@ t_map	*create_map(void *mlx, char *file_name)
 	new_map = init_map();
 	if (!new_map)
 		return (NULL);
-	lst = read_map(new_map, file_name);
+	lst = loading_file(new_map, file_name);
 	if (!lst)
 	{
 		free(new_map);

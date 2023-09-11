@@ -12,6 +12,11 @@
 
 #include "../includes/block.h"
 
+void	init_block(t_block *block, char symbol)
+{
+	block->type = symbol;
+}
+
 void	free_block_map(t_block **block_map, size_t index)
 {
 	size_t	i;

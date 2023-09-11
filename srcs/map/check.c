@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/map/parsing.h"
+#include "../../includes/map/checking.h"
 
 ///usr/include/X11/X.h
 
@@ -31,32 +31,6 @@ int	check_block(void *mlx, t_map *map, char symbol)
 	return (0);
 }
 
-int	check_path(t_map *map, t_block **block_map, int i_start, int j_start)
-{
-	t_block	**copy_map;
-	size_t	i;
-	size_t	j;
-
-	copy_map = copy(map, block_map);
-	if (!copy_map)
-		return (0);
-	rec_fill(map, copy_map, i_start, j_start);
-	i = 0;
-	while (i < map->line_nb)
-	{
-		j = 0;
-		while (j < map->row_nb)
-		{
-			if (!check_remaining(map, copy_map, i, j))
-				return (0);
-			++j;
-		}
-		++i;
-	}
-	free_block_map(copy_map, map->line_nb);
-	return (1);
-}
-
 void	rec_fill(t_map *map, t_block **block_map, int i, int j)
 {
 	block_map[i][j].type = 'V';
@@ -68,17 +42,6 @@ void	rec_fill(t_map *map, t_block **block_map, int i, int j)
 		rec_fill(map, block_map, i, j + 1);
 	if (j > 0 && block_map[i][j - 1].type != 'V' && block_map[i][j - 1].type != '1')
 		rec_fill(map, block_map, i, j - 1);
-}
-
-int	check_remaining(t_map *map, t_block **copy_map, size_t i, size_t j)
-{
-	if (copy_map[i][j].type != 'V'  && copy_map[i][j].type != '1' && copy_map[i][j].type != ' ')
-	{
-		free_block_map(copy_map, map->line_nb);
-		printf("Error\nIl n'existe pas de chemin valide\n");
-		return (0);
-	}
-	return (1);
 }
 
 t_block **copy(t_map *map, t_block **block_map)

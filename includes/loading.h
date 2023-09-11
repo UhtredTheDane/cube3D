@@ -24,11 +24,25 @@
 
 typedef struct s_map	t_map;
 
-t_list *read_map(t_map *map, char *file_name);
-t_list	*load_map_in_lst(int map_fd, size_t *row_nb);
-t_list *load_line(t_list **lst, char *line, size_t *row_nb);
-void	add_wrappers(t_list **lst, size_t row_nb);
-char	*create_wrapper(size_t row_nb);
+char	**switch_face(char **face, int num_face);
+int	loading_texture(char **map_face, char *line, int num_face);
+int run_loading_texture(t_map *map, int num_face, int map_fd);
 
+int create_trgb(int t, int r, int g, int b);
+int get_value(char **line, char symbol);
+int loading_color(t_map *map, char *type, int map_fd);
+
+char	*create_wrapper(size_t row_nb);
+void	add_wrappers(t_list **lst, size_t row_nb);
+t_list *load_line(t_list **lst, char *line, size_t *row_nb);
+t_list	*loading_map(int map_fd, size_t *row_nb)
+
+char *trim_backspace(int map_fd);
+char *trim_space(char *line, int shifting);
+
+int get_textures(t_map *map, int map_fd);
+int get_colors(t_map *map, int map_fd);
+t_list *get_map(t_map *map, int map_fd);
+t_list *loading_file(t_map *map, char *file_name);
 
 #endif
