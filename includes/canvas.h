@@ -6,7 +6,7 @@
 # include "../mlx_linux/mlx.h"
 # include "map/map.h"
 # include "../libft/libft.h"
-# include "map/parsing.h"
+# include "map/checking.h"
 
 typedef struct s_map	t_map;
 

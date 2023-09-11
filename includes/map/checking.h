@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   checking.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/21 18:15:42 by agengemb          #+#    #+#             */
-/*   Updated: 2023/09/08 00:23:20 by agengemb         ###   ########.fr       */
+/*   Created: 2023/09/11 20:26:20 by agengemb          #+#    #+#             */
+/*   Updated: 2023/09/11 20:26:35 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
+#ifndef CHECKING_H
+# define CHECKING_H
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -20,7 +20,7 @@
 # include "../../libft/libft.h"
 # include "map.h"
 # include "../block.h"
-# include "loading.h"
+# include "../loading.h"
 
 typedef struct s_map	t_map;
 

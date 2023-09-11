@@ -63,7 +63,8 @@ t_list	*loading_map(int map_fd, size_t *row_nb)
 	int i;
 
 	i = 0;
-	lst = trim_backspace(map_fd);
+	lst = NULL;
+	line = trim_backspace(map_fd);
 	while (line)
 	{
 		if (i)

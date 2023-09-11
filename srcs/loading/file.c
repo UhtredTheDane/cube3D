@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   loading.c                                          :+:      :+:    :+:   */
+/*   file.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 23:25:28 by agengemb          #+#    #+#             */
-/*   Updated: 2023/09/10 19:41:15 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/09/11 20:09:36 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@ int get_textures(t_map *map, int map_fd)
 		!run_loading_texture(map, 2, map_fd) || !run_loading_texture(map, 3, map_fd))
 	{
 		printf("error loading texture\n");
-		return (NULL);
+		return (0);
 	}
+    return (1);
 }
 
 int get_colors(t_map *map, int map_fd)
@@ -27,8 +28,9 @@ int get_colors(t_map *map, int map_fd)
     if (!loading_color(map, "F", map_fd) || !loading_color(map, "C", map_fd))
 	{
 		printf("error loading color\n");
-		return (NULL);
+		return (0);
 	}
+    return (1);
 }
 
 t_list *get_map(t_map *map, int map_fd)
@@ -39,7 +41,7 @@ t_list *get_map(t_map *map, int map_fd)
     if (!lst)
         printf("Can't load map\n");
     close(map_fd);
-    return (lst)
+    return (lst);
 }
 
 t_list *loading_file(t_map *map, char *file_name)
@@ -51,7 +53,7 @@ t_list *loading_file(t_map *map, char *file_name)
             perror("Can't open map file");
             return (NULL);
     }
-    if (!get_textures(t_map *map, int map_fd) || !get_colors(map, map_fd))
+    if (!get_textures(map, map_fd) || !get_colors(map, map_fd))
     {
         return (NULL);
     }

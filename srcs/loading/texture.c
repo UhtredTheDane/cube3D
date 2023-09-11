@@ -1,7 +1,7 @@
 
 #include "../../includes/loading.h"
 
-char	**switch_face(char **face, int num_face)
+char	**switch_face(t_map *map, char **face, int num_face)
 {
 	if (num_face == 0)
 	{
@@ -25,7 +25,7 @@ char	**switch_face(char **face, int num_face)
 	}
 }
 
-int	loading_texture(char **map_face, char *line, int num_face)
+int	loading_texture(char **map_face, char *line, char *face)
 {
 	int fd_test;
 	size_t size;
@@ -59,8 +59,9 @@ int run_loading_texture(t_map *map, int num_face, int map_fd)
 	line = trim_backspace(map_fd);
 	if (line)
 	{
-		map_face = switch_face(&face, num_face);
-		loading_texture(map_face, line, num_face);
+		map_face = switch_face(map, &face, num_face);
+		if (loading_texture(map_face, line, face))
+			return (1);
 	}
 	return (0);
 }
