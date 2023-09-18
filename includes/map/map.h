@@ -7,12 +7,14 @@
 # include "../block.h"
 # include "checking.h"
 # include "../loading.h"
+# include "../img.h"
 
 typedef struct s_map
 {
 	int player;
 	size_t		row_nb;
 	size_t		line_nb;
+	t_img		**tiles_set;
 	char		*NO_path;
 	char		*SO_path;
 	char		*WE_path;

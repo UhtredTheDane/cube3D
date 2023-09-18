@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 16:42:21 by agengemb          #+#    #+#             */
-/*   Updated: 2023/09/17 19:14:25 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/09/18 16:06:39 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int	ft_atoi(const char *nptr)
 		if (*(nptr + i++) == '-')
 			negatif = 1;
 	res = 0;
+	if (!ft_strlen(nptr + i))
+		return (-1);
 	while (ft_isdigit(*(nptr + i)))
 	{
 		res += (*(nptr + i) - '0');
@@ -47,8 +49,6 @@ int	ft_atoi(const char *nptr)
 		if (ft_isdigit(*(nptr + i)))
 			res *= 10;
 	}
-	if (*(nptr + i) == '\0')
-		return (-1);
 	if (negatif)
 		res *= -1;
 	return (res);

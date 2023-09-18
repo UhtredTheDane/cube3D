@@ -25,7 +25,7 @@ char	**switch_face(t_map *map, char **face, int num_face)
 	}
 }
 
-int	loading_texture(char **map_face, char *line, char *face)
+t_img	*loading_texture(char **map_face, char *line, char *face)
 {
 	int fd_test;
 	size_t size;
@@ -38,12 +38,21 @@ int	loading_texture(char **map_face, char *line, char *face)
 	{
 		// trim entre id et path
 		line = trim_space(line, 2);
+		init_img(void *mlx, char *path)
+
+
+
+
 		if ((fd_test = open(line, O_RDONLY)) == -1)
 		{
 			perror("La texture n'existe pas");
 			return (0);
 		}
 		close(fd_test);
+
+
+
+
 		*map_face = line;
 		return (1);
 	}

@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 20:31:23 by agengemb          #+#    #+#             */
-/*   Updated: 2023/09/17 20:12:36 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/09/18 16:17:43 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int get_value(char **line, char symbol)
 	int color;
 
 	virgule = ft_strchr(*line, symbol);
+	if (!virgule)
+		return (-1);
 	*virgule = '\0';
 	printf("line: %s\n", *line);
 	color = ft_atoi(*line);
