@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 20:31:23 by agengemb          #+#    #+#             */
-/*   Updated: 2023/09/11 20:40:13 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/09/17 20:12:36 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,32 @@ int get_value(char **line, char symbol)
 
 	virgule = ft_strchr(*line, symbol);
 	*virgule = '\0';
+	printf("line: %s\n", *line);
 	color = ft_atoi(*line);
+	if (color < 0 || color > 255)
+		return (-1);
 	*virgule = symbol;
 	if (symbol != '\n')
 		*line += (virgule - *line) + 1;
 	return (color);
+}
+
+int loading_trgb(char *line)
+{
+	int	r;
+	int	g;
+	int	b;
+
+	r = get_value(&line, ',');
+	if (r == -1)
+		return (-1);
+	g = get_value(&line, ',');
+	if (g == -1)
+		return (-1);
+	b = get_value(&line, '\n');
+	if (b == -1)
+		return (-1);
+	return (create_trgb(0, r, g, b));
 }
 
 int loading_color(t_map *map, char *type, int map_fd)
@@ -36,7 +57,6 @@ int loading_color(t_map *map, char *type, int map_fd)
 	char *line;
 	char *tempo_line;
 	int *map_color;
-	int t = 0;
 
 	line = trim_backspace(map_fd);
 	if (line)
@@ -45,14 +65,17 @@ int loading_color(t_map *map, char *type, int map_fd)
 			map_color = &map->floor_color;
 		else
 			map_color = &map->ceiling_color;
-		// trim avant id
 		line = trim_space(line, 0);
 		if (ft_strncmp(line, type, 1) == 0)
 		{
-			// trim entre id et path
 			line = trim_space(line, 1);
 			tempo_line = line;
-			*map_color = create_trgb(t, get_value(&line, ' '), get_value(&line, ' '), get_value(&line, '\n'));
+			*map_color = loading_trgb(line);
+			if (*map_color == -1)
+			{
+				printf("error trgb format\n");
+				return (0);
+			}
 			free(tempo_line);
 			return (1);
 		}

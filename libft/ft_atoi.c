@@ -6,11 +6,12 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 16:42:21 by agengemb          #+#    #+#             */
-/*   Updated: 2022/07/29 14:47:31 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/09/17 19:14:25 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 /* 
  * Description:
@@ -46,6 +47,8 @@ int	ft_atoi(const char *nptr)
 		if (ft_isdigit(*(nptr + i)))
 			res *= 10;
 	}
+	if (*(nptr + i) == '\0')
+		return (-1);
 	if (negatif)
 		res *= -1;
 	return (res);
