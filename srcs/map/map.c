@@ -99,7 +99,7 @@ t_map	*create_map(void *mlx, char *file_name)
 	new_map = init_map();
 	if (!new_map)
 		return (NULL);
-	lst = loading_file(new_map, file_name);
+	lst = loading_file(mlx, new_map, file_name);
 	if (!lst)
 	{
 		free(new_map);

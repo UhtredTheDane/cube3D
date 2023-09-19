@@ -1,7 +1,7 @@
 
 #include "../../includes/loading.h"
 
-char	**switch_face(t_map *map, char **face, int num_face)
+t_img	**switch_face(t_map *map, char **face, int num_face)
 {
 	if (num_face == 0)
 	{
@@ -25,51 +25,38 @@ char	**switch_face(t_map *map, char **face, int num_face)
 	}
 }
 
-t_img	*loading_texture(char **map_face, char *line, char *face)
+int loading_texture(void *mlx, t_img **map_face, char *line, char *face)
 {
-	int fd_test;
 	size_t size;
 	
 	size = ft_strlen(line);
 	line[size - 1] = '\0';
 	// trim avant id
 	line = trim_space(line, 0);
+
 	if (ft_strncmp(line, face, 2) == 0)
 	{
 		// trim entre id et path
 		line = trim_space(line, 2);
-		init_img(void *mlx, char *path)
-
-
-
-
-		if ((fd_test = open(line, O_RDONLY)) == -1)
-		{
-			perror("La texture n'existe pas");
+		*map_face = init_img(mlx, line);
+		if (!*map_face)
 			return (0);
-		}
-		close(fd_test);
-
-
-
-
-		*map_face = line;
 		return (1);
 	}
 	return (0);
 }
 
-int run_loading_texture(t_map *map, int num_face, int map_fd)
+int run_loading_texture(void *mlx, t_map *map, int num_face, int map_fd)
 {
 	char *line;
 	char *face;
-	char **map_face;
+	t_img **map_face;
 
 	line = trim_backspace(map_fd);
 	if (line)
 	{
 		map_face = switch_face(map, &face, num_face);
-		if (loading_texture(map_face, line, face))
+		if (loading_texture(mlx, map_face, line, face))
 			return (1);
 	}
 	return (0);

@@ -12,10 +12,10 @@
 
 #include "../../includes/loading.h"
 
-int get_textures(t_map *map, int map_fd)
+int get_textures(void *mlx, t_map *map, int map_fd)
 {
-    if (!run_loading_texture(map, 0, map_fd) ||  !run_loading_texture(map, 1, map_fd) || 
-		!run_loading_texture(map, 2, map_fd) || !run_loading_texture(map, 3, map_fd))
+    if (!run_loading_texture(mlx, map, 0, map_fd) ||  !run_loading_texture(mlx, map, 1, map_fd) || 
+		!run_loading_texture(mlx, map, 2, map_fd) || !run_loading_texture(mlx, map, 3, map_fd))
 	{
 		printf("error loading texture\n");
 		return (0);
@@ -44,7 +44,7 @@ t_list *get_map(t_map *map, int map_fd)
     return (lst);
 }
 
-t_list *loading_file(t_map *map, char *file_name)
+t_list *loading_file(void *mlx, t_map *map, char *file_name)
 {
     int		map_fd;
 
@@ -53,9 +53,10 @@ t_list *loading_file(t_map *map, char *file_name)
             perror("Can't open map file");
             return (NULL);
     }
-    if (!get_textures(map, map_fd) || !get_colors(map, map_fd))
+    if (!get_textures(mlx, map, map_fd) || !get_colors(map, map_fd))
     {
         return (NULL);
     }
+   
     return (get_map(map, map_fd));  
 }

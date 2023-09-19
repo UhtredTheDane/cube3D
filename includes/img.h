@@ -4,7 +4,7 @@
 # include <stdlib.h>
 # include <stddef.h>
 # include "../mlx_linux/mlx.h"
-
+ 
 typedef struct s_img
 {
 	void	*img;

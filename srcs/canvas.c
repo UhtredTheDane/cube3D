@@ -27,17 +27,16 @@ t_canvas	*create_canvas(char *file_name)
 	new_canvas = malloc(sizeof(t_canvas));
 	if (!new_canvas)
 		return (NULL);
-	new_canvas->map = create_map(new_canvas->mlx, file_name);
-	if (!(new_canvas->map))
+	new_canvas->mlx = mlx_init();
+	if (!(new_canvas->mlx))
 	{
 		free(new_canvas);
 		return (NULL);
 	}
-	new_canvas->mlx = mlx_init();
-	if (!(new_canvas->mlx))
+	new_canvas->map = create_map(new_canvas->mlx, file_name);
+	if (!(new_canvas->map))
 	{
-		free_block_map(new_canvas->map->block_map, new_canvas->map->line_nb);
-		free(new_canvas->map);
+		free(new_canvas);
 		return (NULL);
 	}
 	new_canvas->window = mlx_new_window(new_canvas->mlx, new_canvas->map->row_nb * 48,

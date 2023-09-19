@@ -1,6 +1,6 @@
 #ifndef MAP_H
 # define MAP_H
-
+ 
 # include <stdlib.h>
 # include <stddef.h>
 # include <unistd.h>
@@ -14,11 +14,10 @@ typedef struct s_map
 	int player;
 	size_t		row_nb;
 	size_t		line_nb;
-	t_img		**tiles_set;
-	char		*NO_path;
-	char		*SO_path;
-	char		*WE_path;
-	char		*EA_path;
+	t_img		*NO_path;
+	t_img		*SO_path;
+	t_img		*WE_path;
+	t_img		*EA_path;
 	int		floor_color;
 	int		ceiling_color;
 	t_block		**block_map;

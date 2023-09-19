@@ -26,7 +26,6 @@ int get_value(char **line, char symbol)
 	if (!virgule)
 		return (-1);
 	*virgule = '\0';
-	printf("line: %s\n", *line);
 	color = ft_atoi(*line);
 	if (color < 0 || color > 255)
 		return (-1);
