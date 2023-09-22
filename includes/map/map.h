@@ -28,5 +28,6 @@ int create_2D_tab(t_map *map, t_block **block_map);
 int fill_map(void *mlx, t_map *map, t_block **block_map, t_list *list);
 int init_block_map(void *mlx, t_map *map, t_list *list);
 t_map	*create_map(void *mlx, char *file_name);
+void destroy_map(void *mlx, t_map *map);
 
 #endif

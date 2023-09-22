@@ -12,6 +12,21 @@
 
 # include "../../includes/map/map.h"
 
+void destroy_map(void *mlx, t_map *map)
+{
+	if (map->block_map)
+		free_block_map(map->block_map, map->line_nb);
+	if (map->NO_path)
+		free_img(mlx, map->NO_path);
+	if (map->SO_path)
+		free_img(mlx, map->SO_path);
+	if (map->WE_path)
+		free_img(mlx, map->WE_path);
+	if (map->EA_path)
+		free_img(mlx, map->EA_path);
+	free(map);
+}
+
 t_map	*init_map(void)
 {
 	t_map	*new_map;
@@ -34,7 +49,6 @@ int	fill_map(void *mlx, t_map *map, t_block **block_map, t_list *list)
 	char	*line;
 	size_t	pos[2];
 
-	mlx = (void *) mlx;
 	pos[0] = 0;
 	while (pos[0] < map->line_nb)
 	{
@@ -82,6 +96,9 @@ int	init_block_map(void *mlx, t_map *map, t_list *lst)
 	if (!block_map || !create_2d_tab(map, block_map))
 		return (0);
 	map->block_map = block_map;
+
+
+
 	if (!fill_map(mlx, map, block_map, lst) || !check_map(map, block_map, 0, 0))
 	{
 		printf("error map configuration\n");
@@ -102,14 +119,21 @@ t_map	*create_map(void *mlx, char *file_name)
 	lst = loading_file(mlx, new_map, file_name);
 	if (!lst)
 	{
+		destroy_map(mlx, map);
 		free(new_map);
 		return (NULL);
 	}
+
+
+
+
+
 	new_map->line_nb = ft_lstsize(lst);
 	if (!init_block_map(mlx, new_map, lst))
 	{
-		/*while (lst)
-			ft_lstpop(&lst);*/
+		destroy_map(mlx, map);
+		while (lst)
+			ft_lstpop(&lst);
 		free(new_map);
 		return (NULL);
 	}

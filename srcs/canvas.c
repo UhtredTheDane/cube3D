@@ -14,12 +14,13 @@
 
 void	destroy_canvas(t_canvas *canvas)
 {
+	destroy_map(canvas->mlx, canvas->map);
 	mlx_destroy_window(canvas->mlx, canvas->window);
 	mlx_destroy_display(canvas->mlx);
 	free(canvas->mlx);
 	free(canvas);
 }
- 
+   
 t_canvas	*create_canvas(char *file_name)
 {
 	t_canvas	*new_canvas;
@@ -36,6 +37,7 @@ t_canvas	*create_canvas(char *file_name)
 	new_canvas->map = create_map(new_canvas->mlx, file_name);
 	if (!(new_canvas->map))
 	{
+		free(new_canvas->mlx);
 		free(new_canvas);
 		return (NULL);
 	}
@@ -43,8 +45,7 @@ t_canvas	*create_canvas(char *file_name)
 			new_canvas->map->line_nb * 48, "cube3D");
 	if (!(new_canvas->window))
 	{
-		free_block_map(new_canvas->map->block_map, new_canvas->map->line_nb);
-		free(new_canvas->map);
+		destroy_map(new_canvas->mlx, new_canvas->map);
 		free(new_canvas->mlx);
 		free(new_canvas);
 		return (NULL);

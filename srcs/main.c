@@ -15,7 +15,10 @@
 int main(int argc, char **argv)
 {
 	size_t	index_format;
-	char	*format = ".cub";
+	char	*format;
+	t_canvas *canvas;
+
+	format = ".cub";
 	if (argc != 2)
 	{
 		printf("Usage: ./cube3D YourMap.cub\n");
@@ -27,12 +30,9 @@ int main(int argc, char **argv)
 		printf("Wrong format\n");
 		return (2);
 	}
-	t_canvas *canvas;
 	canvas = create_canvas(argv[1]);
  	if (!canvas)
 		return (0);
-	free_block_map(canvas->map->block_map, canvas->map->line_nb);
-	free(canvas->map);
 	destroy_canvas(canvas);
 	return (0);
 }

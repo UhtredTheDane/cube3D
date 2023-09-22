@@ -31,12 +31,9 @@ int loading_texture(void *mlx, t_img **map_face, char *line, char *face)
 	
 	size = ft_strlen(line);
 	line[size - 1] = '\0';
-	// trim avant id
 	line = trim_space(line, 0);
-
 	if (ft_strncmp(line, face, 2) == 0)
 	{
-		// trim entre id et path
 		line = trim_space(line, 2);
 		*map_face = init_img(mlx, line);
 		if (!*map_face)

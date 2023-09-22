@@ -38,9 +38,9 @@ t_list *get_map(t_map *map, int map_fd)
     t_list	*lst;
 
     lst = loading_map(map_fd, &(map->row_nb));
+    close(map_fd);
     if (!lst)
         printf("Can't load map\n");
-    close(map_fd);
     return (lst);
 }
 
@@ -55,8 +55,8 @@ t_list *loading_file(void *mlx, t_map *map, char *file_name)
     }
     if (!get_textures(mlx, map, map_fd) || !get_colors(map, map_fd))
     {
+        close(map_fd);
         return (NULL);
     }
-   
     return (get_map(map, map_fd));  
 }
