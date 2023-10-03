@@ -125,7 +125,7 @@ t_map	*create_map(void *mlx, char *file_name)
 	}
 
 
-
+//ici
 
 
 	new_map->line_nb = ft_lstsize(lst);

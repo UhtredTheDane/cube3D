@@ -57,4 +57,4 @@ int run_loading_texture(void *mlx, t_map *map, int num_face, int map_fd)
 			return (1);
 	}
 	return (0);
-}
+}  

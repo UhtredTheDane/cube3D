@@ -29,21 +29,34 @@ t_canvas	*create_canvas(char *file_name)
 	if (!new_canvas)
 		return (NULL);
 	new_canvas->mlx = mlx_init();
-	if (!(new_canvas->mlx))
+	if (!new_canvas->mlx)
 	{
 		free(new_canvas);
 		return (NULL);
 	}
+
+	
+
+
+	
 	new_canvas->map = create_map(new_canvas->mlx, file_name);
-	if (!(new_canvas->map))
+	if (!new_canvas->map)
 	{
 		free(new_canvas->mlx);
 		free(new_canvas);
 		return (NULL);
 	}
+
+
+
+
+
+
+
+
 	new_canvas->window = mlx_new_window(new_canvas->mlx, new_canvas->map->row_nb * 48,
 			new_canvas->map->line_nb * 48, "cube3D");
-	if (!(new_canvas->window))
+	if (!new_canvas->window)
 	{
 		destroy_map(new_canvas->mlx, new_canvas->map);
 		free(new_canvas->mlx);

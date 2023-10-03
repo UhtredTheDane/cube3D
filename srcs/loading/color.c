@@ -67,9 +67,11 @@ int loading_color(t_map *map, char *type, int map_fd)
 		else
 			map_color = &map->ceiling_color;
 		line = trim_space(line, 0);
-		if (ft_strncmp(line, type, 1) == 0)
+		if (line && ft_strncmp(line, type, 1) == 0)
 		{
 			line = trim_space(line, 1);
+			if (!line)
+				return (0);
 			tempo_line = line;
 			*map_color = loading_trgb(line);
 			if (*map_color == -1)

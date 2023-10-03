@@ -33,17 +33,19 @@ int get_colors(t_map *map, int map_fd)
     return (1);
 }
 
+
+
 t_list *get_map(t_map *map, int map_fd)
 {
     t_list	*lst;
 
-    lst = loading_map(map_fd, &(map->row_nb));
+    lst = loading_map(map_fd, &map->row_nb);
     close(map_fd);
     if (!lst)
         printf("Can't load map\n");
     return (lst);
 }
-
+ 
 t_list *loading_file(void *mlx, t_map *map, char *file_name)
 {
     int		map_fd;
@@ -58,5 +60,7 @@ t_list *loading_file(void *mlx, t_map *map, char *file_name)
         close(map_fd);
         return (NULL);
     }
+
+    
     return (get_map(map, map_fd));  
 }
