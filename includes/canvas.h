@@ -13,7 +13,20 @@ typedef struct s_map	t_map;
 typedef struct s_canvas
 {
 	void	*mlx;
+<<<<<<< Updated upstream
 	void	*window;	
+=======
+	void	*window;
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		width;
+	int		color;
+	int		height;
+	char	*path;
+	int		line_length;
+	int		endian;
+>>>>>>> Stashed changes
 	t_map	*map;
 }			t_canvas;
 

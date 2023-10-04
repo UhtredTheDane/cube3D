@@ -6,7 +6,11 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 23:04:12 by agengemb          #+#    #+#             */
+<<<<<<< Updated upstream
 /*   Updated: 2023/09/10 19:51:46 by agengemb         ###   ########.fr       */
+=======
+/*   Updated: 2023/10/04 15:32:23 by anmande          ###   ########.fr       */
+>>>>>>> Stashed changes
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +38,6 @@ t_canvas	*create_canvas(char *file_name)
 		free(new_canvas);
 		return (NULL);
 	}
-
-	
-
-
-	
 	new_canvas->map = create_map(new_canvas->mlx, file_name);
 	if (!new_canvas->map)
 	{
@@ -46,16 +45,8 @@ t_canvas	*create_canvas(char *file_name)
 		free(new_canvas);
 		return (NULL);
 	}
-
-
-
-
-
-
-
-
-	new_canvas->window = mlx_new_window(new_canvas->mlx, new_canvas->map->row_nb * 48,
-			new_canvas->map->line_nb * 48, "cube3D");
+	new_canvas->window = mlx_new_window(new_canvas->mlx, new_canvas->map->row_nb * 100,
+			new_canvas->map->line_nb * 100, "cub3D");
 	if (!new_canvas->window)
 	{
 		destroy_map(new_canvas->mlx, new_canvas->map);
