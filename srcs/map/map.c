@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 00:24:19 by agengemb          #+#    #+#             */
-/*   Updated: 2023/09/10 19:49:47 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/10/04 13:25:34 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,15 +96,14 @@ int	init_block_map(void *mlx, t_map *map, t_list *lst)
 	if (!block_map || !create_2d_tab(map, block_map))
 		return (0);
 	map->block_map = block_map;
-
-
-
-	if (!fill_map(mlx, map, block_map, lst) || !check_map(map, block_map, 0, 0))
+	/*if (!fill_map(mlx, map, block_map, lst))// || !check_map(map, block_map, 0, 0))
 	{
 		printf("error map configuration\n");
 		free_block_map(block_map, map->line_nb);
 		return (0);
-	}
+	}*/
+	(void)lst;
+	(void)mlx;
 	return (1);
 }
 
@@ -119,7 +118,7 @@ t_map	*create_map(void *mlx, char *file_name)
 	lst = loading_file(mlx, new_map, file_name);
 	if (!lst)
 	{
-		destroy_map(mlx, map);
+		//destroy_map(mlx, map);
 		free(new_map);
 		return (NULL);
 	}
@@ -131,7 +130,7 @@ t_map	*create_map(void *mlx, char *file_name)
 	new_map->line_nb = ft_lstsize(lst);
 	if (!init_block_map(mlx, new_map, lst))
 	{
-		destroy_map(mlx, map);
+		//destroy_map(mlx, map);
 		while (lst)
 			ft_lstpop(&lst);
 		free(new_map);

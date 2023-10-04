@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   canvas.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 23:04:12 by agengemb          #+#    #+#             */
-/*   Updated: 2023/09/10 19:51:46 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/10/04 14:32:05 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	destroy_canvas(t_canvas *canvas)
 	free(canvas->mlx);
 	free(canvas);
 }
-   
+
 t_canvas	*create_canvas(char *file_name)
 {
 	t_canvas	*new_canvas;
