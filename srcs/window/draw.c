@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:19:51 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/05 13:15:41 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/10/05 18:47:34 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	my_mlx_pixel_put(t_canvas *canvas, int x, int y, int color)
 
 void	new_image(t_canvas *canvas)
 {
-	canvas->img = mlx_new_image(canvas->mlx, canvas->map->line_nb * 10, canvas->map->row_nb * 10);
+	canvas->img = mlx_new_image(canvas->mlx, canvas->map->row_nb * 10, canvas->map->line_nb * 10);
 	canvas->addr = mlx_get_data_addr(canvas->img, &canvas->bpp, &canvas->line_len, &canvas->endian);
 }
 
@@ -37,7 +37,7 @@ void	draw_squar(t_canvas *canvas, int color, int x_map, int y_map)
 		j = y_map * 10;
 		while (j < (y_map + 1) * 10)
 		{
-			my_mlx_pixel_put(canvas, i, j, color);
+			my_mlx_pixel_put(canvas, j, i, color);
 			j++;
 		}
 		i++;
