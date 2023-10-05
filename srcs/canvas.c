@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 23:04:12 by agengemb          #+#    #+#             */
-/*   Updated: 2023/10/04 14:32:05 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/04 17:35:29 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,6 @@ t_canvas	*create_canvas(char *file_name)
 		free(new_canvas);
 		return (NULL);
 	}
-
-	
-
-
-	
 	new_canvas->map = create_map(new_canvas->mlx, file_name);
 	if (!new_canvas->map)
 	{
@@ -54,8 +49,7 @@ t_canvas	*create_canvas(char *file_name)
 
 
 
-	new_canvas->window = mlx_new_window(new_canvas->mlx, new_canvas->map->row_nb * 48,
-			new_canvas->map->line_nb * 48, "cube3D");
+	new_canvas->window = mlx_new_window(new_canvas->mlx, X_LEN, Y_LEN, "cube3D");
 	if (!new_canvas->window)
 	{
 		destroy_map(new_canvas->mlx, new_canvas->map);

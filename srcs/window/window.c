@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:29:19 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/04 14:31:39 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/05 11:19:43 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,18 @@ int	ft_close_win(long int key, t_canvas *canvas)
 	if (key == 65307 || key == 17)
 	{
         mlx_loop_end(canvas->mlx);
-		destroy_canvas(canvas);
 		free(canvas->mlx);
 		exit (0);
 	}
+	return (0);
+}
+
+int	create_map_2D(t_canvas *canvas, char *av)
+{
+	canvas->fd = open(av, O_RDONLY);
+	if (canvas->fd == -1)
+		return (0);
+	draw_map(canvas, canvas->fd);
+	//draw_squar(win, 0x0000FF);
 	return (0);
 }

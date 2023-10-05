@@ -18,13 +18,15 @@ typedef struct s_canvas
 	void	*window;
 	void	*img;
 	char	*addr;
-	int		bits_per_pixel;
+	int		bpp;
 	int		width;
 	int		height;
+	int		line_len;
 	char	*path;
 	t_map	*map;
+	int		fd;
 }			t_canvas;
 
 t_canvas	*create_canvas(char *file_name);
-void	destroy_canvas(t_canvas *canvas);
+void		destroy_canvas(t_canvas *canvas);
 #endif
