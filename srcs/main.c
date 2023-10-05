@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 14:58:12 by agengemb          #+#    #+#             */
-/*   Updated: 2023/09/08 21:08:52 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/10/04 16:15:13 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/main.h"
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	size_t	index_format;
-	char	*format;
-	t_canvas *canvas;
+	size_t		index_format;
+	char		*format;
+	t_canvas	*canvas;
 
 	format = ".cub";
 	if (argc != 2)
@@ -31,8 +31,14 @@ int main(int argc, char **argv)
 		return (2);
 	}
 	canvas = create_canvas(argv[1]);
- 	if (!canvas)
+	if (!canvas)
 		return (0);
-	//destroy_canvas(canvas);
+	mlx_hook(canvas->window, 17, 0, ft_close_win, &canvas);
+	mlx_hook(canvas->window, 2, 1L << 0, ft_close_win, &canvas);
+
+	new_image(canvas);
+	draw_map(canvas);
+	mlx_loop(canvas->mlx);
+	destroy_canvas(canvas);
 	return (0);
-} 
+}

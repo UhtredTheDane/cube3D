@@ -1,24 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/17 14:58:24 by agengemb          #+#    #+#             */
-/*   Updated: 2023/10/05 11:40:47 by anmande          ###   ########.fr       */
+/*   Created: 2023/10/04 13:29:19 by anmande           #+#    #+#             */
+/*   Updated: 2023/10/05 11:19:43 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../includes/window.h"
 
-#ifndef MAIN_H
-# define MAIN_H
+int	ft_close_win(long int key, t_canvas *canvas)
+{
+	if (key == 65307 || key == 17)
+	{
+        mlx_loop_end(canvas->mlx);
+		free(canvas->mlx);
+		exit (0);
+	}
+	return (0);
+}
 
-# include <stdio.h>
-# include "../libft/libft.h"
-# include "canvas.h"
-# include "window.h"
-# include "loading.h"
-# include "../mlx_linux/mlx.h"
-# include "player.h"
-#endif
+int	create_map_2D(t_canvas *canvas, char *av)
+{
+	canvas->fd = open(av, O_RDONLY);
+	if (canvas->fd == -1)
+		return (0);
+	draw_map(canvas, canvas->fd);
+	//draw_squar(win, 0x0000FF);
+	return (0);
+}
