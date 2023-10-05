@@ -19,8 +19,7 @@ typedef struct s_canvas
 	void	*img;
 	char	*addr;
 	int		bpp;
-	int		width;
-	int		height;
+	int		endian;
 	int		line_len;
 	char	*path;
 	t_map	*map;

@@ -35,7 +35,12 @@ int	main(int argc, char **argv)
 		return (0);
 	mlx_hook(canvas->window, 17, 0, ft_close_win, &canvas);
 	mlx_hook(canvas->window, 2, 1L << 0, ft_close_win, &canvas);
-
+	for (size_t i = 0; i < canvas->map->line_nb; ++i)
+	{
+		for (size_t j = 0; j < canvas->map->row_nb; ++j)
+			printf("%c", canvas->map->block_map[i][j].type);
+		printf("\n");
+	}
 	new_image(canvas);
 	draw_map(canvas);
 	mlx_loop(canvas->mlx);

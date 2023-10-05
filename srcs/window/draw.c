@@ -16,14 +16,14 @@ void	my_mlx_pixel_put(t_canvas *canvas, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = canvas->addr + (y * canvas->map->line_nb + x * (canvas->bpp / 8));
+	dst = canvas->addr + (y * canvas->line_len + x * (canvas->bpp / 8));
 	*(unsigned int *)dst = color;
 }
 
 void	new_image(t_canvas *canvas)
 {
 	canvas->img = mlx_new_image(canvas->mlx, canvas->map->line_nb * 10, canvas->map->row_nb * 10);
-	canvas->addr = mlx_get_data_addr(canvas->img, &canvas->bpp, &canvas->width, &canvas->height);
+	canvas->addr = mlx_get_data_addr(canvas->img, &canvas->bpp, &canvas->line_len, &canvas->endian);
 }
 
 void	draw_squar(t_canvas *canvas, int color, int x_map, int y_map)
@@ -42,9 +42,7 @@ void	draw_squar(t_canvas *canvas, int color, int x_map, int y_map)
 		}
 		i++;
 	}
-	mlx_put_image_to_window(canvas->mlx, canvas->window, canvas->img, 0, 0);
 }
-
 
 void	draw_map(t_canvas *canvas)
 {
@@ -58,22 +56,14 @@ void	draw_map(t_canvas *canvas)
 		while (j < canvas->map->row_nb)
 		{
 			if (canvas->map->block_map[i][j].type == '1')
-			{
-				printf("i: %ld et j: %ld rouge\n", i, j);
 				draw_squar(canvas, 0xFF0000, i, j);
-			}
 			else if (canvas->map->block_map[i][j].type == '0')
-			{
-				printf("i: %ld et j: %ld vert\n", i, j);
 				draw_squar(canvas, 0x00FF00, i, j);
-			}
 			else if (canvas->map->block_map[i][j].type == ' ')
-			{
-				printf("i: %ld et j: %ld bleu\n", i, j);
 				draw_squar(canvas, 0x0000FF, i, j);
-			}
 			j++;
 		}
 		i++;
 	}
+	mlx_put_image_to_window(canvas->mlx, canvas->window, canvas->img, 0, 0);
 }
