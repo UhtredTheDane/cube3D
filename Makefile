@@ -6,7 +6,7 @@
 #    By: agengemb <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/17 15:45:22 by agengemb          #+#    #+#              #
-#    Updated: 2023/09/09 00:18:27 by agengemb         ###   ########.fr        #
+#    Updated: 2023/10/04 13:56:54 by agengemb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,6 @@ clean:
 fclean: clean
 	rm -rf $(NAME)
 
-re: flcean all
+re: fclean all
 
 .PHONY: all clean fclean re

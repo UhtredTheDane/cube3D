@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 18:15:54 by agengemb          #+#    #+#             */
-/*   Updated: 2023/09/10 19:49:25 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/10/04 14:34:19 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 int	check_block(void *mlx, t_map *map, char symbol)
 {
 	mlx = (void *) mlx;
-
 	if (symbol == '1' || symbol == '0' || symbol == ' ')
 		return (1);
 	else if (symbol == 'N' || symbol == 'S' || symbol == 'E' || symbol == 'W')
@@ -101,7 +100,4 @@ int	check_map(t_map *map, t_block **block_map, int i_start, int j_start)
 	free_block_map(copy_map, map->line_nb);
 	return (0);
 }
-
-
-
 

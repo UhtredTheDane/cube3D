@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 23:25:28 by agengemb          #+#    #+#             */
-/*   Updated: 2023/09/11 20:09:36 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/10/04 14:39:01 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_list *get_map(t_map *map, int map_fd)
     close(map_fd);
     if (!lst)
         printf("Can't load map\n");
-    return (lst);
+return (lst);
 }
  
 t_list *loading_file(void *mlx, t_map *map, char *file_name)

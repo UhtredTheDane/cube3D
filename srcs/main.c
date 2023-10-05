@@ -33,6 +33,6 @@ int main(int argc, char **argv)
 	canvas = create_canvas(argv[1]);
  	if (!canvas)
 		return (0);
-	destroy_canvas(canvas);
+	//destroy_canvas(canvas);
 	return (0);
 } 

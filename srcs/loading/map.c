@@ -62,6 +62,7 @@ t_list	*loading_map(int map_fd, size_t *row_nb)
 	t_list	*lst;
 	t_list	*tempo_lst;
 	int i;
+	char *tempo_line;
 
 	i = 0;
 	lst = NULL;
@@ -84,9 +85,13 @@ t_list	*loading_map(int map_fd, size_t *row_nb)
 				free(line);
 				return (NULL);
 			}
+			tempo_line = line;
 		}
 		++i;
 	}
+	
+	if (ft_strlen(tempo_line) == 0)
+		ft_lstpop(&lst);
 	add_wrappers(&lst, *row_nb);
 	return (lst);
 }

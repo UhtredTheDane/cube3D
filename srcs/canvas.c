@@ -34,11 +34,6 @@ t_canvas	*create_canvas(char *file_name)
 		free(new_canvas);
 		return (NULL);
 	}
-
-	
-
-
-	
 	new_canvas->map = create_map(new_canvas->mlx, file_name);
 	if (!new_canvas->map)
 	{
@@ -46,14 +41,6 @@ t_canvas	*create_canvas(char *file_name)
 		free(new_canvas);
 		return (NULL);
 	}
-
-
-
-
-
-
-
-
 	new_canvas->window = mlx_new_window(new_canvas->mlx, new_canvas->map->row_nb * 48,
 			new_canvas->map->line_nb * 48, "cube3D");
 	if (!new_canvas->window)
