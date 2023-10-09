@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:19:51 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/04 15:53:26 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/05 18:47:34 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,54 @@ void	my_mlx_pixel_put(t_canvas *canvas, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = canvas->addr + (y * canvas->line_length + x * (canvas->bits_per_pixel / 8));
+	dst = canvas->addr + (y * canvas->line_len + x * (canvas->bpp / 8));
 	*(unsigned int *)dst = color;
 }
 
-void	draw_map(t_canvas *canvas)
+void	new_image(t_canvas *canvas)
+{
+	canvas->img = mlx_new_image(canvas->mlx, canvas->map->row_nb * 10, canvas->map->line_nb * 10);
+	canvas->addr = mlx_get_data_addr(canvas->img, &canvas->bpp, &canvas->line_len, &canvas->endian);
+}
+
+void	draw_squar(t_canvas *canvas, int color, int x_map, int y_map)
 {
 	int	i;
 	int	j;
 
-	i = 0;
-	while (i < 10)
+	i = x_map * 10;
+	while (i < (x_map + 1) * 10)
 	{
-		j = 0;
-		while (j < 10)
+		j = y_map * 10;
+		while (j < (y_map + 1) * 10)
 		{
-			my_mlx_pixel_put(canvas->img, i, j, 0x0000FF);
+			my_mlx_pixel_put(canvas, j, i, color);
 			j++;
 		}
 		i++;
 	}
-	//mlx_put_image_to_window(canvas->mlx, canvas->window, canvas->img, 0, 0);
+}
+
+void	draw_map(t_canvas *canvas)
+{
+	size_t	i;
+	size_t 	j;
+
+	i = 0;
+	while (i < canvas->map->line_nb)
+	{
+		j = 0;
+		while (j < canvas->map->row_nb)
+		{
+			if (canvas->map->block_map[i][j].type == '1')
+				draw_squar(canvas, 0xFF0000, i, j);
+			else if (canvas->map->block_map[i][j].type == '0')
+				draw_squar(canvas, 0x00FF00, i, j);
+			else if (canvas->map->block_map[i][j].type == ' ')
+				draw_squar(canvas, 0x0000FF, i, j);
+			j++;
+		}
+		i++;
+	}
+	mlx_put_image_to_window(canvas->mlx, canvas->window, canvas->img, 0, 0);
 }

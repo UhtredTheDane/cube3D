@@ -1,5 +1,7 @@
 #ifndef CANVAS_H
 # define CANVAS_H
+# define Y_LEN		1200
+# define X_LEN		(Y_LEN)
 
 # include <stdlib.h>
 # include <stddef.h>
@@ -13,23 +15,17 @@ typedef struct s_map	t_map;
 typedef struct s_canvas
 {
 	void	*mlx;
-<<<<<<< Updated upstream
-	void	*window;	
-=======
 	void	*window;
 	void	*img;
 	char	*addr;
-	int		bits_per_pixel;
-	int		width;
-	int		color;
-	int		height;
-	char	*path;
-	int		line_length;
+	int		bpp;
 	int		endian;
->>>>>>> Stashed changes
+	int		line_len;
+	char	*path;
 	t_map	*map;
+	int		fd;
 }			t_canvas;
 
 t_canvas	*create_canvas(char *file_name);
-void	destroy_canvas(t_canvas *canvas);
+void		destroy_canvas(t_canvas *canvas);
 #endif

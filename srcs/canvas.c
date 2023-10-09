@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   canvas.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 23:04:12 by agengemb          #+#    #+#             */
-<<<<<<< Updated upstream
-/*   Updated: 2023/09/10 19:51:46 by agengemb         ###   ########.fr       */
-=======
-/*   Updated: 2023/10/04 15:32:23 by anmande          ###   ########.fr       */
->>>>>>> Stashed changes
+/*   Updated: 2023/10/05 18:45:54 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +20,7 @@ void	destroy_canvas(t_canvas *canvas)
 	free(canvas->mlx);
 	free(canvas);
 }
-   
+
 t_canvas	*create_canvas(char *file_name)
 {
 	t_canvas	*new_canvas;
@@ -45,8 +41,8 @@ t_canvas	*create_canvas(char *file_name)
 		free(new_canvas);
 		return (NULL);
 	}
-	new_canvas->window = mlx_new_window(new_canvas->mlx, new_canvas->map->row_nb * 100,
-			new_canvas->map->line_nb * 100, "cub3D");
+
+	new_canvas->window = mlx_new_window(new_canvas->mlx, new_canvas->map->row_nb * 10, new_canvas->map->line_nb * 10, "cube3D");
 	if (!new_canvas->window)
 	{
 		destroy_map(new_canvas->mlx, new_canvas->map);

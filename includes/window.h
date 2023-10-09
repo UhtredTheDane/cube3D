@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   window.c                                           :+:      :+:    :+:   */
+/*   window.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/04 13:29:19 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/05 12:43:49 by agengemb         ###   ########.fr       */
+/*   Created: 2023/10/04 13:31:02 by anmande           #+#    #+#             */
+/*   Updated: 2023/10/05 11:22:26 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/window.h"
+#ifndef WINDOW_H
 
-int	ft_close_win(long int key, t_canvas *canvas)
-{
-	if (key == 65307 || key == 17)
-	{
-        mlx_loop_end(canvas->mlx);
-		free(canvas->mlx);
-		exit (0);
-	}
-	return (0);
-}
+# define WINDOW_H
+
+# include "main.h"
+# include <stddef.h>
+
+//Cette fonction ne fait que fermer la fenetre rien de propre
+
+int	    ft_close_win(long int key, t_canvas *canvas);
+void new_image(t_canvas *canvas);
+void    draw_map(t_canvas *canvas);
+void	my_mlx_pixel_put(t_canvas *canvas, int x, int y, int color);
+
+
+#endif
