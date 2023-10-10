@@ -53,35 +53,27 @@ int loading_trgb(char *line)
 	return (create_trgb(0, r, g, b));
 }
 
-int loading_color(t_map *map, char *type, int map_fd)
+int loading_color(t_map *map, char *line, char type)
 {
-	char *line;
-	char *tempo_line;
+	//char *tempo_line;
 	int *map_color;
 
-	line = trim_backspace(map_fd);
+	line = trim_space(line, 2);
 	if (line)
 	{
-		if (type[0] == 'F')
+		if (type == 'F')
 			map_color = &map->floor_color;
 		else
 			map_color = &map->ceiling_color;
-		line = trim_space(line, 0);
-		if (line && ft_strncmp(line, type, 1) == 0)
+		//tempo_line = line;
+		*map_color = loading_trgb(line);
+		if (*map_color == -1)
 		{
-			line = trim_space(line, 1);
-			if (!line)
-				return (0);
-			tempo_line = line;
-			*map_color = loading_trgb(line);
-			if (*map_color == -1)
-			{
-				printf("error trgb format\n");
-				return (0);
-			}
-			free(tempo_line);
-			return (1);
+			printf("error trgb format\n");
+			return (0);
 		}
+		//free(tempo_line);
+		return (1);
 	}
 	return (0);
 }

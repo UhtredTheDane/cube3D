@@ -13,8 +13,6 @@ char *trim_backspace(int map_fd)
 	return (line);
 }
 
-
-
 char *trim_space(char *line, int shifting)
 {
 	char *tempo_line;
