@@ -1,5 +1,5 @@
 #include "../../includes/loading.h"
-
+ 
 char *trim_backspace(int map_fd)
 {
 	char	*line;

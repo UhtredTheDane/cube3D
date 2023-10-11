@@ -41,6 +41,7 @@ t_list *load_line(t_list **lst, char *line, size_t *row_nb)
 	t_list	*elem;
 
 	size_line = ft_strlen(line);
+	//printf("size_line: %ld\n", size_line);
 	line_ok = malloc(sizeof(char) * (size_line + 2));
 	if (!line_ok)
 		return (NULL);
@@ -51,6 +52,7 @@ t_list *load_line(t_list **lst, char *line, size_t *row_nb)
 	if (size_line > *row_nb)
 		*row_nb = size_line;
 	elem = ft_lstnew(line_ok);
+	//printf("line_ok: %s\n", line_ok);
 	if (elem)
 		ft_lstadd_back(lst, elem);
 	return (*lst);
@@ -62,7 +64,6 @@ t_list	*loading_map(int map_fd, size_t *row_nb)
 	t_list	*lst;
 	t_list	*tempo_lst;
 	int i;
-	char *tempo_line;
 
 	i = 0;
 	lst = NULL;
@@ -85,13 +86,9 @@ t_list	*loading_map(int map_fd, size_t *row_nb)
 				free(line);
 				return (NULL);
 			}
-			tempo_line = line;
 		}
 		++i;
 	}
-	
-	if (ft_strlen(tempo_line) == 0)
-		ft_lstpop(&lst);
 	add_wrappers(&lst, *row_nb);
 	return (lst);
 }

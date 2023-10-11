@@ -11,27 +11,6 @@
 /* ************************************************************************** */
 
 #include "../../includes/loading.h"
-/*
-int get_textures(void *mlx, t_map *map, int map_fd)
-{
-    if (!run_loading_texture(mlx, map, 0, map_fd) ||  !run_loading_texture(mlx, map, 1, map_fd) || 
-		!run_loading_texture(mlx, map, 2, map_fd) || !run_loading_texture(mlx, map, 3, map_fd))
-	{
-		printf("error loading texture\n");
-		return (0);
-	}
-    return (1);
-}*/
-/*
-int get_colors(t_map *map, int map_fd)
-{
-    if (!loading_color(map, "F", map_fd) || !loading_color(map, "C", map_fd))
-	{
-		printf("error loading color\n");
-		return (0);
-	}
-    return (1);
-}*/
 
 int get_textures_colors(void *mlx, t_map *map, int map_fd)
 {
@@ -107,10 +86,5 @@ t_list *loading_file(void *mlx, t_map *map, char *file_name)
             return (NULL);
         }
     }
-    /*if (!get_textures(mlx, map, map_fd) || !get_colors(map, map_fd))
-    {
-        close(map_fd);
-        return (NULL);
-    }*/
     return (get_map(map, map_fd));  
 }
