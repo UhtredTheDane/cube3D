@@ -6,11 +6,22 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 14:58:12 by agengemb          #+#    #+#             */
-/*   Updated: 2023/10/04 16:15:13 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/12 15:47:22 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/main.h"
+
+int	set_data(t_canvas *canvas)
+{
+	t_player	*player;
+
+	player = malloc(sizeof(t_player));
+	canvas->player = player;
+	canvas->player->x = -1;
+	canvas->player->y = -1;
+	return (0);
+}
 
 int	main(int argc, char **argv)
 {
@@ -33,14 +44,15 @@ int	main(int argc, char **argv)
 	canvas = create_canvas(argv[1]);
 	if (!canvas)
 		return (0);
-	mlx_hook(canvas->window, 17, 0, ft_close_win, &canvas);
-	mlx_hook(canvas->window, 2, 1L << 0, ft_close_win, &canvas);
+	mlx_key_hook(canvas->window, move_player, canvas);
+	mlx_hook(canvas->window, 17, 0, ft_close_win, canvas);
 	for (size_t i = 0; i < canvas->map->line_nb; ++i)
 	{
 		for (size_t j = 0; j < canvas->map->row_nb; ++j)
 			printf("%c", canvas->map->block_map[i][j].type);
 		printf("\n");
 	}
+	set_data(canvas);
 	new_image(canvas);
 	draw_map(canvas);
 	mlx_loop(canvas->mlx);

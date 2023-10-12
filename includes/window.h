@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:31:02 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/05 11:22:26 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/12 15:21:58 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,12 @@
 
 //Cette fonction ne fait que fermer la fenetre rien de propre
 
-int	    ft_close_win(long int key, t_canvas *canvas);
-void new_image(t_canvas *canvas);
+int	    ft_close_win(t_canvas *canvas);
+void    new_image(t_canvas *canvas);
 void    draw_map(t_canvas *canvas);
 void	my_mlx_pixel_put(t_canvas *canvas, int x, int y, int color);
+void	draw_squar(t_canvas *canvas, int color, int x_map, int y_map);
+void	draw_player(t_canvas *canvas);
 
 
 #endif

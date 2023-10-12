@@ -11,19 +11,21 @@
 # include "map/checking.h"
 
 typedef struct s_map	t_map;
+typedef struct s_player	t_player;
 
 typedef struct s_canvas
 {
-	void	*mlx;
-	void	*window;
-	void	*img;
-	char	*addr;
-	int		bpp;
-	int		endian;
-	int		line_len;
-	char	*path;
-	t_map	*map;
-	int		fd;
+	void		*mlx;
+	void		*window;
+	void		*img;
+	char		*addr;
+	int			bpp;
+	int			endian;
+	int			line_len;
+	char		*path;
+	t_map		*map;
+	int			fd;
+	t_player	*player;
 }			t_canvas;
 
 t_canvas	*create_canvas(char *file_name);
