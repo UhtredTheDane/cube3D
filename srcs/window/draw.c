@@ -82,7 +82,6 @@ void	draw_map(t_canvas *canvas)
 			else if (canvas->map->block_map[i][j].type == 'N') 
 			{
 				draw_squar(canvas, 0x808080, i, j);
-				printf("%d\n", canvas->player->x);
 				if (canvas->player->x == -1 && canvas->player->y == -1)
 				{
 				 	canvas->player->x = j * 10;

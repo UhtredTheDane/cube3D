@@ -41,18 +41,21 @@ t_list *load_line(t_list **lst, char *line, size_t *row_nb)
 	t_list	*elem;
 
 	size_line = ft_strlen(line);
-	//printf("size_line: %ld\n", size_line);
-	line_ok = malloc(sizeof(char) * (size_line + 2));
+	if (line[size_line - 1] == '\n')
+		--size_line;
+	line_ok = malloc(sizeof(char) * (size_line + 3));
 	if (!line_ok)
 		return (NULL);
 	line_ok[0] = ' ';
 	ft_strlcpy(line_ok + 1, line, size_line + 1);
-	line_ok[size_line] = ' ';
+	line_ok[size_line + 1] = ' ';
+	line_ok[size_line + 2] = '\0';
+
+
 	size_line = ft_strlen(line_ok);
 	if (size_line > *row_nb)
 		*row_nb = size_line;
 	elem = ft_lstnew(line_ok);
-	//printf("line_ok: %s\n", line_ok);
 	if (elem)
 		ft_lstadd_back(lst, elem);
 	return (*lst);
@@ -77,6 +80,8 @@ t_list	*loading_map(int map_fd, size_t *row_nb)
 		}
 		if (line)
 		{
+			if (line[0] == '\n')
+				break;
 			tempo_lst = lst;
 			lst = load_line(&tempo_lst, line, row_nb);
 			if (!lst)
