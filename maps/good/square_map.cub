@@ -1,13 +1,13 @@
-   WE                            textures/west.xpm 
-NO      textures/wolfenstein/north.xpm
+   WE                textures/west.xpm 
+NO      textures/north.xpm
 
 
 
-SO textures/wolfenstein/south.xpm
+SO textures/south.xpm
 
 F   69, 222, 199
 
-EA textures/wolfenstein/east.xpm
+EA textures/east.xpm
 
 
 

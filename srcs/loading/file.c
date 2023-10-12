@@ -56,7 +56,7 @@ int get_textures_colors(void *mlx, t_map *map, int map_fd)
     }
     return (0);
 }
-
+ 
 t_list *get_map(t_map *map, int map_fd)
 {
     t_list	*lst;

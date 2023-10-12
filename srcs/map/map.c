@@ -58,6 +58,8 @@ int	fill_map(void *mlx, t_map *map, t_block **block_map, t_list *list)
 		{
 			if (!check_block(mlx, map, line[pos[1]]))
 			{
+				printf("line: %ld et row: %ld\n", pos[0], pos[1]);
+				printf("show: %s\n", line);
 				ft_lstclear(&list, free);
 				return (0);
 			}
