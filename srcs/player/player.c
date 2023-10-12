@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:37:20 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/12 17:24:53 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/12 17:45:39 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,27 +22,20 @@ int	move_player(int key, t_canvas *canvas)
 	}
     if ((key == PRESS_ARROW_UP || key == PRESS_W))
     {
-		// if (canvas->map->line_nb[(int)(canvas->player->y - 5) / 10][(int)(canvas->player->x) / 10] == '1')
-        //     return (0);
-        canvas->player->y -= 5;
-		printf("up\n");
+		canvas->player->y -= 5;
     }
     if (key == PRESS_ARROW_DOWN || key == PRESS_S)
     {
         canvas->player->y += 5;
-		printf("down\n");
     }
     if (key == PRESS_ARROW_LEFT || key == PRESS_A)
     {
         canvas->player->x -= 5;
-		printf("left\n");
     }
     if (key == PRESS_ARROW_RIGHT || key == PRESS_D)
     {
         canvas->player->x += 5;
-		printf("right\n");
     }
     draw_map(canvas);
-    //(void)canvas;
     return (0);
 }
