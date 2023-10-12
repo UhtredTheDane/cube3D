@@ -6,11 +6,29 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:19:51 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/05 18:47:34 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/10/12 16:23:02 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/window.h"
+
+void	draw_player(t_canvas *canvas)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < 10)
+	{
+		j = 0;
+		while (j < 10)
+		{
+			my_mlx_pixel_put(canvas, canvas->player->x + j, canvas->player->y + i, 0x000000);
+			j++;
+		}
+		i++;
+	}
+}
 
 void	my_mlx_pixel_put(t_canvas *canvas, int x, int y, int color)
 {
@@ -58,9 +76,20 @@ void	draw_map(t_canvas *canvas)
 			if (canvas->map->block_map[i][j].type == '1')
 				draw_squar(canvas, 0xFF0000, i, j);
 			else if (canvas->map->block_map[i][j].type == '0')
-				draw_squar(canvas, 0x00FF00, i, j);
+				draw_squar(canvas, 0x808080, i, j);
 			else if (canvas->map->block_map[i][j].type == ' ')
 				draw_squar(canvas, 0x0000FF, i, j);
+			else if (canvas->map->block_map[i][j].type == 'N') 
+			{
+				draw_squar(canvas, 0x808080, i, j);
+				printf("%d\n", canvas->player->x);
+				if (canvas->player->x == -1 && canvas->player->y == -1)
+				{
+				 	canvas->player->x = j * 10;
+				 	canvas->player->y = i * 10;
+				}	
+				draw_player(canvas);
+			}
 			j++;
 		}
 		i++;
