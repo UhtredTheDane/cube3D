@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:19:51 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/12 16:39:13 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/12 17:35:10 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,18 +75,17 @@ void	draw_map(t_canvas *canvas)
 		{
 			if (canvas->map->block_map[i][j].type == '1')
 				draw_squar(canvas, 0xFF0000, i, j);
-			else if (canvas->map->block_map[i][j].type == '0')
+			else if (canvas->map->block_map[i][j].type == '0' || canvas->map->block_map[i][j].type == ' ')
 				draw_squar(canvas, 0x808080, i, j);
-			else if (canvas->map->block_map[i][j].type == ' ')
-				draw_squar(canvas, 0x0000FF, i, j);
-			else if (canvas->map->block_map[i][j].type == 'N') 
+			// else if (canvas->map->block_map[i][j].type == ' ')
+			// 	draw_squar(canvas, 0x0000FF, i, j);
+			else if (canvas->map->block_map[i][j].type == 'N' || canvas->map->block_map[i][j].type == 'S' || canvas->map->block_map[i][j].type == 'E' || canvas->map->block_map[i][j].type == 'W') 
 			{
 				draw_squar(canvas, 0x808080, i, j);
-				printf("%d\n", canvas->player->x);
 				if (canvas->player->x == -1 && canvas->player->y == -1)
 				{
-				 	canvas->player->x = j * 10;
-				 	canvas->player->y = i * 10;
+					canvas->player->x = j * 10;
+					canvas->player->y = i * 10;
 				}	
 			}
 			j++;
