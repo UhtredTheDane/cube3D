@@ -48,22 +48,27 @@ int	fill_map(void *mlx, t_map *map, t_block **block_map, t_list *list)
 {
 	char	*line;
 	size_t	pos[2];
+	size_t size_line;
 
 	pos[0] = 0;
 	while (pos[0] < map->line_nb)
 	{
 		line = list->content;
+		size_line = ft_strlen(line);
 		pos[1] = 0;
 		while (pos[1] < map->row_nb)
 		{
-			if (!check_block(mlx, map, line[pos[1]]))
+			if (pos[1] < size_line)
 			{
-				printf("line: %ld et row: %ld\n", pos[0], pos[1]);
-				printf("show: %s\n", line);
-				ft_lstclear(&list, free);
-				return (0);
+				if (!check_block(mlx, map, line[pos[1]]))
+				{
+					ft_lstclear(&list, free);
+					return (0);
+				}
+				init_block(&block_map[pos[0]][pos[1]], line[pos[1]]);
 			}
-			init_block(&block_map[pos[0]][pos[1]], line[pos[1]]);
+			else
+				init_block(&block_map[pos[0]][pos[1]], ' ');
 			++pos[1];
 		}
 		ft_lstpop(&list);
@@ -98,8 +103,6 @@ int	init_block_map(void *mlx, t_map *map, t_list *lst)
 	if (!block_map || !create_2d_tab(map, block_map))
 		return (0);
 	map->block_map = block_map;
-
-
 	if (!fill_map(mlx, map, block_map, lst) || !check_map(map, block_map, 0, 0))
 	{
 		printf("error map configuration\n");
@@ -135,3 +138,4 @@ t_map	*create_map(void *mlx, char *file_name)
 	}
 	return (new_map);
 }
+ 

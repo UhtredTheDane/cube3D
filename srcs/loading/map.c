@@ -94,6 +94,16 @@ t_list	*loading_map(int map_fd, size_t *row_nb)
 		}
 		++i;
 	}
+	while (line)
+	{
+		line = trim_backspace(map_fd);
+		if (line != NULL)
+		{
+			line = trim_space(line, 0);
+			if (line[0] != '\0' && line[0] != '\n')
+				return (NULL);
+		}
+	}
 	add_wrappers(&lst, *row_nb);
 	return (lst);
 }
