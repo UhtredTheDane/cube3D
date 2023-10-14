@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 23:04:12 by agengemb          #+#    #+#             */
-/*   Updated: 2023/10/05 18:45:54 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/10/14 20:45:00 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,11 @@ t_canvas	*create_canvas(char *file_name)
 		return (NULL);
 	}
 	new_canvas->player = malloc(sizeof(t_player));
-	if (new_canvas->player)
+	if (!new_canvas->player)
 	{
 		//free a faire
 		return (NULL);
 	}
-	canvas->player = player;
 	new_canvas->map = create_map(new_canvas->mlx, file_name);
 	if (!new_canvas->map)
 	{
@@ -48,7 +47,7 @@ t_canvas	*create_canvas(char *file_name)
 		free(new_canvas);
 		return (NULL);
 	}
-	new_canvas->window = mlx_new_window(new_canvas->mlx, new_canvas->map->row_nb * 20, new_canvas->map->line_nb * 20, "cube3D");
+	new_canvas->window = mlx_new_window(new_canvas->mlx, new_canvas->map->row_nb * 30, new_canvas->map->line_nb * 30, "cube3D");
 	if (!new_canvas->window)
 	{
 		destroy_map(new_canvas->mlx, new_canvas->map);

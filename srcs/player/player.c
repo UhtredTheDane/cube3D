@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:37:20 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/14 18:30:59 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/10/14 20:24:19 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ int	move_player(int key, t_canvas *canvas)
     	canvas->player->x -= canvas->player->dir_y * 5;
     }
     if (key == XK_q)
-		rotate_player(canvas, PI / -4);
+		rotate_player(canvas, PI / -6);
     if (key == XK_e)
-		rotate_player(canvas, PI / 4);
+		rotate_player(canvas, PI / 6);
     draw_map(canvas);
     return (0);
 }

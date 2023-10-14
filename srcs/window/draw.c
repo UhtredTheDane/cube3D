@@ -6,13 +6,13 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:19:51 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/14 18:33:18 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/10/14 20:46:26 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/window.h"
 #include <math.h>
-#define OFFSET 10
+#define OFFSET 15
 
 void	draw_player(t_canvas *canvas)
 {
@@ -20,10 +20,10 @@ void	draw_player(t_canvas *canvas)
 	int j;
 
 	i = 0;
-	while (i < 10)
+	while (i < 30)
 	{
 		j = 0;
-		while (j < 10)
+		while (j < 30)
 		{
 			my_mlx_pixel_put(canvas, fabs(canvas->player->x - OFFSET) + j, fabs(canvas->player->y - OFFSET) + i, 0x000000);
 			j++;
@@ -42,7 +42,7 @@ void	my_mlx_pixel_put(t_canvas *canvas, int x, int y, int color)
 
 void	new_image(t_canvas *canvas)
 {
-	canvas->img = mlx_new_image(canvas->mlx, canvas->map->row_nb * 20, canvas->map->line_nb * 20);
+	canvas->img = mlx_new_image(canvas->mlx, canvas->map->row_nb * 30, canvas->map->line_nb * 30);
 	canvas->addr = mlx_get_data_addr(canvas->img, &canvas->bpp, &canvas->line_len, &canvas->endian);
 }
 
@@ -51,11 +51,11 @@ void	draw_squar(t_canvas *canvas, int color, int x_map, int y_map)
 	int	i;
 	int	j;
 
-	i = x_map * 20;
-	while (i < (x_map + 1) * 20)
+	i = x_map * 30;
+	while (i < (x_map + 1) * 30)
 	{
-		j = y_map * 20;
-		while (j < (y_map + 1) * 20)
+		j = y_map * 30;
+		while (j < (y_map + 1) * 30)
 		{
 			my_mlx_pixel_put(canvas, j, i, color);
 			j++;
@@ -68,8 +68,8 @@ void init_pos_player(t_canvas *canvas, size_t i, size_t j)
 {
 	canvas->map->block_map[i][j].type = '0';	
 	draw_squar(canvas, 0x808080, i, j);
-	canvas->player->x = j * 20;
-	canvas->player->y = i * 20;
+	canvas->player->x = j * 30;
+	canvas->player->y = i * 30;
 }
 
 void	draw_map(t_canvas *canvas)

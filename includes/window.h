@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:31:02 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/12 15:21:58 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/14 20:20:26 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 
 # include "main.h"
 # include <stddef.h>
+
+typedef struct s_canvas t_canvas;
 
 //Cette fonction ne fait que fermer la fenetre rien de propre
 

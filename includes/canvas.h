@@ -9,6 +9,7 @@
 # include "map/map.h"
 # include "../libft/libft.h"
 # include "map/checking.h"
+# include "player.h"
 
 typedef struct s_map	t_map;
 typedef struct s_player	t_player;

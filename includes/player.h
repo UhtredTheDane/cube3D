@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:39:39 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/14 18:02:42 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/10/14 20:19:41 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define PRESS_A 97
 # define PRESS_D 100
 
+typedef struct s_canvas t_canvas;
 typedef struct s_player
 {
     double     x;
