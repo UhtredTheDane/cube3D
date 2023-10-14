@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 14:58:24 by agengemb          #+#    #+#             */
-/*   Updated: 2023/10/05 11:40:47 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/12 15:20:38 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,5 @@
 # include "loading.h"
 # include "../mlx_linux/mlx.h"
 # include "player.h"
+
 #endif

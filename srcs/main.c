@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 14:58:12 by agengemb          #+#    #+#             */
-/*   Updated: 2023/10/04 16:15:13 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/14 01:52:19 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,8 @@ int	main(int argc, char **argv)
 	canvas = create_canvas(argv[1]);
 	if (!canvas)
 		return (0);
-	mlx_hook(canvas->window, 17, 0, ft_close_win, &canvas);
-	mlx_hook(canvas->window, 2, 1L << 0, ft_close_win, &canvas);
-	for (size_t i = 0; i < canvas->map->line_nb; ++i)
-	{
-		for (size_t j = 0; j < canvas->map->row_nb; ++j)
-			printf("%c", canvas->map->block_map[i][j].type);
-		printf("\n");
-	}
+	mlx_key_hook(canvas->window, move_player, canvas);
+	mlx_hook(canvas->window, 17, 0, ft_close_win, canvas);
 	new_image(canvas);
 	draw_map(canvas);
 	mlx_loop(canvas->mlx);

@@ -28,12 +28,12 @@ typedef struct s_img	t_img;
 
 t_img	**switch_face(t_map *map, char **face, int num_face);
 t_list	*loading_map(int map_fd, size_t *row_nb);
-int	loading_texture(void *mlx, t_img **map_face, char *line, char *face);
-int run_loading_texture(void *mlx, t_map *map, int num_face, int map_fd);
+int	loading_texture(void *mlx, t_img **map_face, char *line);
+int run_loading_texture(void *mlx, t_map *map, char *line, int num_face);
 
 int create_trgb(int t, int r, int g, int b);
 int get_value(char **line, char symbol);
-int loading_color(t_map *map, char *type, int map_fd);
+int loading_color(t_map *map, char *line, char type);
 
 char	*create_wrapper(size_t row_nb);
 void	add_wrappers(t_list **lst, size_t row_nb);
