@@ -6,11 +6,12 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:19:51 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/12 17:35:10 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/14 18:33:18 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/window.h"
+#include <math.h>
 
 void	draw_player(t_canvas *canvas)
 {
@@ -23,7 +24,7 @@ void	draw_player(t_canvas *canvas)
 		j = 0;
 		while (j < 10)
 		{
-			my_mlx_pixel_put(canvas, canvas->player->x + j, canvas->player->y + i, 0x000000);
+			my_mlx_pixel_put(canvas, fabs(canvas->player->x - 5) + j, fabs(canvas->player->y - 5) + i, 0x000000);
 			j++;
 		}
 		i++;
@@ -62,10 +63,19 @@ void	draw_squar(t_canvas *canvas, int color, int x_map, int y_map)
 	}
 }
 
+void init_pos_player(t_canvas *canvas, size_t i, size_t j)
+{
+	canvas->map->block_map[i][j].type = '0';	
+	draw_squar(canvas, 0x808080, i, j);
+	canvas->player->x = j * 10;
+	canvas->player->y = i * 10;
+}
+
 void	draw_map(t_canvas *canvas)
 {
 	size_t	i;
 	size_t 	j;
+	char block_type;
 
 	i = 0;
 	while (i < canvas->map->line_nb)
@@ -73,20 +83,39 @@ void	draw_map(t_canvas *canvas)
 		j = 0;
 		while (j < canvas->map->row_nb)
 		{
-			if (canvas->map->block_map[i][j].type == '1')
+			block_type = canvas->map->block_map[i][j].type;
+			if (block_type == '1')
 				draw_squar(canvas, 0xFF0000, i, j);
-			else if (canvas->map->block_map[i][j].type == '0' || canvas->map->block_map[i][j].type == ' ')
+			else if (block_type == '0' || block_type == ' ')
 				draw_squar(canvas, 0x808080, i, j);
-			// else if (canvas->map->block_map[i][j].type == ' ')
-			// 	draw_squar(canvas, 0x0000FF, i, j);
-			else if (canvas->map->block_map[i][j].type == 'N' || canvas->map->block_map[i][j].type == 'S' || canvas->map->block_map[i][j].type == 'E' || canvas->map->block_map[i][j].type == 'W') 
+			else if (block_type == 'N')
 			{
-				draw_squar(canvas, 0x808080, i, j);
-				if (canvas->player->x == -1 && canvas->player->y == -1)
-				{
-					canvas->player->x = j * 10;
-					canvas->player->y = i * 10;
-				}	
+				canvas->player->dir_x = 0;
+				canvas->player->dir_y = -1;
+				init_pos_player(canvas, i, j);
+			}
+			else if (block_type == 'S')
+			{
+				canvas->player->dir_x = 0;
+				canvas->player->dir_y = 1;
+
+				init_pos_player(canvas, i, j);
+			}
+			else if(block_type == 'E')
+			{
+				canvas->player->dir_x = 1;
+				canvas->player->dir_y = 0;
+
+				
+				init_pos_player(canvas, i, j);
+			}
+			else if (block_type == 'W') 
+			{	
+				init_pos_player(canvas, i, j);
+				canvas->player->dir_x = -1.;
+				canvas->player->dir_y = 0.;
+				//canvas->player->plane_x = -1 + canvas->player->x;
+				//canvas->player->plane_y = -1 + canvas->player->y;
 			}
 			j++;
 		}

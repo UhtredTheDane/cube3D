@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:39:39 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/12 15:59:20 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/14 18:02:42 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 
 typedef struct s_player
 {
-    int     x;
-    int     y;
+    double     x;
+    double     y;
     double  dir_x;
     double  dir_y;
     double  plane_x;
