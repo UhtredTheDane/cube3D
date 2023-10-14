@@ -16,6 +16,17 @@
 #include <X11/keysym.h>
 #define PI 3.14159265359
 
+void rotate_player(t_canvas *canvas, double angle)
+{
+	double tempo_dir_x;
+	double tempo_dir_y;
+	
+	tempo_dir_x = canvas->player->dir_x;
+	tempo_dir_y = canvas->player->dir_y;
+	canvas->player->dir_x = tempo_dir_x * cos(angle) - tempo_dir_y * sin(angle);
+	canvas->player->dir_y = tempo_dir_x * sin(angle) + tempo_dir_y * cos(angle);
+}
+
 int	move_player(int key, t_canvas *canvas)
 {
 	if (key == 65307)
@@ -42,22 +53,12 @@ int	move_player(int key, t_canvas *canvas)
     if (key == PRESS_D)
     {
 	    canvas->player->y += canvas->player->dir_x * 5;
-    		canvas->player->x -= canvas->player->dir_y * 5;
+    	canvas->player->x -= canvas->player->dir_y * 5;
     }
     if (key == XK_q)
-    {
-	double tempo_dir_x = canvas->player->dir_x;
-	double tempo_dir_y = canvas->player->dir_y;
-	canvas->player->dir_x = tempo_dir_x * cos(PI / -4) - tempo_dir_y * sin(PI / -4);
-	canvas->player->dir_y = tempo_dir_x * sin(PI / -4) + tempo_dir_y * cos(PI / -4);
-    }
+		rotate_player(canvas, PI / -4);
     if (key == XK_e)
-    {
-	double tempo_dir_x = canvas->player->dir_x;
-	double tempo_dir_y = canvas->player->dir_y;
-	canvas->player->dir_x = tempo_dir_x * cos(PI / 4) - tempo_dir_y * sin(PI / 4);
-	canvas->player->dir_y = tempo_dir_x * sin(PI / 4) + tempo_dir_y * cos(PI / 4);
-    }
+		rotate_player(canvas, PI / 4);
     draw_map(canvas);
     return (0);
 }

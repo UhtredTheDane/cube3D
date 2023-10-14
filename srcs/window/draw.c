@@ -12,6 +12,7 @@
 
 #include "../../includes/window.h"
 #include <math.h>
+#define OFFSET 10
 
 void	draw_player(t_canvas *canvas)
 {
@@ -24,7 +25,7 @@ void	draw_player(t_canvas *canvas)
 		j = 0;
 		while (j < 10)
 		{
-			my_mlx_pixel_put(canvas, fabs(canvas->player->x - 5) + j, fabs(canvas->player->y - 5) + i, 0x000000);
+			my_mlx_pixel_put(canvas, fabs(canvas->player->x - OFFSET) + j, fabs(canvas->player->y - OFFSET) + i, 0x000000);
 			j++;
 		}
 		i++;
@@ -41,7 +42,7 @@ void	my_mlx_pixel_put(t_canvas *canvas, int x, int y, int color)
 
 void	new_image(t_canvas *canvas)
 {
-	canvas->img = mlx_new_image(canvas->mlx, canvas->map->row_nb * 10, canvas->map->line_nb * 10);
+	canvas->img = mlx_new_image(canvas->mlx, canvas->map->row_nb * 20, canvas->map->line_nb * 20);
 	canvas->addr = mlx_get_data_addr(canvas->img, &canvas->bpp, &canvas->line_len, &canvas->endian);
 }
 
@@ -50,11 +51,11 @@ void	draw_squar(t_canvas *canvas, int color, int x_map, int y_map)
 	int	i;
 	int	j;
 
-	i = x_map * 10;
-	while (i < (x_map + 1) * 10)
+	i = x_map * 20;
+	while (i < (x_map + 1) * 20)
 	{
-		j = y_map * 10;
-		while (j < (y_map + 1) * 10)
+		j = y_map * 20;
+		while (j < (y_map + 1) * 20)
 		{
 			my_mlx_pixel_put(canvas, j, i, color);
 			j++;
@@ -67,8 +68,8 @@ void init_pos_player(t_canvas *canvas, size_t i, size_t j)
 {
 	canvas->map->block_map[i][j].type = '0';	
 	draw_squar(canvas, 0x808080, i, j);
-	canvas->player->x = j * 10;
-	canvas->player->y = i * 10;
+	canvas->player->x = j * 20;
+	canvas->player->y = i * 20;
 }
 
 void	draw_map(t_canvas *canvas)
@@ -90,12 +91,13 @@ void	draw_map(t_canvas *canvas)
 				draw_squar(canvas, 0x808080, i, j);
 			else if (block_type == 'N')
 			{
+				init_pos_player(canvas, i, j);
 				canvas->player->dir_x = 0;
 				canvas->player->dir_y = -1;
-				init_pos_player(canvas, i, j);
 			}
 			else if (block_type == 'S')
 			{
+				init_pos_player(canvas, i, j);
 				canvas->player->dir_x = 0;
 				canvas->player->dir_y = 1;
 
@@ -103,19 +105,15 @@ void	draw_map(t_canvas *canvas)
 			}
 			else if(block_type == 'E')
 			{
+				init_pos_player(canvas, i, j);
 				canvas->player->dir_x = 1;
 				canvas->player->dir_y = 0;
-
-				
-				init_pos_player(canvas, i, j);
 			}
 			else if (block_type == 'W') 
 			{	
 				init_pos_player(canvas, i, j);
 				canvas->player->dir_x = -1.;
 				canvas->player->dir_y = 0.;
-				//canvas->player->plane_x = -1 + canvas->player->x;
-				//canvas->player->plane_y = -1 + canvas->player->y;
 			}
 			j++;
 		}

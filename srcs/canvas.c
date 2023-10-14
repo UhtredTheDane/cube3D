@@ -34,6 +34,13 @@ t_canvas	*create_canvas(char *file_name)
 		free(new_canvas);
 		return (NULL);
 	}
+	new_canvas->player = malloc(sizeof(t_player));
+	if (new_canvas->player)
+	{
+		//free a faire
+		return (NULL);
+	}
+	canvas->player = player;
 	new_canvas->map = create_map(new_canvas->mlx, file_name);
 	if (!new_canvas->map)
 	{
@@ -41,8 +48,7 @@ t_canvas	*create_canvas(char *file_name)
 		free(new_canvas);
 		return (NULL);
 	}
-
-	new_canvas->window = mlx_new_window(new_canvas->mlx, new_canvas->map->row_nb * 10, new_canvas->map->line_nb * 10, "cube3D");
+	new_canvas->window = mlx_new_window(new_canvas->mlx, new_canvas->map->row_nb * 20, new_canvas->map->line_nb * 20, "cube3D");
 	if (!new_canvas->window)
 	{
 		destroy_map(new_canvas->mlx, new_canvas->map);

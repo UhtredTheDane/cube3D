@@ -12,17 +12,6 @@
 
 #include "../includes/main.h"
 
-int	set_data(t_canvas *canvas)
-{
-	t_player	*player;
-
-	player = malloc(sizeof(t_player));
-	canvas->player = player;
-	canvas->player->x = -1;
-	canvas->player->y = -1;
-	return (0);
-}
-
 int	main(int argc, char **argv)
 {
 	size_t		index_format;
@@ -46,7 +35,6 @@ int	main(int argc, char **argv)
 		return (0);
 	mlx_key_hook(canvas->window, move_player, canvas);
 	mlx_hook(canvas->window, 17, 0, ft_close_win, canvas);
-	set_data(canvas);
 	new_image(canvas);
 	draw_map(canvas);
 	mlx_loop(canvas->mlx);
