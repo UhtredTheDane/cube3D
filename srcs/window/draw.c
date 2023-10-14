@@ -14,6 +14,48 @@
 #include <math.h>
 #define OFFSET 15
 
+void    draw_dir_ray(t_canvas *canvas, double angle)
+{
+    double    ray_x;
+    double    ray_y;
+    double    dx;
+    double    dy;
+    double    max_value;
+ 
+    ray_x = game->pos.x;
+    ray_y = game->pos.y;
+ 
+    dx = cos(angle) * canvas->player->dir_x - sin(angle) * canvas->player->dir_y;
+    dy = sin(angle) * canvas->player->dir_x + cos(angle) * canvas->player->dir_y;
+ 
+    max_value = fmax(fabs(dx), fabs(dy));
+    dx /= max_value;
+    dy /= max_value;
+    while (1)
+    {
+        if ( canvas->addr + (ray_y * canvas->line_len + ray_x * (canvas->bpp / 8)) != 0x0000FF)
+			my_mlx_pixel_put(canvas, ray_x, ray_y, "0xFF0000");
+        else
+            break;
+        ray_x += dx;
+        ray_y += dy;
+    }
+}
+
+void    draw_ray(t_game *game)
+{
+    double angle;
+ 
+    angle = 0;
+    while (angle < PI/6)
+    {
+        draw_dir_ray(game, angle);
+        draw_dir_ray(game, -angle);
+        angle += PI/72;
+    }
+    mlx_put_image_to_window(game->mlx, game->win, game->map_img.img, 0, 0);
+}
+
 void	draw_player(t_canvas *canvas)
 {
 	int i;
