@@ -6,13 +6,15 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:19:51 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/14 20:46:26 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/10/15 03:08:46 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/window.h"
 #include <math.h>
 #define OFFSET 15
+
+#define PI 3.14159265359
 
 void    draw_dir_ray(t_canvas *canvas, double angle)
 {
@@ -22,38 +24,41 @@ void    draw_dir_ray(t_canvas *canvas, double angle)
     double    dy;
     double    max_value;
  
-    ray_x = game->pos.x;
-    ray_y = game->pos.y;
+    ray_x = canvas->player->x;
+    ray_y = canvas->player->y;
  
     dx = cos(angle) * canvas->player->dir_x - sin(angle) * canvas->player->dir_y;
     dy = sin(angle) * canvas->player->dir_x + cos(angle) * canvas->player->dir_y;
- 
+
     max_value = fmax(fabs(dx), fabs(dy));
     dx /= max_value;
     dy /= max_value;
+    ray_x += dx;
+    ray_y += dy;
     while (1)
     {
-        if ( canvas->addr + (ray_y * canvas->line_len + ray_x * (canvas->bpp / 8)) != 0x0000FF)
-			my_mlx_pixel_put(canvas, ray_x, ray_y, "0xFF0000");
+	//int test = ray_y * canvas->line_len + ray_x * (canvas->bpp / 8);
+        //char *dst = canvas->addr + test;
+	if (ray_y > 0 && ray_y < canvas->map->line_nb * 30 && ray_x > 0 && ray_x < canvas->map->row_nb * 30)// && *(unsigned int*)dst != 0xFF0000)
+		my_mlx_pixel_put(canvas, ray_x, ray_y, 0x0000FF);
         else
             break;
-        ray_x += dx;
-        ray_y += dy;
+	ray_x += dx;
+	ray_y += dy;
     }
 }
 
-void    draw_ray(t_game *game)
+void    draw_ray(t_canvas *canvas)
 {
     double angle;
  
     angle = 0;
-    while (angle < PI/6)
+    while (angle <= PI/6)
     {
-        draw_dir_ray(game, angle);
-        draw_dir_ray(game, -angle);
+	draw_dir_ray(canvas, angle);
+        draw_dir_ray(canvas, -angle);
         angle += PI/72;
     }
-    mlx_put_image_to_window(game->mlx, game->win, game->map_img.img, 0, 0);
 }
 
 void	draw_player(t_canvas *canvas)
@@ -67,7 +72,7 @@ void	draw_player(t_canvas *canvas)
 		j = 0;
 		while (j < 30)
 		{
-			my_mlx_pixel_put(canvas, fabs(canvas->player->x - OFFSET) + j, fabs(canvas->player->y - OFFSET) + i, 0x000000);
+			my_mlx_pixel_put(canvas, canvas->player->x - OFFSET + j, canvas->player->y - OFFSET + i, 0x000000);
 			j++;
 		}
 		i++;
@@ -162,5 +167,6 @@ void	draw_map(t_canvas *canvas)
 		i++;
 	}
 	draw_player(canvas);
+	draw_ray(canvas);
 	mlx_put_image_to_window(canvas->mlx, canvas->window, canvas->img, 0, 0);
 }
