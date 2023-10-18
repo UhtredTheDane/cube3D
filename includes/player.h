@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:39:39 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/14 20:19:41 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/10/15 17:32:55 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,19 @@
 typedef struct s_canvas t_canvas;
 typedef struct s_player
 {
-    double     x;
-    double     y;
-    double  dir_x;
-    double  dir_y;
-    double  plane_x;
-    double  plane_y;
-}               t_player;
+	double	x;
+	double	y;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
+	int		w;
+	int		a;
+	int		s;
+	int		d;
+	int		q;
+	int		e;
+}		t_player;
 
 int	move_player(int key, t_canvas *canvas);
 

@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:19:51 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/15 03:08:46 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/10/16 17:51:05 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,21 @@
 #include <math.h>
 #define OFFSET 15
 
-#define PI 3.14159265359
+//#define PI 3.14159265359
 
 void    draw_dir_ray(t_canvas *canvas, double angle)
 {
-    double    ray_x;
-    double    ray_y;
-    double    dx;
-    double    dy;
-    double    max_value;
- 
+	int			i;
+	double		ray_x;
+	double		ray_y;
+	double		dx;
+	double		dy;
+	double		max_value;
+
     ray_x = canvas->player->x;
     ray_y = canvas->player->y;
- 
+	i = 1;
+
     dx = cos(angle) * canvas->player->dir_x - sin(angle) * canvas->player->dir_y;
     dy = sin(angle) * canvas->player->dir_x + cos(angle) * canvas->player->dir_y;
 
@@ -35,30 +37,44 @@ void    draw_dir_ray(t_canvas *canvas, double angle)
     dy /= max_value;
     ray_x += dx;
     ray_y += dy;
-    while (1)
+    while (i != 0)
     {
-	//int test = ray_y * canvas->line_len + ray_x * (canvas->bpp / 8);
-        //char *dst = canvas->addr + test;
-	if (ray_y > 0 && ray_y < canvas->map->line_nb * 30 && ray_x > 0 && ray_x < canvas->map->row_nb * 30)// && *(unsigned int*)dst != 0xFF0000)
-		my_mlx_pixel_put(canvas, ray_x, ray_y, 0x0000FF);
-        else
-            break;
-	ray_x += dx;
-	ray_y += dy;
-    }
+		++i;
+		printf("%d\n", i);
+		if (ray_y > 0 && ray_y < canvas->map->line_nb * 30 && ray_x > 0 && ray_x < canvas->map->row_nb * 30)
+			my_mlx_pixel_put(canvas, ray_x, ray_y, 0x0000FF);
+		else 
+			break;
+		//if (canvas->map->block_map[(int)(ray_y / 30)][(int)(ray_x / 30)].type == '1')
+		//	i = 0;
+		ray_x += dx;
+		ray_y += dy;
+	}
+	// calcul distance 
+	double deltaDistX = sqrt(1 + pow(dy/dx, 2.)) * 30;
+	printf("deltaDistX = %f\n", deltaDistX);
+	double deltaDistY = sqrt(1 + pow(dx/dy, 2.)) * 30;
+	printf("deltaDistY = %f\n", deltaDistY);
+	double sideDistX = (canvas->player->x) * deltaDistX;
+	double sideDistY = canvas->player->y * deltaDistY;
+
+	printf("sideDistX = %f\n", sideDistX);
+	printf("canvas->player->x = %f\n", canvas->player->x);
+	printf("sideDistY = %f\n", sideDistY);
 }
 
-void    draw_ray(t_canvas *canvas)
+void	draw_ray(t_canvas *canvas)
 {
-    double angle;
- 
-    angle = 0;
-    while (angle <= PI/6)
-    {
+	double	angle;
+
+	angle = 0;
 	draw_dir_ray(canvas, angle);
-        draw_dir_ray(canvas, -angle);
-        angle += PI/72;
-    }
+	/*while (angle <= M_PI / 6)
+	{
+	 	draw_dir_ray(canvas, angle);
+	 	draw_dir_ray(canvas, -angle);
+		angle += M_PI / 72;
+	}*/
 }
 
 void	draw_player(t_canvas *canvas)
@@ -66,11 +82,11 @@ void	draw_player(t_canvas *canvas)
 	int i;
 	int j;
 
-	i = 0;
-	while (i < 30)
+	i = 13;
+	while (i < 18)
 	{
-		j = 0;
-		while (j < 30)
+		j = 13;
+		while (j < 18)
 		{
 			my_mlx_pixel_put(canvas, canvas->player->x - OFFSET + j, canvas->player->y - OFFSET + i, 0x000000);
 			j++;
@@ -104,6 +120,9 @@ void	draw_squar(t_canvas *canvas, int color, int x_map, int y_map)
 		j = y_map * 30;
 		while (j < (y_map + 1) * 30)
 		{
+			if (i == x_map * 30 || i == (x_map + 1) * 30 - 1 || j == y_map * 30 || j == (y_map + 1) * 30 - 1)
+				my_mlx_pixel_put(canvas, j, i, 0x000000);
+			else
 			my_mlx_pixel_put(canvas, j, i, color);
 			j++;
 		}
@@ -150,13 +169,13 @@ void	draw_map(t_canvas *canvas)
 
 				init_pos_player(canvas, i, j);
 			}
-			else if(block_type == 'E')
+			else if (block_type == 'E')
 			{
 				init_pos_player(canvas, i, j);
 				canvas->player->dir_x = 1;
 				canvas->player->dir_y = 0;
 			}
-			else if (block_type == 'W') 
+			else if (block_type == 'W')
 			{	
 				init_pos_player(canvas, i, j);
 				canvas->player->dir_x = -1.;

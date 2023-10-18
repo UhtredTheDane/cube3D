@@ -6,7 +6,7 @@
 #    By: anmande <anmande@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/17 15:45:22 by agengemb          #+#    #+#              #
-#    Updated: 2023/10/12 14:02:13 by anmande          ###   ########.fr        #
+#    Updated: 2023/10/15 14:12:10 by anmande          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,9 @@ LIBFT = ./libft/libft.a
 GET = ./get_next_line/get_next_line.a
 SRC = $(wildcard srcs/*.c)
 SRC2 = $(wildcard srcs/*/*.c)
+
 OBJ = $(SRC:.c=.o)
+//OBJ = $(patsubst %.cpp, $(OBJ_DIR)/%.o, $(SRCS))
 OBJ2 = $(SRC2:.c=.o)
 
 all: $(NAME)
