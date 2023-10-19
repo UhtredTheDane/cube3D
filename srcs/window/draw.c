@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:19:51 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/16 17:51:05 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/19 16:07:16 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,37 @@
 
 //#define PI 3.14159265359
 
+double	calcul_x_dist(t_canvas *canvas, double angle)
+{
+	double		ray_x;
+	int			distance;
+	int			i;
+
+	i = (int)canvas->player->x;
+	i = i % 30;
+	distance = 30 - i;
+	ray_x = canvas->player->x;
+	ray_x += cos(angle) * 30;
+	return (distance);
+}
+
+double	calcul_y_dist(t_canvas *canvas, double angle)
+{
+	double		ray_y;
+	int			distance;
+	int			i;
+
+	i = (int)canvas->player->y;
+	i = i % 30;
+	distance = 30 - i;
+	ray_y = canvas->player->y;
+	ray_y += cos(angle) * 30;
+	return (distance);
+}
+
 void    draw_dir_ray(t_canvas *canvas, double angle)
 {
-	int			i;
+	double		i;
 	double		ray_x;
 	double		ray_y;
 	double		dx;
@@ -27,7 +55,7 @@ void    draw_dir_ray(t_canvas *canvas, double angle)
 
     ray_x = canvas->player->x;
     ray_y = canvas->player->y;
-	i = 1;
+	i = 0;
 
     dx = cos(angle) * canvas->player->dir_x - sin(angle) * canvas->player->dir_y;
     dy = sin(angle) * canvas->player->dir_x + cos(angle) * canvas->player->dir_y;
@@ -37,10 +65,16 @@ void    draw_dir_ray(t_canvas *canvas, double angle)
     dy /= max_value;
     ray_x += dx;
     ray_y += dy;
-    while (i != 0)
+	double deltaDistX = sqrt(1 + pow(dy/dx, 2.)) * 30;
+	//printf("deltaDistX = %f\n", deltaDistX);
+	double deltaDistY = sqrt(1 + pow(dx/dy, 2.)) * 30;
+	//printf("deltaDistY = %f\n", deltaDistY);
+	double sideDistX = (canvas->player->x) * deltaDistX;
+	double sideDistY = canvas->player->y * deltaDistY;
+    while (i != calcul_x_dist(canvas, canvas->player->dir_x) && i != calcul_y_dist(canvas, canvas->player->dir_y))
     {
 		++i;
-		printf("%d\n", i);
+		//printf("%f\n", i);
 		if (ray_y > 0 && ray_y < canvas->map->line_nb * 30 && ray_x > 0 && ray_x < canvas->map->row_nb * 30)
 			my_mlx_pixel_put(canvas, ray_x, ray_y, 0x0000FF);
 		else 
@@ -51,16 +85,13 @@ void    draw_dir_ray(t_canvas *canvas, double angle)
 		ray_y += dy;
 	}
 	// calcul distance 
-	double deltaDistX = sqrt(1 + pow(dy/dx, 2.)) * 30;
-	printf("deltaDistX = %f\n", deltaDistX);
-	double deltaDistY = sqrt(1 + pow(dx/dy, 2.)) * 30;
-	printf("deltaDistY = %f\n", deltaDistY);
-	double sideDistX = (canvas->player->x) * deltaDistX;
-	double sideDistY = canvas->player->y * deltaDistY;
-
-	printf("sideDistX = %f\n", sideDistX);
-	printf("canvas->player->x = %f\n", canvas->player->x);
-	printf("sideDistY = %f\n", sideDistY);
+	(void)sideDistX;
+	(void)sideDistY;
+	//printf("sideDistX = %f\n", sideDistX);
+	// printf("canvas->player->x = %f\n", canvas->player->x);
+	// printf("====================================\n");
+	// printf("canvas->player->y = %f\n", canvas->player->y);
+	//printf("sideDistY = %f\n", sideDistY);
 }
 
 void	draw_ray(t_canvas *canvas)
