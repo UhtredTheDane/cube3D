@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:19:51 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/16 17:51:05 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/20 15:15:02 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 #define OFFSET 15
 
 //#define PI 3.14159265359
+
+// int	nb_draw(t_canvas *canvas ,double dir)
+// {
+// 	double	i;
+
+// 	i = dir / SQUARE;
+// }
 
 void    draw_dir_ray(t_canvas *canvas, double angle)
 {
@@ -39,14 +46,9 @@ void    draw_dir_ray(t_canvas *canvas, double angle)
     ray_y += dy;
 	// calcul distance 
 	double deltaDistX = sqrt(1 + pow(dy/dx, 2.));
-	printf("deltaDistX = %f\n", deltaDistX);
 	double deltaDistY = sqrt(1 + pow(dx/dy, 2.));
-	printf("deltaDistY = %f\n", deltaDistY);
-	int num_line = canvas->player->y / 30;
-	int num_row = canvas->player->x / 30;
-	printf("player pos x: %f\n", canvas->player->x);
-	printf("num row: %d et num line: %d\n", num_row, num_line);
-	printf("canvas->player->x: %f\n", canvas->player->x);
+	int num_line = canvas->player->y /SQUARE;
+	int num_row = canvas->player->x /SQUARE;
 	double sideDistX;
 	double sideDistY;
 	int stepX;
@@ -55,35 +57,38 @@ void    draw_dir_ray(t_canvas *canvas, double angle)
 	if (dx < 0)
 	{
 		stepX = -1;
-		sideDistX = (canvas->player->x - num_row * 30) * deltaDistX;
+		sideDistX = (canvas->player->x - num_row *SQUARE) * deltaDistX;
 	}
 	else
 	{
 		stepX = 1;
-		sideDistX = ((num_row + 1) * 30 - canvas->player->x) * deltaDistX;
+		sideDistX = ((num_row + 1) * SQUARE - canvas->player->x) * deltaDistX;
 	}
 
 	if (dy < 0)
 	{
 		stepY = -1;
-		sideDistY = (canvas->player->y - num_line * 30) * deltaDistY;
+		sideDistY = (canvas->player->y - num_line *SQUARE) * deltaDistY;
 	}
 	else
 	{
 		stepY = 1;
-		sideDistY = ((num_line + 1) * 30 - canvas->player->y) * deltaDistY;
+		sideDistY = ((num_line + 1) *SQUARE - canvas->player->y) * deltaDistY;
 	}
+
+	printf("sideDistX = %f\n", sideDistX);
+	printf("sideDistY = %f\n", sideDistY);
 	
 	while (1)
 	{
 		if (sideDistX < sideDistY)
         {
-          sideDistX += deltaDistX;
+          sideDistX += deltaDistX * 30;
           num_row+= stepX;
         }
         else
         {
-          sideDistY += deltaDistY;
+          sideDistY += deltaDistY * 30;
 		  
           num_line += stepY;
         }
@@ -94,20 +99,13 @@ void    draw_dir_ray(t_canvas *canvas, double angle)
 			break;
 		}
 	}
-	while (1)
+	while (i <= sideDistX && i <= sideDistY)
     {
-		++i;
-		if (ray_y > 0 && ray_y < canvas->map->line_nb * 30 && ray_x > 0 && ray_x < canvas->map->row_nb * 30)
-			my_mlx_pixel_put(canvas, ray_x, ray_y, 0x0000FF);
-		else 
-			break;
-		//if (canvas->map->block_map[(int)(ray_y / 30)][(int)(ray_x / 30)].type == '1')
-		//	i = 0;
+		i++;
+		my_mlx_pixel_put(canvas, ray_x, ray_y, 0x0000FF);
 		ray_x += dx;
 		ray_y += dy;
 	}
-	printf("sideDistX = %f\n", sideDistX);
-	printf("sideDistY = %f\n", sideDistY);
 }
 
 void	draw_ray(t_canvas *canvas)
@@ -152,7 +150,7 @@ void	my_mlx_pixel_put(t_canvas *canvas, int x, int y, int color)
 
 void	new_image(t_canvas *canvas)
 {
-	canvas->img = mlx_new_image(canvas->mlx, canvas->map->row_nb * 30, canvas->map->line_nb * 30);
+	canvas->img = mlx_new_image(canvas->mlx, canvas->map->row_nb *SQUARE, canvas->map->line_nb *SQUARE);
 	canvas->addr = mlx_get_data_addr(canvas->img, &canvas->bpp, &canvas->line_len, &canvas->endian);
 }
 
@@ -161,13 +159,13 @@ void	draw_squar(t_canvas *canvas, int color, int x_map, int y_map)
 	int	i;
 	int	j;
 
-	i = x_map * 30;
-	while (i < (x_map + 1) * 30)
+	i = x_map *SQUARE;
+	while (i < (x_map + 1) *SQUARE)
 	{
-		j = y_map * 30;
-		while (j < (y_map + 1) * 30)
+		j = y_map *SQUARE;
+		while (j < (y_map + 1) *SQUARE)
 		{
-			if (i == x_map * 30 || i == (x_map + 1) * 30 - 1 || j == y_map * 30 || j == (y_map + 1) * 30 - 1)
+			if (i == x_map *SQUARE || i == (x_map + 1) *SQUARE - 1 || j == y_map *SQUARE || j == (y_map + 1) *SQUARE - 1)
 				my_mlx_pixel_put(canvas, j, i, 0x000000);
 			else
 			my_mlx_pixel_put(canvas, j, i, color);
@@ -181,8 +179,8 @@ void init_pos_player(t_canvas *canvas, size_t i, size_t j)
 {
 	canvas->map->block_map[i][j].type = '0';	
 	draw_squar(canvas, 0x808080, i, j);
-	canvas->player->x = j * 30;
-	canvas->player->y = i * 30;
+	canvas->player->x = j *SQUARE;
+	canvas->player->y = i *SQUARE;
 }
 
 void	draw_map(t_canvas *canvas)
