@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:39:39 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/15 17:32:55 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/20 14:48:29 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define PRESS_S 115
 # define PRESS_A 97
 # define PRESS_D 100
+# define SQUARE 30
 
 typedef struct s_canvas t_canvas;
 typedef struct s_player
