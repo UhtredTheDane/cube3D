@@ -6,78 +6,55 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 23:25:28 by agengemb          #+#    #+#             */
-/*   Updated: 2023/10/19 16:21:34 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/04 14:39:01 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/loading.h"
 
-// int get_textures_colors(void *mlx, t_map *map, int map_fd)
-// {
-//     char *line;
-
-//     line = trim_backspace(map_fd);
-//     if (line)
-//     {
-//         line = trim_space(line, 0);
-//         if (ft_strncmp(line, "F ", 2) == 0)
-//         {
-//             if(!loading_color(map, line, 'F'))
-//                 return (0);
-//         }
-//         else if (ft_strncmp(line, "C ", 2) == 0)
-//         {
-//             if(!loading_color(map, line, 'C'))
-//                 return (0);
-//         }
-//         else if (ft_strncmp(line, "NO ", 3) == 0)
-//         {
-//             if (!run_loading_texture(mlx, map, line, 0))
-//                 return (0);
-//         }
-//         else if (ft_strncmp(line, "SO ", 3) == 0)
-//         {
-//             if (!run_loading_texture(mlx, map, line, 1))
-//                 return (0);
-//         }
-//         else if (ft_strncmp(line, "WE ", 3) == 0)
-//         {
-//             if (!run_loading_texture(mlx, map, line, 2))
-//                 return (0);
-//         }
-//         else if (ft_strncmp(line, "EA ", 3) == 0)
-//         {
-//             if (!run_loading_texture(mlx, map, line, 3))
-//                 return (0);
-//         }
-//         else
-//             return (0);
-//         return (1);
-//     }
-//     return (0);
-// }
-
-int	get_textures_colors(void *mlx, t_map *map, int map_fd)
+int get_textures_colors(void *mlx, t_map *map, int map_fd)
 {
-	char	*line;
+    char *line;
 
-	line = trim_backspace(map_fd);
-	if (!line)
-		return (0);
-	line = trim_space(line, 0);
-	if (ft_strncmp(line, "F ", 2) == 0 || ft_strncmp(line, "C ", 2) == 0)
-		return (loading_color(map, line, line[0]));
-	else if (ft_strncmp(line, "NO ", 3) == 0)
-		return (run_loading_texture(mlx, map, line, 0));
-	else if (ft_strncmp(line, "SO ", 3) == 0)
-		return (run_loading_texture(mlx, map, line, 1));
-	else if (ft_strncmp(line, "WE ", 3) == 0)
-		return (run_loading_texture(mlx, map, line, 2));
-	else if (ft_strncmp(line, "EA ", 3) == 0)
-		return (run_loading_texture(mlx, map, line, 3));
-	else
-		return (0);
-	return (1);
+    line = trim_backspace(map_fd);
+    if (line)
+    {
+        line = trim_space(line, 0);
+        if (ft_strncmp(line, "F ", 2) == 0)
+        {
+            if(!loading_color(map, line, 'F'))
+                return (0);
+        }
+        else if (ft_strncmp(line, "C ", 2) == 0)
+        {
+            if(!loading_color(map, line, 'C'))
+                return (0);
+        }
+        else if (ft_strncmp(line, "NO ", 3) == 0)
+        {
+            if (!run_loading_texture(mlx, map, line, 0))
+                return (0);
+        }
+        else if (ft_strncmp(line, "SO ", 3) == 0)
+        {
+            if (!run_loading_texture(mlx, map, line, 1))
+                return (0);
+        }
+        else if (ft_strncmp(line, "WE ", 3) == 0)
+        {
+            if (!run_loading_texture(mlx, map, line, 2))
+                return (0);
+        }
+        else if (ft_strncmp(line, "EA ", 3) == 0)
+        {
+            if (!run_loading_texture(mlx, map, line, 3))
+                return (0);
+        }
+        else
+            return (0);
+        return (1);
+    }
+    return (0);
 }
  
 t_list *get_map(t_map *map, int map_fd)
