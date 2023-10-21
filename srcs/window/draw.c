@@ -23,112 +23,114 @@
 // 	i = dir / SQUARE;
 // }
 
-/*
-double cast_ray()
+double get_side_distX(double player_posX, double dx, double deltaDistX, int *stepX)
 {
-	double deltaDistX;
-	double deltaDistY;
-
-	deltaDistX = sqrt(1 + pow(dy/dx, 2.));
-	deltaDistY = sqrt(1 + pow(dx/dy, 2.));
-
-}*/
-
-void    draw_dir_ray(t_canvas *canvas, double angle)
-{
-	int			i;
-	double		ray_x;
-	double		ray_y;
-	double		dx;
-	double		dy;
-	double		max_value;
-
-    ray_x = canvas->player->x;
-    ray_y = canvas->player->y;
-	i = 1;
-	(void) angle;
-//    dx = cos(angle) * canvas->player->dir_x - sin(angle) * canvas->player->dir_y;
-//    dy = sin(angle) * canvas->player->dir_x + cos(angle) * canvas->player->dir_y;
-	dx = canvas->player->dir_x;
-	dy = canvas->player->dir_y;
-    max_value = fmax(fabs(dx), fabs(dy));
-    dx /= max_value;
-    dy /= max_value;
-
-	// calcul distance 
-	double deltaDistX = sqrt(1 + pow(dy/dx, 2.));
-	double deltaDistY = sqrt(1 + pow(dx/dy, 2.));
-	int num_line = canvas->player->y / SQUARE;
-	int num_row = canvas->player->x / SQUARE;
 	double sideDistX;
-	double sideDistY;
-	int stepX;
-	int stepY;
-
+	int num_row;
+	
+	num_row = trunc(player_posX / SQUARE);
 	if (dx < 0)
 	{
-		stepX = -1;
-		sideDistX = (canvas->player->x - num_row *SQUARE) * deltaDistX;
+		*stepX = -1;
+		sideDistX = (player_posX - num_row * SQUARE) * deltaDistX;
 	}
 	else
 	{
-		stepX = 1;
-		sideDistX = ((num_row + 1) * SQUARE - canvas->player->x) * deltaDistX;
+		*stepX = 1;
+		sideDistX = ((num_row + 1) * SQUARE - player_posX) * deltaDistX;
 	}
+	return (sideDistX);
+}
 
+double get_side_distY(double player_posY, double dy, double deltaDistY, int *stepY)
+{
+	double sideDistY;
+	int num_line;
+	
+	num_line = trunc(player_posY / SQUARE);
 	if (dy < 0)
 	{
-		stepY = -1;
-		sideDistY = (canvas->player->y - num_line *SQUARE) * deltaDistY;
+		*stepY = -1;
+		sideDistY = (player_posY - num_line * SQUARE) * deltaDistY;
 	}
 	else
 	{
-		stepY = 1;
-		sideDistY = ((num_line + 1) * SQUARE - canvas->player->y) * deltaDistY;
+		*stepY = 1;
+		sideDistY = ((num_line + 1) * SQUARE - player_posY) * deltaDistY;
 	}
-	int side = 0;
+	return (sideDistY);
+}
+
+double calculate_wall_dist(t_canvas *canvas, double deltaDistX, double deltaDistY)
+{
+	int side;
+	int num_line;
+	int num_row;
+	int stepX;
+	int stepY;
+	double sideDistX;
+	double sideDistY;
+
+	sideDistX = get_side_distX(canvas->player->x, canvas->player->dir_x, deltaDistX, &stepX);
+	sideDistY = get_side_distY(canvas->player->y, canvas->player->dir_y, deltaDistY, &stepY);
+	num_line = trunc(canvas->player->y / SQUARE);
+	num_row = trunc(canvas->player->x / SQUARE);
+	side = 0;
 	while (1)
 	{
-
-		printf("num_line: %d et num_row: %d\n", num_line, num_row);
 		if (sideDistX < sideDistY)
         {
-			printf("entre sideDistX\n");
 			sideDistX += deltaDistX * 30.;
-          		num_row += stepX;
+          	num_row += stepX;
 			side = 0;
         }
         else
         {
-				printf("entre sideDistY\n");
-          		sideDistY += deltaDistY * 30.; 
-          		num_line += stepY;
-				side = 1;
+          	sideDistY += deltaDistY * 30.; 
+          	num_line += stepY;
+			side = 1;
 		}
-        	//Check if ray has hit a wall
-        	if (canvas->map->block_map[num_line][num_row].type == '1')
-		{	
-			printf("mur ou sa hit line: %d et row: %d\n", num_line, num_row);
+        if (canvas->map->block_map[num_line][num_row].type == '1')
 			break;
-		}
 	}
-
-	double total;
-	 if(side == 0) 
-	 	total = (sideDistX - deltaDistX * 30);
+	if(side == 0) 
+	 	return (sideDistX - deltaDistX * 30);
     else          
-		total = (sideDistY - deltaDistY * 30);
-	printf("total = %f\n", total);
+		return (sideDistY - deltaDistY * 30);
+}
+
+double get_wall_dist(t_canvas *canvas)
+{
+	double deltaDistX;
+	double deltaDistY;
+
+	deltaDistX = sqrt(1 + pow(canvas->player->dir_y/canvas->player->dir_x, 2.));
+	deltaDistY = sqrt(1 + pow(canvas->player->dir_x/canvas->player->dir_y, 2.));
+	return (calculate_wall_dist(canvas, deltaDistX, deltaDistY));
+}
+
+void    draw_ray(t_canvas *canvas)
+{
+	int			i;
+	double		ray_x;
+	double		ray_y;
+	double		dist_mur;
 	
-	while (i < (int)total)
+	dist_mur = get_wall_dist(canvas);
+	printf("total = %f\n", dist_mur);
+	ray_x = canvas->player->x;
+    ray_y = canvas->player->y;
+	i = 0;
+	while (i < trunc(dist_mur))
     {
 		i++;
 		my_mlx_pixel_put(canvas, ray_x, ray_y, 0x0000FF);
-		ray_x += dx;
-		ray_y += dy;
+		ray_x += canvas->player->dir_x;
+		ray_y += canvas->player->dir_y;
 	}
 }
 
+/*
 void	draw_ray(t_canvas *canvas)
 {
 	double	angle;
@@ -136,13 +138,13 @@ void	draw_ray(t_canvas *canvas)
 	//angle = canvas->player->angle;
 	angle = 0;
 	draw_dir_ray(canvas, angle);
-	/*while (angle <= M_PI / 6)
+	while (angle <= M_PI / 6)
 	{
 	 	draw_dir_ray(canvas, angle);
 	 	draw_dir_ray(canvas, -angle);
 		angle += M_PI / 72;
-	}*/
-}
+	}
+}*/
 
 void	draw_player(t_canvas *canvas)
 {

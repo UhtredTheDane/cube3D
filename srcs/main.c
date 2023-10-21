@@ -70,7 +70,6 @@ int	main(int argc, char **argv)
 	mlx_hook(canvas->window, 2, (1L<<0), move_player, canvas);
 	mlx_hook(canvas->window, 17, 0, ft_close_win, canvas);
 	new_image(canvas);
-	draw_map(canvas);
 	move_player(0, canvas);
 	mlx_loop(canvas->mlx);
 	destroy_canvas(canvas);

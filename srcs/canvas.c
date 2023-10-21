@@ -55,6 +55,5 @@ t_canvas	*create_canvas(char *file_name)
 		free(new_canvas);
 		return (NULL);
 	}
-//	new_canvas->window2 = mlx_new_window(new_canvas->mlx, 480, 240, "cube3D2");
 	return (new_canvas);
 }
