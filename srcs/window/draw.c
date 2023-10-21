@@ -23,6 +23,17 @@
 // 	i = dir / SQUARE;
 // }
 
+/*
+double cast_ray()
+{
+	double deltaDistX;
+	double deltaDistY;
+
+	deltaDistX = sqrt(1 + pow(dy/dx, 2.));
+	deltaDistY = sqrt(1 + pow(dx/dy, 2.));
+
+}*/
+
 void    draw_dir_ray(t_canvas *canvas, double angle)
 {
 	int			i;
@@ -38,20 +49,17 @@ void    draw_dir_ray(t_canvas *canvas, double angle)
 	(void) angle;
 //    dx = cos(angle) * canvas->player->dir_x - sin(angle) * canvas->player->dir_y;
 //    dy = sin(angle) * canvas->player->dir_x + cos(angle) * canvas->player->dir_y;
-
-
 	dx = canvas->player->dir_x;
 	dy = canvas->player->dir_y;
     max_value = fmax(fabs(dx), fabs(dy));
     dx /= max_value;
     dy /= max_value;
-    ray_x += dx;
-    ray_y += dy;
+
 	// calcul distance 
 	double deltaDistX = sqrt(1 + pow(dy/dx, 2.));
 	double deltaDistY = sqrt(1 + pow(dx/dy, 2.));
-	int num_line = canvas->player->y /SQUARE;
-	int num_row = canvas->player->x /SQUARE;
+	int num_line = canvas->player->y / SQUARE;
+	int num_row = canvas->player->x / SQUARE;
 	double sideDistX;
 	double sideDistY;
 	int stepX;
@@ -78,22 +86,24 @@ void    draw_dir_ray(t_canvas *canvas, double angle)
 		stepY = 1;
 		sideDistY = ((num_line + 1) * SQUARE - canvas->player->y) * deltaDistY;
 	}
+	int side = 0;
 	while (1)
 	{
 
 		printf("num_line: %d et num_row: %d\n", num_line, num_row);
 		if (sideDistX < sideDistY)
-        	{
+        {
 			printf("entre sideDistX\n");
 			sideDistX += deltaDistX * 30.;
           		num_row += stepX;
-        	}
-        	else
-        	{
-			printf("entre sideDistY\n");
-		
-          			sideDistY += deltaDistY * 30.; 
+			side = 0;
+        }
+        else
+        {
+				printf("entre sideDistY\n");
+          		sideDistY += deltaDistY * 30.; 
           		num_line += stepY;
+				side = 1;
 		}
         	//Check if ray has hit a wall
         	if (canvas->map->block_map[num_line][num_row].type == '1')
@@ -102,19 +112,15 @@ void    draw_dir_ray(t_canvas *canvas, double angle)
 			break;
 		}
 	}
-	printf("posX: %f\n", canvas->player->x);
-	printf("sideDistX = %f\n", sideDistX);
-	printf("sideDistY = %f\n", sideDistY);
-	double total;
 
-	sideDistX -= deltaDistX * 30;
-	sideDistY -= deltaDistY * 30;
-	if (sideDistX < sideDistY)
-		total = sideDistX;
-	else
-		total = sideDistY;
-	printf("total: %f\n", total);
-	while (i <= 30)
+	double total;
+	 if(side == 0) 
+	 	total = (sideDistX - deltaDistX * 30);
+    else          
+		total = (sideDistY - deltaDistY * 30);
+	printf("total = %f\n", total);
+	
+	while (i < (int)total)
     {
 		i++;
 		my_mlx_pixel_put(canvas, ray_x, ray_y, 0x0000FF);
