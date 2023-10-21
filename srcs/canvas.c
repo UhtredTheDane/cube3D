@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 23:04:12 by agengemb          #+#    #+#             */
-/*   Updated: 2023/10/20 14:25:19 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/20 17:01:08 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,6 @@ t_canvas	*create_canvas(char *file_name)
 		free(new_canvas);
 		return (NULL);
 	}
-	new_canvas->window2 = mlx_new_window(new_canvas->mlx, 480, 240, "cube3D2");
+//	new_canvas->window2 = mlx_new_window(new_canvas->mlx, 480, 240, "cube3D2");
 	return (new_canvas);
 }

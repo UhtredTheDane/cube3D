@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 14:58:12 by agengemb          #+#    #+#             */
-/*   Updated: 2023/10/15 17:22:08 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/21 00:32:24 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int	main(int argc, char **argv)
 	if (!canvas)
 		return (0);
 	canvas->player->w = 0;
+	canvas->player->angle = 0;
 	mlx_hook(canvas->window, 2, (1L<<0), move_player, canvas);
 	mlx_hook(canvas->window, 17, 0, ft_close_win, canvas);
 	new_image(canvas);

@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:19:51 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/20 15:15:02 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/21 01:57:33 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,13 @@ void    draw_dir_ray(t_canvas *canvas, double angle)
     ray_x = canvas->player->x;
     ray_y = canvas->player->y;
 	i = 1;
+	(void) angle;
+//    dx = cos(angle) * canvas->player->dir_x - sin(angle) * canvas->player->dir_y;
+//    dy = sin(angle) * canvas->player->dir_x + cos(angle) * canvas->player->dir_y;
 
-    dx = cos(angle) * canvas->player->dir_x - sin(angle) * canvas->player->dir_y;
-    dy = sin(angle) * canvas->player->dir_x + cos(angle) * canvas->player->dir_y;
 
+	dx = canvas->player->dir_x;
+	dy = canvas->player->dir_y;
     max_value = fmax(fabs(dx), fabs(dy));
     dx /= max_value;
     dy /= max_value;
@@ -73,33 +76,45 @@ void    draw_dir_ray(t_canvas *canvas, double angle)
 	else
 	{
 		stepY = 1;
-		sideDistY = ((num_line + 1) *SQUARE - canvas->player->y) * deltaDistY;
+		sideDistY = ((num_line + 1) * SQUARE - canvas->player->y) * deltaDistY;
 	}
-
-	printf("sideDistX = %f\n", sideDistX);
-	printf("sideDistY = %f\n", sideDistY);
-	
 	while (1)
 	{
+
+		printf("num_line: %d et num_row: %d\n", num_line, num_row);
 		if (sideDistX < sideDistY)
-        {
-          sideDistX += deltaDistX * 30;
-          num_row+= stepX;
-        }
-        else
-        {
-          sideDistY += deltaDistY * 30;
-		  
-          num_line += stepY;
-        }
-        //Check if ray has hit a wall
-        if (canvas->map->block_map[num_line][num_row].type == '1') 
-		{
-			printf("case ou sa hit line: %d et row: %d\n", num_line, num_row);
+        	{
+			printf("entre sideDistX\n");
+			sideDistX += deltaDistX * 30.;
+          		num_row += stepX;
+        	}
+        	else
+        	{
+			printf("entre sideDistY\n");
+		
+          			sideDistY += deltaDistY * 30.; 
+          		num_line += stepY;
+		}
+        	//Check if ray has hit a wall
+        	if (canvas->map->block_map[num_line][num_row].type == '1')
+		{	
+			printf("mur ou sa hit line: %d et row: %d\n", num_line, num_row);
 			break;
 		}
 	}
-	while (i <= sideDistX && i <= sideDistY)
+	printf("posX: %f\n", canvas->player->x);
+	printf("sideDistX = %f\n", sideDistX);
+	printf("sideDistY = %f\n", sideDistY);
+	double total;
+
+	sideDistX -= deltaDistX * 30;
+	sideDistY -= deltaDistY * 30;
+	if (sideDistX < sideDistY)
+		total = sideDistX;
+	else
+		total = sideDistY;
+	printf("total: %f\n", total);
+	while (i <= 30)
     {
 		i++;
 		my_mlx_pixel_put(canvas, ray_x, ray_y, 0x0000FF);
@@ -112,6 +127,7 @@ void	draw_ray(t_canvas *canvas)
 {
 	double	angle;
 
+	//angle = canvas->player->angle;
 	angle = 0;
 	draw_dir_ray(canvas, angle);
 	/*while (angle <= M_PI / 6)
