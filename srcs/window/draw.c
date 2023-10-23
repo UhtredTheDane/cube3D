@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:19:51 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/23 16:29:05 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/23 17:03:37 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,13 @@ double get_wall_dist(t_canvas *canvas, t_ray *ray)
 		return (ray->sideDistY - ray->deltaDistY * 30);
 }
 
-void    draw_dir_ray(t_canvas *canvas, double angle)
+double	draw_dir_ray(t_canvas *canvas, double angle)
 {
 	int			i;
 	double		ray_x;
 	double		ray_y;
 	double		dist_mur;
-	t_ray	ray;
+	t_ray		ray;
 
 	init_ray(&ray, canvas, angle);
 	dist_mur = get_wall_dist(canvas, &ray);
@@ -104,24 +104,29 @@ void    draw_dir_ray(t_canvas *canvas, double angle)
     ray_y = canvas->player->y;
 	i = 0;
 	while (i < trunc(dist_mur))
-    {
+	{
 		i++;
 		my_mlx_pixel_put(canvas, ray_x, ray_y, 0x0000FF);
 		ray_x += ray.dir_x;
 		ray_y += ray.dir_y;
 	}
+	return (dist_mur);
 }
 
 void	draw_ray(t_canvas *canvas)
 {
 	double	angle;
+	int		i;
+	int		j;
 
 	angle = 0;
+	i = 3840 / 2;
+	j = i + 1;
 	while (angle <= M_PI / 6)
 	{
-	 	draw_dir_ray(canvas, angle);
+	 	win_3d(draw_dir_ray(canvas, angle), canvas, i--);
 		if (angle != 0)
-			draw_dir_ray(canvas, -angle);
+			win_3d (draw_dir_ray(canvas, -angle), canvas, j++);
 		angle += M_PI / 3840;
 	}
 }
