@@ -14,15 +14,6 @@
 #include <math.h>
 #define OFFSET 15
 
-//#define PI 3.14159265359
-
-// int	nb_draw(t_canvas *canvas ,double dir)
-// {
-// 	double	i;
-
-// 	i = dir / SQUARE;
-// }
-
 double get_side_distX(t_ray *ray, double player_posX)
 {
 	double sideDistX;
@@ -188,19 +179,57 @@ void	draw_squar(t_canvas *canvas, int color, int x_map, int y_map)
 	}
 }
 
-void init_pos_player(t_canvas *canvas, size_t i, size_t j)
+void init_pos_player(t_canvas *canvas, size_t i, size_t j, char dir)
 {
 	canvas->map->block_map[i][j].type = '0';	
 	draw_squar(canvas, 0x808080, i, j);
 	canvas->player->x = j * SQUARE;
 	canvas->player->y = i * SQUARE;
+	if (dir == 'N')
+	{
+		canvas->player->dir_x = 0;
+		canvas->player->dir_y = -1;
+	}
+	else if (dir == 'S')
+	{
+		canvas->player->dir_x = 0;
+		canvas->player->dir_y = 1;
+	}
+	else if (dir == 'E')
+	{
+		canvas->player->dir_x = 1;
+		canvas->player->dir_y = 0;
+	}
+	else
+	{
+		canvas->player->dir_x = -1.;
+		canvas->player->dir_y = 0.;
+	}
+}
+
+void detect_block_type(t_canvas *canvas, size_t i, size_t j)
+{
+	char block_type;
+
+	block_type = canvas->map->block_map[i][j].type;
+	if (block_type == '1')
+		draw_squar(canvas, 0xFF0000, i, j);
+	else if (block_type == '0' || block_type == ' ')
+		draw_squar(canvas, 0x808080, i, j);
+	else if (block_type == 'N')
+		init_pos_player(canvas, i, j, 'N');
+	else if (block_type == 'S')
+		init_pos_player(canvas, i, j, 'S');
+	else if (block_type == 'E')
+		init_pos_player(canvas, i, j, 'E');
+	else if (block_type == 'W')
+		init_pos_player(canvas, i, j, 'W');
 }
 
 void	draw_map(t_canvas *canvas)
 {
 	size_t	i;
 	size_t 	j;
-	char block_type;
 
 	i = 0;
 	while (i < canvas->map->line_nb)
@@ -208,37 +237,7 @@ void	draw_map(t_canvas *canvas)
 		j = 0;
 		while (j < canvas->map->row_nb)
 		{
-			block_type = canvas->map->block_map[i][j].type;
-			if (block_type == '1')
-				draw_squar(canvas, 0xFF0000, i, j);
-			else if (block_type == '0' || block_type == ' ')
-				draw_squar(canvas, 0x808080, i, j);
-			else if (block_type == 'N')
-			{
-				init_pos_player(canvas, i, j);
-				canvas->player->dir_x = 0;
-				canvas->player->dir_y = -1;
-			}
-			else if (block_type == 'S')
-			{
-				init_pos_player(canvas, i, j);
-				canvas->player->dir_x = 0;
-				canvas->player->dir_y = 1;
-
-				init_pos_player(canvas, i, j);
-			}
-			else if (block_type == 'E')
-			{
-				init_pos_player(canvas, i, j);
-				canvas->player->dir_x = 1;
-				canvas->player->dir_y = 0;
-			}
-			else if (block_type == 'W')
-			{	
-				init_pos_player(canvas, i, j);
-				canvas->player->dir_x = -1.;
-				canvas->player->dir_y = 0.;
-			}
+			detect_block_type(canvas, i, j);
 			j++;
 		}
 		i++;
