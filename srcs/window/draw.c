@@ -65,13 +65,12 @@ void init_ray(t_ray *ray, t_canvas *canvas, double angle)
 {
 	ray->dir_x = canvas->player->dir_x * cos(angle) - canvas->player->dir_y * sin(angle);
 	ray->dir_y = canvas->player->dir_x * sin(angle) + canvas->player->dir_y * cos(angle);
-	ray->deltaDistX = sqrt(1 + pow(canvas->player->dir_y/canvas->player->dir_x, 2.));
-	ray->deltaDistY = sqrt(1 + pow(canvas->player->dir_x/canvas->player->dir_y, 2.));
+	ray->deltaDistX = sqrt(1 + pow(ray->dir_y/ray->dir_x, 2.));
+	ray->deltaDistY = sqrt(1 + pow(ray->dir_x/ray->dir_y, 2.));
 	ray->num_line_hit = trunc(canvas->player->y / SQUARE);
 	ray->num_row_hit = trunc(canvas->player->x / SQUARE);
 	ray->sideDistX = get_side_distX(ray, canvas->player->x);
 	ray->sideDistY = get_side_distY(ray, canvas->player->y);
-	ray->side = 0;
 }
 
 double get_wall_dist(t_canvas *canvas, t_ray *ray)
@@ -109,7 +108,7 @@ void    draw_dir_ray(t_canvas *canvas, double angle)
 
 	init_ray(&ray, canvas, angle);
 	dist_mur = get_wall_dist(canvas, &ray);
-	printf("total = %f\n", dist_mur);
+	printf("angle: %f, total = %f\n", angle, dist_mur);
 	ray_x = canvas->player->x;
     ray_y = canvas->player->y;
 	i = 0;
@@ -117,8 +116,8 @@ void    draw_dir_ray(t_canvas *canvas, double angle)
     {
 		i++;
 		my_mlx_pixel_put(canvas, ray_x, ray_y, 0x0000FF);
-		ray_x += canvas->player->dir_x;
-		ray_y += canvas->player->dir_y;
+		ray_x += ray.dir_x;
+		ray_y += ray.dir_y;
 	}
 }
 
@@ -126,13 +125,13 @@ void	draw_ray(t_canvas *canvas)
 {
 	double	angle;
 
-	//angle = canvas->player->angle;
 	angle = 0;
 	while (angle <= M_PI / 6)
 	{
 	 	draw_dir_ray(canvas, angle);
-	 	draw_dir_ray(canvas, angle);
-		angle += M_PI / 72;
+		if (angle != 0)
+			draw_dir_ray(canvas, -angle);
+		angle += M_PI / 3840;
 	}
 }
 
@@ -164,7 +163,7 @@ void	my_mlx_pixel_put(t_canvas *canvas, int x, int y, int color)
 
 void	new_image(t_canvas *canvas)
 {
-	canvas->img = mlx_new_image(canvas->mlx, canvas->map->row_nb *SQUARE, canvas->map->line_nb *SQUARE);
+	canvas->img = mlx_new_image(canvas->mlx, canvas->map->row_nb * SQUARE, canvas->map->line_nb * SQUARE);
 	canvas->addr = mlx_get_data_addr(canvas->img, &canvas->bpp, &canvas->line_len, &canvas->endian);
 }
 
