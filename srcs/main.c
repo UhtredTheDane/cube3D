@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 14:58:12 by agengemb          #+#    #+#             */
-/*   Updated: 2023/10/23 16:58:31 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/23 18:27:35 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	main(int argc, char **argv)
 	size_t		index_format;
 	char		*format;
 	t_canvas	*canvas;
+	t_win		*win;
 
 	format = ".cub";
 	if (argc != 2)
@@ -30,6 +31,9 @@ int	main(int argc, char **argv)
 		printf("Wrong format\n");
 		return (2);
 	}
+	win = init_window();
+	if (!win)
+		return (0);
 	canvas = create_canvas(argv[1]);
 	if (!canvas)
 		return (0);
