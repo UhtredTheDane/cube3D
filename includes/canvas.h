@@ -18,10 +18,7 @@ typedef struct s_canvas
 {
 	void		*mlx;
 	void		*window;
-<<<<<<< HEAD
-=======
 	void		*window2;
->>>>>>> amande
 	void		*img;
 	char		*addr;
 	int			bpp;
@@ -30,10 +27,7 @@ typedef struct s_canvas
 	char		*path;
 	t_map		*map;
 	int			fd;
-<<<<<<< HEAD
-=======
 	double		dist;
->>>>>>> amande
 	t_player	*player;
 }			t_canvas;
 
