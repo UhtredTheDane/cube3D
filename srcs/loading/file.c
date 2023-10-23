@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 23:25:28 by agengemb          #+#    #+#             */
-/*   Updated: 2023/10/23 14:09:18 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/23 16:28:13 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,8 @@ int	get_textures_colors(void *mlx, t_map *map, int map_fd)
 		return (run_loading_texture(mlx, map, line, 2));
 	else if (ft_strncmp(line, "EA ", 3) == 0)
 		return (run_loading_texture(mlx, map, line, 3));
-	//else
 	return (0);
-	//return (1);
+
 }
  
 t_list *get_map(t_map *map, int map_fd)

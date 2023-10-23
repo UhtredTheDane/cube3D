@@ -16,6 +16,7 @@
 
 # include "main.h"
 # include <stddef.h>
+# include "ray.h"
 
 typedef struct s_canvas t_canvas;
 

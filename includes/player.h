@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:39:39 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/23 14:06:13 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/23 16:25:34 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_player
 	double	dir_y;
 	double	plane_x;
 	double	plane_y;
+	double angle;
 	int		w;
 	int		a;
 	int		s;
