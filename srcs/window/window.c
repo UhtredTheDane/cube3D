@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:29:19 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/12 14:23:30 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/23 14:05:05 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_close_win(t_canvas *canvas)
 {
-	
+
 	exit (0);
 	(void)canvas;
 }

@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:37:20 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/14 20:24:19 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/10/23 14:04:55 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,31 +34,30 @@ int	move_player(int key, t_canvas *canvas)
 		mlx_loop_end(canvas->mlx);
 		exit (0);
 	}
-	if (key == PRESS_W)
+	if (key == PRESS_W || key == PRESS_ARROW_UP)
 	{
-		canvas->player->y += canvas->player->dir_y * 5;
-    		canvas->player->x += canvas->player->dir_x * 5;
-    }
-    if (key == PRESS_S)
-	{	
-		canvas->player->y -= canvas->player->dir_y * 5;
-    		canvas->player->x -= canvas->player->dir_x * 5;
+		canvas->player->y += canvas->player->dir_y * 2.0;
+		canvas->player->x += canvas->player->dir_x * 2.0;
 	}
-    if (key == PRESS_A)
-    {
-	    canvas->player->y -= canvas->player->dir_x * 5;
-    	canvas->player->x += canvas->player->dir_y * 5;
-
-    }
-    if (key == PRESS_D)
-    {
-	    canvas->player->y += canvas->player->dir_x * 5;
-    	canvas->player->x -= canvas->player->dir_y * 5;
-    }
-    if (key == XK_q)
-		rotate_player(canvas, PI / -6);
-    if (key == XK_e)
-		rotate_player(canvas, PI / 6);
-    draw_map(canvas);
-    return (0);
+	if (key == PRESS_S || key == PRESS_ARROW_DOWN)
+	{	
+		canvas->player->y -= canvas->player->dir_y * 2.0;
+		canvas->player->x -= canvas->player->dir_x * 2.0;
+	}
+	if (key == PRESS_A || key == PRESS_ARROW_LEFT)
+	{
+		canvas->player->y -= canvas->player->dir_x * 2.0;
+		canvas->player->x += canvas->player->dir_y * 2.0;
+	}
+	if (key == PRESS_D || key == PRESS_ARROW_RIGHT)
+	{
+		canvas->player->y += canvas->player->dir_x * 2.0;
+		canvas->player->x -= canvas->player->dir_y * 2.0;
+	}
+	if (key == XK_q)
+		rotate_player(canvas, PI / -16);
+	if (key == XK_e)
+		rotate_player(canvas, PI / 16);
+	draw_map(canvas);
+	return (0);
 }
