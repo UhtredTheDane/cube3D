@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:19:51 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/20 15:15:02 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/23 13:35:14 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,12 @@
 
 //#define PI 3.14159265359
 
-// int	nb_draw(t_canvas *canvas ,double dir)
+// int	distance_draw(t_canvas *canvas ,double dist)
 // {
-// 	double	i;
+// 	int		i;
 
-// 	i = dir / SQUARE;
+// 	i = canvas->player->x / SQUARE;
+// 	canvas->dist = dist * ;
 // }
 
 void    draw_dir_ray(t_canvas *canvas, double angle)
@@ -34,10 +35,10 @@ void    draw_dir_ray(t_canvas *canvas, double angle)
 
     ray_x = canvas->player->x;
     ray_y = canvas->player->y;
-	i = 1;
+	i = 0;
 
-    dx = cos(angle) * canvas->player->dir_x - sin(angle) * canvas->player->dir_y;
-    dy = sin(angle) * canvas->player->dir_x + cos(angle) * canvas->player->dir_y;
+	dx = cos(angle) * canvas->player->dir_x - sin(angle) * canvas->player->dir_y;
+	dy = sin(angle) * canvas->player->dir_x + cos(angle) * canvas->player->dir_y;
 
     max_value = fmax(fabs(dx), fabs(dy));
     dx /= max_value;
@@ -51,60 +52,62 @@ void    draw_dir_ray(t_canvas *canvas, double angle)
 	int num_row = canvas->player->x /SQUARE;
 	double sideDistX;
 	double sideDistY;
+	//double disTotal;
 	int stepX;
 	int stepY;
 
 	if (dx < 0)
 	{
 		stepX = -1;
-		sideDistX = (canvas->player->x - num_row *SQUARE) * deltaDistX;
+		sideDistX = (canvas->player->x - num_row * SQUARE) * deltaDistX;
 	}
 	else
 	{
 		stepX = 1;
 		sideDistX = ((num_row + 1) *SQUARE - canvas->player->x) * deltaDistX;
 	}
-
 	if (dy < 0)
 	{
 		stepY = -1;
-		sideDistY = (canvas->player->y - num_line *SQUARE) * deltaDistY;
+		sideDistY = (canvas->player->y - num_line * SQUARE) * deltaDistY;
 	}
 	else
 	{
 		stepY = 1;
-		sideDistY = ((num_line + 1) *SQUARE - canvas->player->y) * deltaDistY;
+		sideDistY = ((num_line + 1) * SQUARE - canvas->player->y) * deltaDistY;
 	}
-
-	printf("sideDistX = %f\n", sideDistX);
-	printf("sideDistY = %f\n", sideDistY);
 	while (1)
 	{
 		if (sideDistX < sideDistY)
-        {
-          sideDistX += deltaDistX;
-          num_row+= stepX;
-        }
-        else
-        {
-          sideDistY += deltaDistY;
-		  
-          num_line += stepY;
-        }
-        //Check if ray has hit a wall
-        if (canvas->map->block_map[num_line][num_row].type == '1') 
 		{
-			printf("case ou sa hit line: %d et row: %d\n", num_line, num_row);
-			break;
+			sideDistX += deltaDistX * SQUARE;
+			num_row += stepX;
 		}
+		else
+		{
+			sideDistY += deltaDistY * SQUARE;
+			num_line += stepY;
+		}
+        //Check if ray has hit a wall
+		if (canvas->map->block_map[num_line][num_row].type == '1') 
+			break ;
 	}
-	while (i <= sideDistX && i <= sideDistY)
+	// if (sideDistX <= sideDistY)
+	// 	disTotal = sideDistX;
+	// if (sideDistX > sideDistY)
+	// 		disTotal = sideDistY;
+	//printf("distance total x = %f\n", disTotal);
+	i = 0;
+	while ((i < sideDistX && i < sideDistY) && i < 100)
     {
 		i++;
 		my_mlx_pixel_put(canvas, ray_x, ray_y, 0x0000FF);
 		ray_x += dx;
 		ray_y += dy;
 	}
+	printf("====================================\n");
+	printf("x = %f et y = %f\n", sideDistX, sideDistY);
+	printf("i = %d\n", i);
 }
 
 void	draw_ray(t_canvas *canvas)
@@ -113,12 +116,12 @@ void	draw_ray(t_canvas *canvas)
 
 	angle = 0;
 	draw_dir_ray(canvas, angle);
-	/*while (angle <= M_PI / 6)
-	{
-	 	draw_dir_ray(canvas, angle);
-	 	draw_dir_ray(canvas, -angle);
-		angle += M_PI / 72;
-	}*/
+	// while (angle <= M_PI / 6)
+	// {
+	//  	draw_dir_ray(canvas, angle);
+	//  	draw_dir_ray(canvas, -angle);
+	// 	angle += M_PI / 72;
+	// }
 }
 
 void	draw_player(t_canvas *canvas)
@@ -172,14 +175,16 @@ void	draw_squar(t_canvas *canvas, int color, int x_map, int y_map)
 		}
 		i++;
 	}
+	(void)color;
+	(void)canvas;
 }
 
 void init_pos_player(t_canvas *canvas, size_t i, size_t j)
 {
-	canvas->map->block_map[i][j].type = '0';	
+	canvas->map->block_map[i][j].type = '0';
 	draw_squar(canvas, 0x808080, i, j);
-	canvas->player->x = j *SQUARE;
-	canvas->player->y = i *SQUARE;
+	canvas->player->x = j * SQUARE + SQUARE / 2;
+	canvas->player->y = i * SQUARE + SQUARE / 2;
 }
 
 void	draw_map(t_canvas *canvas)

@@ -27,6 +27,7 @@ typedef struct s_canvas
 	char		*path;
 	t_map		*map;
 	int			fd;
+	double		dist;
 	t_player	*player;
 }			t_canvas;
 
