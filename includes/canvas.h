@@ -18,6 +18,7 @@ typedef struct s_canvas
 {
 	void		*mlx;
 	void		*window;
+	void	*window2;
 	void		*img;
 	char		*addr;
 	int			bpp;

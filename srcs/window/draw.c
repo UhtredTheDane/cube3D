@@ -23,13 +23,13 @@
 // 	i = dir / SQUARE;
 // }
 
-double get_side_distX(t_ray *ray, double player_posX, double dx)
+double get_side_distX(t_ray *ray, double player_posX)
 {
 	double sideDistX;
 	int num_row;
 	
 	num_row = trunc(player_posX / SQUARE);
-	if (dx < 0)
+	if (ray->dir_x < 0)
 	{
 		ray->stepX= -1;
 		sideDistX = (player_posX - num_row * SQUARE) * ray->deltaDistX;
@@ -42,13 +42,13 @@ double get_side_distX(t_ray *ray, double player_posX, double dx)
 	return (sideDistX);
 }
 
-double get_side_distY(t_ray *ray, double player_posY, double dy)
+double get_side_distY(t_ray *ray, double player_posY)
 {
 	double sideDistY;
 	int num_line;
 	
 	num_line = trunc(player_posY / SQUARE);
-	if (dy < 0)
+	if (ray->dir_y < 0)
 	{
 		ray->stepY = -1;
 		sideDistY = (player_posY - num_line * SQUARE) * ray->deltaDistY;
@@ -61,53 +61,54 @@ double get_side_distY(t_ray *ray, double player_posY, double dy)
 	return (sideDistY);
 }
 
-void init_ray(t_ray *ray, t_canvas *canvas)
+void init_ray(t_ray *ray, t_canvas *canvas, double angle)
 {
+	ray->dir_x = canvas->player->dir_x * cos(angle) - canvas->player->dir_y * sin(angle);
+	ray->dir_y = canvas->player->dir_x * sin(angle) + canvas->player->dir_y * cos(angle);
 	ray->deltaDistX = sqrt(1 + pow(canvas->player->dir_y/canvas->player->dir_x, 2.));
 	ray->deltaDistY = sqrt(1 + pow(canvas->player->dir_x/canvas->player->dir_y, 2.));
 	ray->num_line_hit = trunc(canvas->player->y / SQUARE);
 	ray->num_row_hit = trunc(canvas->player->x / SQUARE);
-	ray->sideDistX = get_side_distX(ray, canvas->player->x, canvas->player->dir_x);
-	ray->sideDistY = get_side_distY(ray, canvas->player->y, canvas->player->dir_y);
+	ray->sideDistX = get_side_distX(ray, canvas->player->x);
+	ray->sideDistY = get_side_distY(ray, canvas->player->y);
 	ray->side = 0;
 }
 
-double get_wall_dist(t_canvas *canvas)
+double get_wall_dist(t_canvas *canvas, t_ray *ray)
 {
-	t_ray ray;
-
-	init_ray(&ray, canvas);
 	while (1)
 	{
-		if (ray.sideDistX < ray.sideDistY)
+		if (ray->sideDistX < ray->sideDistY)
         {
-			ray.sideDistX += ray.deltaDistX * 30.;
-          	ray.num_row_hit += ray.stepX;
-			ray.side = 0;
+			ray->sideDistX += ray->deltaDistX * 30.;
+          	ray->num_row_hit += ray->stepX;
+			ray->side = 0;
         }
         else
         {
-          	ray.sideDistY += ray.deltaDistY * 30.; 
-          	ray.num_line_hit += ray.stepY;
-			ray.side = 1;
+          	ray->sideDistY += ray->deltaDistY * 30.; 
+          	ray->num_line_hit += ray->stepY;
+			ray->side = 1;
 		}
-        if (canvas->map->block_map[ray.num_line_hit][ray.num_row_hit].type == '1')
+        if (canvas->map->block_map[ray->num_line_hit][ray->num_row_hit].type == '1')
 			break;
 	}
-	if(ray.side == 0) 
-	 	return (ray.sideDistX - ray.deltaDistX * 30);
+	if(ray->side == 0) 
+	 	return (ray->sideDistX - ray->deltaDistX * 30);
     else          
-		return (ray.sideDistY - ray.deltaDistY * 30);
+		return (ray->sideDistY - ray->deltaDistY * 30);
 }
 
-void    draw_ray(t_canvas *canvas)
+void    draw_dir_ray(t_canvas *canvas, double angle)
 {
 	int			i;
 	double		ray_x;
 	double		ray_y;
 	double		dist_mur;
-	
-	dist_mur = get_wall_dist(canvas);
+	t_ray	ray;
+
+	init_ray(&ray, canvas, angle);
+	dist_mur = get_wall_dist(canvas, &ray);
 	printf("total = %f\n", dist_mur);
 	ray_x = canvas->player->x;
     ray_y = canvas->player->y;
@@ -121,22 +122,20 @@ void    draw_ray(t_canvas *canvas)
 	}
 }
 
-/*
 void	draw_ray(t_canvas *canvas)
 {
 	double	angle;
 
 	//angle = canvas->player->angle;
 	angle = 0;
-	draw_dir_ray(canvas, angle);
 	while (angle <= M_PI / 6)
 	{
 	 	draw_dir_ray(canvas, angle);
-	 	draw_dir_ray(canvas, -angle);
+	 	draw_dir_ray(canvas, angle);
 		angle += M_PI / 72;
 	}
 }
-*/
+
 void	draw_player(t_canvas *canvas)
 {
 	int i;
