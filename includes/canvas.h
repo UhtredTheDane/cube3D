@@ -10,6 +10,7 @@
 # include "../libft/libft.h"
 # include "map/checking.h"
 # include "player.h"
+# include "data.h"
 
 typedef struct s_map	t_map;
 typedef struct s_player	t_player;
@@ -19,12 +20,7 @@ typedef struct s_canvas
 	void		*mlx;
 	void		*window;
 	void	*window2;
-	void		*img;
-	char		*addr;
-	int			bpp;
-	int			endian;
-	int			line_len;
-	char		*path;
+	t_data data;
 	t_map		*map;
 	int			fd;
 	t_player	*player;

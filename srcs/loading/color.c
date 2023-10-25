@@ -34,7 +34,7 @@ int get_value(char **line, char symbol)
 		*line += (virgule - *line) + 1;
 	return (color);
 }
-
+ 
 int loading_trgb(char *line)
 {
 	int	r;
@@ -55,7 +55,7 @@ int loading_trgb(char *line)
 
 int loading_color(t_map *map, char *line, char type)
 {
-	//char *tempo_line;
+	char *tempo_line;
 	int *map_color;
 
 	line = trim_space(line, 2);
@@ -65,15 +65,17 @@ int loading_color(t_map *map, char *line, char type)
 			map_color = &map->floor_color;
 		else
 			map_color = &map->ceiling_color;
-		//tempo_line = line;
+		tempo_line = line;
 		*map_color = loading_trgb(line);
 		if (*map_color == -1)
 		{
+			free(tempo_line);
 			printf("error trgb format\n");
 			return (0);
 		}
-		//free(tempo_line);
+		free(tempo_line);
 		return (1);
 	}
+	free(line);
 	return (0);
 }

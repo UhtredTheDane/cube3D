@@ -12,51 +12,6 @@
 
 #include "../../includes/loading.h"
 
-// int get_textures_colors(void *mlx, t_map *map, int map_fd)
-// {
-//     char *line;
-
-//     line = trim_backspace(map_fd);
-//     if (line)
-//     {
-//         line = trim_space(line, 0);
-//         if (ft_strncmp(line, "F ", 2) == 0)
-//         {
-//             if(!loading_color(map, line, 'F'))
-//                 return (0);
-//         }
-//         else if (ft_strncmp(line, "C ", 2) == 0)
-//         {
-//             if(!loading_color(map, line, 'C'))
-//                 return (0);
-//         }
-//         else if (ft_strncmp(line, "NO ", 3) == 0)
-//         {
-//             if (!run_loading_texture(mlx, map, line, 0))
-//                 return (0);
-//         }
-//         else if (ft_strncmp(line, "SO ", 3) == 0)
-//         {
-//             if (!run_loading_texture(mlx, map, line, 1))
-//                 return (0);
-//         }
-//         else if (ft_strncmp(line, "WE ", 3) == 0)
-//         {
-//             if (!run_loading_texture(mlx, map, line, 2))
-//                 return (0);
-//         }
-//         else if (ft_strncmp(line, "EA ", 3) == 0)
-//         {
-//             if (!run_loading_texture(mlx, map, line, 3))
-//                 return (0);
-//         }
-//         else
-//             return (0);
-//         return (1);
-//     }
-//     return (0);
-// }
-
 int	get_textures_colors(void *mlx, t_map *map, int map_fd)
 {
 	char	*line;
@@ -75,9 +30,8 @@ int	get_textures_colors(void *mlx, t_map *map, int map_fd)
 		return (run_loading_texture(mlx, map, line, 2));
 	else if (ft_strncmp(line, "EA ", 3) == 0)
 		return (run_loading_texture(mlx, map, line, 3));
-	else
-		return (0);
-	return (1);
+    free(line);
+	return (0);
 }
  
 t_list *get_map(t_map *map, int map_fd)
@@ -87,7 +41,9 @@ t_list *get_map(t_map *map, int map_fd)
     lst = loading_map(map_fd, &map->row_nb);
     close(map_fd);
     if (!lst)
+    {
         printf("Can't load map\n");
+    }
     return (lst);
 }
  
