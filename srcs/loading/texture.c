@@ -32,6 +32,11 @@ int loading_texture(void *mlx, t_img **map_face, char *line)
 	size = ft_strlen(line);
 	line[size - 1] = '\0';
 	line = trim_space(line, 0);
+	if (*map_face != NULL)
+	{
+		free(line);
+		return (0);
+	}
 	*map_face = init_img(mlx, line);
 	if (!*map_face)
 		return (0);

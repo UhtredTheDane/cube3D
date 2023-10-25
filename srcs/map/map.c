@@ -34,6 +34,7 @@ t_map	*init_map(void)
 	new_map = malloc(sizeof(t_map));
 	if (!new_map)
 		return (NULL);
+	new_map->block_map = NULL;
 	new_map->line_nb = 0;
 	new_map->row_nb = 0;
 	new_map->player = 0;
@@ -44,7 +45,7 @@ t_map	*init_map(void)
 	return (new_map);
 }
 
-int	fill_map(void *mlx, t_map *map, t_block **block_map, t_list *list)
+int	fill_map(void *mlx, t_map *map, t_block **block_map, t_list **list)
 {
 	char	*line;
 	size_t	pos[2];
@@ -53,7 +54,7 @@ int	fill_map(void *mlx, t_map *map, t_block **block_map, t_list *list)
 	pos[0] = 0;
 	while (pos[0] < map->line_nb)
 	{
-		line = list->content;
+		line = (*list)->content;
 		size_line = ft_strlen(line);
 		pos[1] = 0;
 		while (pos[1] < map->row_nb)
@@ -62,7 +63,7 @@ int	fill_map(void *mlx, t_map *map, t_block **block_map, t_list *list)
 			{
 				if (!check_block(mlx, map, line[pos[1]]))
 				{
-					ft_lstclear(&list, free);
+					ft_lstclear(list, free);
 					return (0);
 				}
 				init_block(&block_map[pos[0]][pos[1]], line[pos[1]]);
@@ -71,7 +72,7 @@ int	fill_map(void *mlx, t_map *map, t_block **block_map, t_list *list)
 				init_block(&block_map[pos[0]][pos[1]], ' ');
 			++pos[1];
 		}
-		ft_lstpop(&list);
+		ft_lstpop(list);
 		++pos[0];
 	}
 	return (1);
@@ -95,7 +96,7 @@ int	create_2d_tab(t_map *map, t_block **block_map)
 	return (1);
 }
 
-int	init_block_map(void *mlx, t_map *map, t_list *lst)
+int	init_block_map(void *mlx, t_map *map, t_list **lst)
 {
 	t_block	**block_map;
 
@@ -106,7 +107,6 @@ int	init_block_map(void *mlx, t_map *map, t_list *lst)
 	if (!fill_map(mlx, map, block_map, lst) || !check_map(map, block_map, 0, 0))
 	{
 		printf("error map configuration\n");
-		//free_block_map(block_map, map->line_nb);
 		return (0);
 	}
 	return (1);
@@ -123,17 +123,15 @@ t_map	*create_map(void *mlx, char *file_name)
 	lst = loading_file(mlx, new_map, file_name);
 	if (!lst)
 	{
-		//destroy_map(mlx, new_map);
-		free(new_map);
+		destroy_map(mlx, new_map);
 		return (NULL);
 	}
 	new_map->line_nb = ft_lstsize(lst);
-	if (!init_block_map(mlx, new_map, lst))
+	if (!init_block_map(mlx, new_map, &lst))
 	{
-		/*destroy_map(mlx, new_map);
+		destroy_map(mlx, new_map);
 		while (lst)
 			ft_lstpop(&lst);
-		free(new_map);*/
 		return (NULL);
 	}
 	return (new_map);

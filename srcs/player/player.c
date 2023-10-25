@@ -23,7 +23,6 @@ void rotate_player(t_canvas *canvas, double angle)
 	
 	tempo_dir_x = canvas->player->dir_x;
 	tempo_dir_y = canvas->player->dir_y;
-	canvas->player->angle += angle;
 	canvas->player->dir_x = tempo_dir_x * cos(angle) - tempo_dir_y * sin(angle);
 	canvas->player->dir_y = tempo_dir_x * sin(angle) + tempo_dir_y * cos(angle);
 }
@@ -33,6 +32,7 @@ int	move_player(int key, t_canvas *canvas)
 	if (key == 65307)
 	{
 		mlx_loop_end(canvas->mlx);
+		destroy_canvas(canvas);
 		exit (0);
 	}
 	if (key == PRESS_W || key == PRESS_ARROW_UP)

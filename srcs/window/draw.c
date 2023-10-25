@@ -12,6 +12,7 @@
 
 #include "../../includes/window.h"
 #include <math.h>
+#include "../../includes/data.h"
 #define OFFSET 15
 
 double get_side_distX(t_ray *ray, double player_posX)
@@ -99,7 +100,6 @@ double	draw_dir_ray(t_canvas *canvas, double angle)
 
 	init_ray(&ray, canvas, angle);
 	dist_mur = get_wall_dist(canvas, &ray);
-	printf("angle: %f, total = %f\n", angle, dist_mur);
 	ray_x = canvas->player->x;
 	ray_y = canvas->player->y;
 	i = 0;
@@ -112,24 +112,25 @@ double	draw_dir_ray(t_canvas *canvas, double angle)
 	}
 	return (dist_mur);
 }
-
+ 
 void	draw_ray(t_canvas *canvas)
 {
 	double	angle;
 	int		i;
 	int		j;
-
+	int value;
+	value = 800 / 2 * 6;
 	angle = 0;
 	i = 800 / 2;
 	j = i + 1;
-	while (angle <= M_PI / 6)
+	while (angle < M_PI / 6)
 	{
 	 	win_3d(draw_dir_ray(canvas, angle), canvas->win, i--);
 		if (angle != 0)
 			win_3d (draw_dir_ray(canvas, -angle), canvas->win, j++);
-		angle += M_PI / 3840;
+		angle += M_PI / value;
 	}
-	//mlx_put_image_to_window(canvas->mlx, canvas->window2, canvas->img, 0, 0);
+	mlx_put_image_to_window(canvas->mlx, canvas->win->window2, canvas->win->img, 0, 0);
 }
 
 void	draw_player(t_canvas *canvas)
@@ -154,14 +155,8 @@ void	my_mlx_pixel_put(t_canvas *canvas, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = canvas->addr + (y * canvas->line_len + x * (canvas->bpp / 8));
+	dst = canvas->data.addr + (y * canvas->data.line_length + x * (canvas->data.bpp / 8));
 	*(unsigned int *)dst = color;
-}
-
-void	new_image(t_canvas *canvas)
-{
-	canvas->img = mlx_new_image(canvas->mlx, canvas->map->row_nb * SQUARE, canvas->map->line_nb * SQUARE);
-	canvas->addr = mlx_get_data_addr(canvas->img, &canvas->bpp, &canvas->line_len, &canvas->endian);
 }
 
 void	draw_squar(t_canvas *canvas, int color, int x_map, int y_map)
@@ -252,5 +247,5 @@ void	draw_map(t_canvas *canvas)
 	}
 	draw_player(canvas);
 	draw_ray(canvas);
-	mlx_put_image_to_window(canvas->mlx, canvas->window, canvas->img, 0, 0);
+	mlx_put_image_to_window(canvas->mlx, canvas->window, canvas->data.img, 0, 0);
 }

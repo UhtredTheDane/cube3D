@@ -17,7 +17,6 @@ int	main(int argc, char **argv)
 	size_t		index_format;
 	char		*format;
 	t_canvas	*canvas;
-	t_win		*win;
 
 	format = ".cub";
 	if (argc != 2)
@@ -31,17 +30,12 @@ int	main(int argc, char **argv)
 		printf("Wrong format\n");
 		return (2);
 	}
-	win = init_window();
-	if (!win)
-		return (0);
 	canvas = create_canvas(argv[1]);
 	if (!canvas)
 		return (0);
 	canvas->player->w = 0;
-	canvas->player->angle = 0;
-	mlx_hook(canvas->window, 2, (1L << 0), move_player, canvas);
+	mlx_hook(canvas->window, 2, (1L<<0), move_player, canvas);
 	mlx_hook(canvas->window, 17, 0, ft_close_win, canvas);
-	new_image(canvas);
 	move_player(0, canvas);
 	mlx_loop(canvas->mlx);
 	destroy_canvas(canvas);

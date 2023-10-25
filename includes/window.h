@@ -28,7 +28,7 @@ void	my_mlx_pixel_put(t_canvas *canvas, int x, int y, int color);
 void	draw_squar(t_canvas *canvas, int color, int x_map, int y_map);
 void	draw_player(t_canvas *canvas);
 void	win_3d(double dist, t_win *win, int i);
-t_win	*init_window(void);
+t_win	*init_window(void *mlx);
 
 
 #endif

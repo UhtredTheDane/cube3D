@@ -16,7 +16,6 @@ t_img	*init_img(void *mlx, char *path)
 		free(new_img);
 		return (NULL);
 	}
-
 	return (new_img);
 }
 
