@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:29:19 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/23 18:25:53 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/23 18:38:09 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,14 @@ t_win	*init_window(void)
 
 void	win_3d(double dist, t_win *win, int i)
 {
+	// int	j;
+
+	// j = 0;
+	// while (j < 20)
+	// {
+	// 	my_mlx_pixel_put2(win, 0, 0, 0x05500);
+	// 	j++;
+	// }
 	//my_mlx_pixel_put2(win, i, 0, 0x000000);
 	printf ("ray %d de taille %f\n", i, dist);
 	//mlx_put_image_to_window(win->mlx, win->window2, win->img, 0, 0);
