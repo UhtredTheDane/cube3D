@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:19:51 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/23 18:30:03 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/23 18:30:03 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,15 +119,16 @@ void	draw_ray(t_canvas *canvas)
 	int		i;
 	int		j;
 	int value;
+
 	value = 800 / 2 * 6;
 	angle = 0;
 	i = 800 / 2;
-	j = i + 1;
+	j = i - 1;
 	while (angle < M_PI / 6)
 	{
-	 	win_3d(draw_dir_ray(canvas, angle), canvas->win, i--);
+	 	win_3d(draw_dir_ray(canvas, angle), canvas->win, i++);
 		if (angle != 0)
-			win_3d (draw_dir_ray(canvas, -angle), canvas->win, j++);
+			win_3d (draw_dir_ray(canvas, -angle), canvas->win, j--);
 		angle += M_PI / value;
 	}
 	mlx_put_image_to_window(canvas->mlx, canvas->win->window2, canvas->win->img, 0, 0);
@@ -145,9 +146,9 @@ void	draw_player(t_canvas *canvas)
 		while (j < 18)
 		{
 			my_mlx_pixel_put(canvas, canvas->player->x - OFFSET + j, canvas->player->y - OFFSET + i, 0x000000);
-			j++;
+			++j;
 		}
-		i++;
+		++i;
 	}
 }
 
