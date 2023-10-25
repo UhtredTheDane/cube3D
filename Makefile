@@ -6,13 +6,13 @@
 #    By: anmande <anmande@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/17 15:45:22 by agengemb          #+#    #+#              #
-#    Updated: 2023/10/15 14:12:10 by anmande          ###   ########.fr        #
+#    Updated: 2023/10/23 18:07:18 by anmande          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
-NAME = cube3D
+NAME = cub3D
 LIBFT = ./libft/libft.a
 GET = ./get_next_line/get_next_line.a
 SRC = $(wildcard srcs/*.c)
