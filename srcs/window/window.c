@@ -16,6 +16,7 @@ void	my_mlx_pixel_put2(t_win *win, int x, int y, int color)
 {
 	char	*dst;
 
+	//printf("x: %d et y: %d\n", x, y);
 	dst = win->addr + (y * win->line_len + x * (win->bpp / 8));
 	*(unsigned int *)dst = color;
 }
@@ -47,7 +48,7 @@ void	win_3d(double dm, t_win *win, int i)
 		my_mlx_pixel_put2(win, i, compt, 0xFF0000);
 		++compt;
 	}
-	while (compt < greater)
+	while (compt < greater && compt < 600)
 	{
 		my_mlx_pixel_put2(win, i, compt, 0x0000FF);
 		++compt;

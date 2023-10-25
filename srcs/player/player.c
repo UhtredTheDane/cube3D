@@ -37,23 +37,31 @@ int	move_player(int key, t_canvas *canvas)
 	}
 	if (key == PRESS_W || key == PRESS_ARROW_UP)
 	{
-		canvas->player->y += canvas->player->dir_y * 2.0;
-		canvas->player->x += canvas->player->dir_x * 2.0;
+		if (canvas->player->y > 0)
+			canvas->player->y += canvas->player->dir_y * 2.0;
+		if (canvas->player->x > 0)
+			canvas->player->x += canvas->player->dir_x * 2.0;
 	}
 	if (key == PRESS_S || key == PRESS_ARROW_DOWN)
 	{	
-		canvas->player->y -= canvas->player->dir_y * 2.0;
-		canvas->player->x -= canvas->player->dir_x * 2.0;
+		if (canvas->player->y < canvas->map->line_nb * 30)
+			canvas->player->y -= canvas->player->dir_y * 2.0;
+		if (canvas->player->x < canvas->map->row_nb * 30)
+			canvas->player->x -= canvas->player->dir_x * 2.0;
 	}
 	if (key == PRESS_A || key == PRESS_ARROW_LEFT)
 	{
-		canvas->player->y -= canvas->player->dir_x * 2.0;
-		canvas->player->x += canvas->player->dir_y * 2.0;
+		if (canvas->player->y < canvas->map->line_nb * 30)
+			canvas->player->y -= canvas->player->dir_x * 2.0;
+		if (canvas->player->x > 0)
+			canvas->player->x += canvas->player->dir_y * 2.0;
 	}
 	if (key == PRESS_D || key == PRESS_ARROW_RIGHT)
 	{
-		canvas->player->y += canvas->player->dir_x * 2.0;
-		canvas->player->x -= canvas->player->dir_y * 2.0;
+		if (canvas->player->y > 0)
+			canvas->player->y += canvas->player->dir_x * 2.0;
+		if (canvas->player->x < canvas->map->row_nb * 30)
+			canvas->player->x -= canvas->player->dir_y * 2.0;
 	}
 	if (key == XK_q)
 		rotate_player(canvas, PI / -16);

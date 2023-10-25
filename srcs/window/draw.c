@@ -81,6 +81,8 @@ double	get_wall_dist(t_canvas *canvas, t_ray *ray)
 			ray->num_line_hit += ray->stepY;
 			ray->side = 1;
 		}
+		if (ray->num_line_hit < 0 || ray->num_line_hit >= (int)canvas->map->line_nb || ray->num_row_hit < 0 || ray->num_row_hit >= (int)canvas->map->row_nb)
+			return (0);
 		if (canvas->map->block_map[ray->num_line_hit][ray->num_row_hit].type == '1')
 			break ;
 	}
@@ -92,24 +94,25 @@ double	get_wall_dist(t_canvas *canvas, t_ray *ray)
 
 double	draw_dir_ray(t_canvas *canvas, double angle)
 {
-	int			i;
-	double		ray_x;
-	double		ray_y;
+	//int			i;
+	//double		ray_x;
+	//double		ray_y;
 	double		dist_mur;
 	t_ray		ray;
 
 	init_ray(&ray, canvas, angle);
 	dist_mur = get_wall_dist(canvas, &ray);
-	ray_x = canvas->player->x;
-	ray_y = canvas->player->y;
-	i = 0;
+	//ray_x = canvas->player->x;
+	//ray_y = canvas->player->y;
+	//i = 0;
+	/*
 	while (i < trunc(dist_mur))
 	{
 		i++;
 		my_mlx_pixel_put(canvas, ray_x, ray_y, 0x0000FF);
 		ray_x += ray.dir_x;
 		ray_y += ray.dir_y;
-	}
+	}*/
 	return (dist_mur);
 }
  
@@ -127,7 +130,7 @@ void	draw_ray(t_canvas *canvas)
 	while (angle < M_PI / 6)
 	{
 	 	win_3d(draw_dir_ray(canvas, angle), canvas->win, i++);
-		if (angle != 0)
+		if (angle != 0.)
 			win_3d (draw_dir_ray(canvas, -angle), canvas->win, j--);
 		angle += M_PI / value;
 	}
@@ -187,8 +190,8 @@ void init_pos_player(t_canvas *canvas, size_t i, size_t j, char dir)
 {
 	canvas->map->block_map[i][j].type = '0';
 	draw_squar(canvas, 0x808080, i, j);
-	canvas->player->x = j * SQUARE;
-	canvas->player->y = i * SQUARE;
+	canvas->player->x = j * SQUARE + 15;
+	canvas->player->y = i * SQUARE + 15;
 	if (dir == 'N')
 	{
 		canvas->player->dir_x = 0;
