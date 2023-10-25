@@ -6,13 +6,16 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:31:02 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/23 18:26:56 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/25 16:08:52 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef WINDOW_H
 
 # define WINDOW_H
+# define WIDTH 800
+# define HEIGHT 600
+# define FOV 6
 
 # include "main.h"
 # include <stddef.h>

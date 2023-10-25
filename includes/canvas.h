@@ -20,7 +20,7 @@ typedef struct s_canvas
 {
 	void		*mlx;
 	void		*window;
-	t_data data;
+	t_data		data;
 	t_map		*map;
 	int			fd;
 	double		dist;
@@ -34,6 +34,7 @@ typedef struct s_win
 	void		*mlx;
 	void		*img;
 	char		*addr;
+	t_canvas	*canvas;
 	int			endian;
 	int			line_len;
 	int			bpp;
