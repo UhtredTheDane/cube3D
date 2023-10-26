@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:39:39 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/23 16:25:34 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/26 12:10:13 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,6 @@ typedef struct s_player
 }		t_player;
 
 int	move_player(int key, t_canvas *canvas);
+int	player_collision(t_canvas *canvas);
 
 #endif

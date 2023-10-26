@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:31:02 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/25 16:08:52 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/26 13:41:24 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 # define WINDOW_H
 # define WIDTH 800
-# define HEIGHT 600
+# define HEIGHT 1000
 # define FOV 6
 
 # include "main.h"

@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:37:20 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/23 16:25:24 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/26 14:22:25 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 #include <X11/keysym.h>
 #define PI 3.14159265359
 
-void rotate_player(t_canvas *canvas, double angle)
+void	rotate_player(t_canvas *canvas, double angle)
 {
-	double tempo_dir_x;
-	double tempo_dir_y;
-	
+	double	tempo_dir_x;
+	double	tempo_dir_y;
+
 	tempo_dir_x = canvas->player->dir_x;
 	tempo_dir_y = canvas->player->dir_y;
 	canvas->player->dir_x = tempo_dir_x * cos(angle) - tempo_dir_y * sin(angle);
@@ -35,22 +35,22 @@ int	move_player(int key, t_canvas *canvas)
 		destroy_canvas(canvas);
 		exit (0);
 	}
-	if (key == PRESS_W || key == PRESS_ARROW_UP)
+	if ((key == PRESS_W || key == PRESS_ARROW_UP) && player_collision(canvas))
 	{
 		canvas->player->y += canvas->player->dir_y * 2.0;
 		canvas->player->x += canvas->player->dir_x * 2.0;
 	}
-	if (key == PRESS_S || key == PRESS_ARROW_DOWN)
+	if ((key == PRESS_S || key == PRESS_ARROW_DOWN) && player_collision(canvas))
 	{	
 		canvas->player->y -= canvas->player->dir_y * 2.0;
 		canvas->player->x -= canvas->player->dir_x * 2.0;
 	}
-	if (key == PRESS_A || key == PRESS_ARROW_LEFT)
+	if ((key == PRESS_A || key == PRESS_ARROW_LEFT) && player_collision(canvas))
 	{
 		canvas->player->y -= canvas->player->dir_x * 2.0;
 		canvas->player->x += canvas->player->dir_y * 2.0;
 	}
-	if (key == PRESS_D || key == PRESS_ARROW_RIGHT)
+	if ((key == PRESS_D || key == PRESS_ARROW_RIGHT) && player_collision(canvas))
 	{
 		canvas->player->y += canvas->player->dir_x * 2.0;
 		canvas->player->x -= canvas->player->dir_y * 2.0;

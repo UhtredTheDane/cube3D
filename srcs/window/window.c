@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:29:19 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/25 16:09:02 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/26 13:41:15 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,18 @@ t_win	*init_window(void *mlx)
 void	win_3d(double dm, t_win *win, int i)
 {
 	double hm = 64.;
-	double de = 3.;
+	double de = 35;
 	double hp = hm / dm * de;
-	double hr = 300.;
-	double test = hp / 2;
+	double hr = HEIGHT / 2;
 	double lower = hr - hp / 2;
-	double greater = hr + hp/2;
-	if (i == 400)
-	{
-		printf("dm = %f\n", dm);
-		printf("hp = %f et hp / 2 = %f\n", hp, test);
-		printf ("ray %d: lower %f et greater: %f\n", i, lower, greater);
-	}
+	double greater = hr + hp / 2;
+	// if (i == 400)
+	// {
+	// 	printf("dm = %f\n", dm);
+	// 	printf("hp = %f et hp / 2 = %f\n", hp, test);
+	// 	printf ("ray %d: lower %f et greater: %f\n", i, lower, greater);
+	// }
 	int compt = 0;
-	
 	while (compt < lower)
 	{
 		my_mlx_pixel_put2(win, i, compt, 0xFF0000);
@@ -66,14 +64,6 @@ void	win_3d(double dm, t_win *win, int i)
 		my_mlx_pixel_put2(win, i, compt, 0x808080);
 		++compt;
 	}
-	// int	j;
-	// j = 0;
-	// while (j < 20)
-	// {
-	// 	my_mlx_pixel_put2(win, 0, 0, 0x05500);
-	// 	j++;
-	// }
-	//my_mlx_pixel_put2(win, i, 0, 0x000000);
 	(void)win;
 }
 
