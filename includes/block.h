@@ -10,5 +10,5 @@ typedef struct s_block
 }			t_block;
 
 void	init_block(t_block *block, char symbol);
-void free_block_map(t_block **block_map, size_t index);
+void	free_block_map(t_block **block_map, size_t index);
 #endif
