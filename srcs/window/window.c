@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:29:19 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/27 14:14:27 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/27 14:52:13 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,28 +36,23 @@ t_win	*init_window(void *mlx)
 
 void	win_3d(double dm, t_win *win, int i)
 {
-	double hm = 64.;
-	double de = 40.;
-	double hp = hm / dm * de;
-	double hr = 300.;
-	double lower = hr - hp / 2;
-	double greater = hr + hp/2;
-	int compt = 0;
-	while (compt < lower)
-	{
+	double	hm;
+	double	de;
+	double	hp;
+	double	hr;
+	int		compt;
+
+	hm = 64.;
+	de = 40.;
+	hp = hm / dm * de;
+	hr = 300.;
+	compt = 0;
+	while (compt++ < hr - hp / 2)//lower
 		my_mlx_pixel_put2(win, i, compt, 0xFF0000);
-		++compt;
-	}
-	while (compt < greater && compt < 600)
-	{
+	while (compt++ < hr + hp / 2 && compt < 600)//greater
 		my_mlx_pixel_put2(win, i, compt, 0x0000FF);
-		++compt;
-	}
-	while (compt < 600)
-	{
+	while (compt++ < 600)
 		my_mlx_pixel_put2(win, i, compt, 0x808080);
-		++compt;
-	}
 }
 
 int	ft_close_win(t_canvas *canvas)

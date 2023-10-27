@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:37:20 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/27 14:13:52 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/27 14:57:23 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	d_collision(t_canvas *canvas)
 	i = canvas->map->row_nb - 2;
 	x = (canvas->player->x) / SQUARE;
 	y = (canvas->player->y) / SQUARE;
-		if (canvas->player->dir_y >= 0)
+	if (canvas->player->dir_y >= 0)
 	{
 		if (y <= 1)
 			return (0);
@@ -148,18 +148,14 @@ int	move_player(int key, t_canvas *canvas)
 		exit (0);
 	}
 	if ((key == PRESS_W || key == PRESS_ARROW_UP) && w_collision(canvas) == 1)
-	{
 		move_up(canvas);
-	}
 	if ((key == PRESS_S || key == PRESS_ARROW_DOWN) && s_collision(canvas) == 1)
-	{	
 		move_down(canvas);
-	}
 	if ((key == PRESS_A || key == PRESS_ARROW_LEFT) && a_collision(canvas) == 1)
-	{
 		move_left(canvas);
-	}
 	if ((key == PRESS_D || key == PRESS_ARROW_RIGHT) && d_collision(canvas) == 1)
+		move_right(canvas);
+	if (key == XK_q)
 		rotate_player(canvas, PI / -16);
 	if (key == XK_e)
 		rotate_player(canvas, PI / 16);
