@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:19:51 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/27 11:59:59 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/27 13:27:51 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,29 +94,15 @@ double	get_wall_dist(t_canvas *canvas, t_ray *ray)
 
 double	draw_dir_ray(t_canvas *canvas, double angle)
 {
-	//int			i;
-	//double		ray_x;
-	//double		ray_y;
 	double		dist_mur;
 	t_ray		ray;
 
 	init_ray(&ray, canvas, angle);
 	dist_mur = get_wall_dist(canvas, &ray);
 	dist_mur = dist_mur * cos(angle);
-	//ray_x = canvas->player->x;
-	//ray_y = canvas->player->y;
-	//i = 0;
-	/*
-	while (i < trunc(dist_mur))
-	{
-		i++;
-		my_mlx_pixel_put(canvas, ray_x, ray_y, 0x0000FF);
-		ray_x += ray.dir_x;
-		ray_y += ray.dir_y;
-	}*/
 	return (dist_mur);
 }
- 
+
 void	draw_ray(t_canvas *canvas)
 {
 	double	angle;
