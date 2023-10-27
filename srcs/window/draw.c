@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:19:51 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/23 18:30:03 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/10/27 11:59:59 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ double	draw_dir_ray(t_canvas *canvas, double angle)
 
 	init_ray(&ray, canvas, angle);
 	dist_mur = get_wall_dist(canvas, &ray);
+	dist_mur = dist_mur * cos(angle);
 	//ray_x = canvas->player->x;
 	//ray_y = canvas->player->y;
 	//i = 0;
