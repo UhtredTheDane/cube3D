@@ -1,10 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   canvas.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/27 16:33:39 by anmande           #+#    #+#             */
+/*   Updated: 2023/10/27 16:33:46 by anmande          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CANVAS_H
+
 # define CANVAS_H
 # define Y_LEN		1200
 # define X_LEN		(Y_LEN)
 
 # include <stdlib.h>
 # include <stddef.h>
+# include <math.h>
+
 # include "../mlx_linux/mlx.h"
 # include "map/map.h"
 # include "../libft/libft.h"
