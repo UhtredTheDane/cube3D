@@ -44,7 +44,7 @@ void	win_3d(double dm, t_canvas *canvas, t_ray *ray, int i)
 
 	t_data wall;
 	hm = 64.;
-	de = 10.;
+	de = 5.;
 	hp = hm / dm * de;
 	hr = 300.;
 	compt = 0;
@@ -65,9 +65,8 @@ void	win_3d(double dm, t_canvas *canvas, t_ray *ray, int i)
 	}
 	wall.addr = mlx_get_data_addr(wall.img, &wall.bpp,
 			&wall.line_length, &wall.endian);
-
 	if (ray->side == 1)
-			wallX = canvas->player->x + dm * ray->dir_x;
+		wallX = canvas->player->x + dm * ray->dir_x;
 	else
 		wallX = canvas->player->y + dm * ray->dir_y;
 	wallX -= trunc(wallX);
@@ -76,18 +75,23 @@ void	win_3d(double dm, t_canvas *canvas, t_ray *ray, int i)
 		texX = 64 - texX - 1;
 	else if (ray->side == 1 && ray->dir_y > 0)
 		texX = 64 - texX - 1;
-
-	while (compt++ < hr - hp / 2)//lower
-		my_mlx_pixel_put2(canvas->win, i, compt, 0xFF0000);
-	while (compt++ < hr + hp / 2 && compt < 600)//greater
+	while (compt < hr - hp / 2)//lower
 	{
-		int texY = (compt * 2 - 600 + hp) * (64/2) / hp;
-		int pixel = texY * wall.line_length + texX * (wall.bpp / 8);
-		my_mlx_pixel_put2(canvas->win, i, compt,
-					*(int *)(wall.addr + pixel));
+		my_mlx_pixel_put2(canvas->win, i, compt, 0xFF0000);
+		compt++;
 	}
-	while (compt++ < 600)
+	while (compt < hr + hp / 2 && compt < 600)//greater
+	{
+		int texY = (compt * 2. - 600. + hp) * (64./2.) / hp;
+		int pixel = texY * wall.line_length + texX * (wall.bpp / 8);
+		my_mlx_pixel_put2(canvas->win, i, compt, *(int *)(wall.addr + pixel));
+		compt++;
+	}
+	while (compt < 600)
+	{
 		my_mlx_pixel_put2(canvas->win, i, compt, 0x808080);
+		compt++;
+	}
 }
 
 int	ft_close_win(t_canvas *canvas)

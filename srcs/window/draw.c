@@ -73,8 +73,7 @@ double	draw_dir_ray(t_canvas *canvas, t_ray *ray, double angle)
 {
 	double		dist_mur;
 
-	dist_mur = get_wall_dist(canvas->map, ray);
-	dist_mur = dist_mur * cos(angle);
+	dist_mur = get_wall_dist(canvas->map, ray) * cos(angle);
 	return (dist_mur);
 }
 
