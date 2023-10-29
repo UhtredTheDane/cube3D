@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:39:39 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/27 14:14:04 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/23 16:25:34 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,6 @@ typedef struct s_player
 	int		e;
 }		t_player;
 
-int		move_player(int key, t_canvas *canvas);
-void	move_up(t_canvas *canvas);
-void	move_down(t_canvas *canvas);
-void	move_left(t_canvas *canvas);
-void	move_right(t_canvas *canvas);
+int	move_player(int key, t_canvas *canvas);
 
 #endif
