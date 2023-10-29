@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:29:19 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/23 18:38:09 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/27 14:52:13 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	my_mlx_pixel_put2(t_win *win, int x, int y, int color)
 {
 	char	*dst;
 
+	//printf("x: %d et y: %d\n", x, y);
 	dst = win->addr + (y * win->line_len + x * (win->bpp / 8));
 	*(unsigned int *)dst = color;
 }
@@ -35,28 +36,23 @@ t_win	*init_window(void *mlx)
 
 void	win_3d(double dm, t_win *win, int i)
 {
-	double hm = 64.;
-	double de = 40.;
-	double hp = hm / dm * de;
-	double hr = 300.;
-	double lower = hr - hp / 2;
-	double greater = hr + hp/2;
-	int compt = 0;
-	while (compt < lower)
-	{
+	double	hm;
+	double	de;
+	double	hp;
+	double	hr;
+	int		compt;
+
+	hm = 64.;
+	de = 40.;
+	hp = hm / dm * de;
+	hr = 300.;
+	compt = 0;
+	while (compt++ < hr - hp / 2)//lower
 		my_mlx_pixel_put2(win, i, compt, 0xFF0000);
-		++compt;
-	}
-	while (compt < greater)
-	{
+	while (compt++ < hr + hp / 2 && compt < 600)//greater
 		my_mlx_pixel_put2(win, i, compt, 0x0000FF);
-		++compt;
-	}
-	while (compt < 600)
-	{
+	while (compt++ < 600)
 		my_mlx_pixel_put2(win, i, compt, 0x808080);
-		++compt;
-	}
 }
 
 int	ft_close_win(t_canvas *canvas)
