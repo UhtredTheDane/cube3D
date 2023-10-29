@@ -62,8 +62,8 @@ void	detect_block_type(t_canvas *canvas, t_block **block_map, size_t i, size_t j
 
 void	init_pos_player(t_canvas *canvas, size_t i, size_t j, char dir)
 {
-	canvas->player->x = j + 0.5;
-	canvas->player->y = i  + 0.5;
+	canvas->player->x = j * SQUARE + 32;
+	canvas->player->y = i * SQUARE + 32;
 	if (dir == 'N')
 	{
 		canvas->player->dir_x = 0;
@@ -169,6 +169,7 @@ t_map	*create_map(t_canvas *canvas, char *file_name)
 		return (NULL);
 	}
 	new_map->line_nb = ft_lstsize(lst);
+	printf("line_nb: %ld et row_nb: %ld\n", new_map->line_nb, new_map->row_nb);
 	if (!init_block_map(canvas, new_map, &lst))
 	{
 		destroy_map(canvas->mlx, new_map);
