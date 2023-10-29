@@ -26,7 +26,6 @@ int	check_block(void *mlx, t_map *map, char symbol)
 		map->player = 1;
 		return (1);
 	}
-	printf("symbol:%ct\n", symbol);
 	printf("Error\nUn blocks de la map n'est pas valide\n");
 	return (0);
 }

@@ -45,7 +45,48 @@ t_map	*init_map(void)
 	return (new_map);
 }
 
-int	fill_map(void *mlx, t_map *map, t_block **block_map, t_list **list)
+void	detect_block_type(t_canvas *canvas, t_block **block_map, size_t i, size_t j)
+{
+	char	block_type;
+
+	block_type = block_map[i][j].type;
+	if (block_type == 'N')
+		init_pos_player(canvas, i, j, 'N');
+	else if (block_type == 'S')
+		init_pos_player(canvas, i, j, 'S');
+	else if (block_type == 'E')
+		init_pos_player(canvas, i, j, 'E');
+	else if (block_type == 'W')
+		init_pos_player(canvas, i, j, 'W');
+}
+
+void	init_pos_player(t_canvas *canvas, size_t i, size_t j, char dir)
+{
+	canvas->player->x = j + 0.5;
+	canvas->player->y = i  + 0.5;
+	if (dir == 'N')
+	{
+		canvas->player->dir_x = 0;
+		canvas->player->dir_y = -1;
+	}
+	else if (dir == 'S')
+	{
+		canvas->player->dir_x = 0;
+		canvas->player->dir_y = 1;
+	}
+	else if (dir == 'E')
+	{
+		canvas->player->dir_x = 1;
+		canvas->player->dir_y = 0;
+	}
+	else
+	{
+		canvas->player->dir_x = -1.;
+		canvas->player->dir_y = 0.;
+	}
+}
+
+int	fill_map(t_canvas *canvas, t_map *map, t_block **block_map, t_list **list)
 {
 	char	*line;
 	size_t	pos[2];
@@ -61,12 +102,13 @@ int	fill_map(void *mlx, t_map *map, t_block **block_map, t_list **list)
 		{
 			if (pos[1] < size_line)
 			{
-				if (!check_block(mlx, map, line[pos[1]]))
+				if (!check_block(canvas->mlx, map, line[pos[1]]))
 				{
 					ft_lstclear(list, free);
 					return (0);
 				}
 				init_block(&block_map[pos[0]][pos[1]], line[pos[1]]);
+				detect_block_type(canvas, block_map, pos[0], pos[1]);
 			}
 			else
 				init_block(&block_map[pos[0]][pos[1]], ' ');
@@ -96,7 +138,7 @@ int	create_2d_tab(t_map *map, t_block **block_map)
 	return (1);
 }
 
-int	init_block_map(void *mlx, t_map *map, t_list **lst)
+int	init_block_map(t_canvas *canvas, t_map *map, t_list **lst)
 {
 	t_block	**block_map;
 
@@ -104,7 +146,7 @@ int	init_block_map(void *mlx, t_map *map, t_list **lst)
 	if (!block_map || !create_2d_tab(map, block_map))
 		return (0);
 	map->block_map = block_map;
-	if (!fill_map(mlx, map, block_map, lst) || !check_map(map, block_map, 0, 0))
+	if (!fill_map(canvas, map, block_map, lst) || !check_map(map, block_map, 0, 0))
 	{
 		printf("error map configuration\n");
 		return (0);
@@ -112,7 +154,7 @@ int	init_block_map(void *mlx, t_map *map, t_list **lst)
 	return (1);
 }
 
-t_map	*create_map(void *mlx, char *file_name)
+t_map	*create_map(t_canvas *canvas, char *file_name)
 {
 	t_map	*new_map;
 	t_list	*lst;
@@ -120,16 +162,16 @@ t_map	*create_map(void *mlx, char *file_name)
 	new_map = init_map();
 	if (!new_map)
 		return (NULL);
-	lst = loading_file(mlx, new_map, file_name);
+	lst = loading_file(canvas->mlx, new_map, file_name);
 	if (!lst)
 	{
-		destroy_map(mlx, new_map);
+		destroy_map(canvas->mlx, new_map);
 		return (NULL);
 	}
 	new_map->line_nb = ft_lstsize(lst);
-	if (!init_block_map(mlx, new_map, &lst))
+	if (!init_block_map(canvas, new_map, &lst))
 	{
-		destroy_map(mlx, new_map);
+		destroy_map(canvas->mlx, new_map);
 		while (lst)
 			ft_lstpop(&lst);
 		return (NULL);
