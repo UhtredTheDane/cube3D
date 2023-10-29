@@ -44,7 +44,7 @@ void	win_3d(double dm, t_canvas *canvas, t_ray *ray, int i)
 
 	t_data wall;
 	hm = 64.;
-	de = 20.;
+	de = 10.;
 	hp = hm / dm * de;
 	hr = 300.;
 	compt = 0;
@@ -92,7 +92,6 @@ void	win_3d(double dm, t_canvas *canvas, t_ray *ray, int i)
 
 int	ft_close_win(t_canvas *canvas)
 {
-
 	exit (0);
 	(void)canvas;
 }
