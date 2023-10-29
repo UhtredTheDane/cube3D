@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:19:51 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/29 11:16:22 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/10/27 16:31:48 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ double	get_wall_dist(t_map *map, t_ray *ray)
 	{
 		if (ray->sidedist_x < ray->sidedisty)
 		{
-			ray->sidedist_x += ray->deltadist_x * SQUARE;
+			ray->sidedist_x += ray->deltadist_x * 30.;
 			ray->row_hit += ray->stepx;
 			ray->side = 0;
 		}
 		else
 		{
-			ray->sidedisty += ray->deltadisty * SQUARE;
+			ray->sidedisty += ray->deltadisty * 30.;
 			ray->n_l_hit += ray->stepY;
 			ray->side = 1;
 		}
@@ -64,9 +64,9 @@ double	get_wall_dist(t_map *map, t_ray *ray)
 			break ;
 	}
 	if (ray->side == 0)
-		return (ray->sidedist_x - ray->deltadist_x * SQUARE);
+		return (ray->sidedist_x - ray->deltadist_x * 30);
 	else
-		return (ray->sidedisty - ray->deltadisty * SQUARE);
+		return (ray->sidedisty - ray->deltadisty * 30);
 }
 
 double	draw_dir_ray(t_canvas *canvas, t_ray *ray, double angle)
@@ -95,10 +95,7 @@ void	draw_ray(t_canvas *canvas)
 		init_ray(&ray, canvas, angle);
 		win_3d(draw_dir_ray(canvas, &ray, angle), canvas, &ray, i++);
 		if (angle != 0.)
-		{
-			init_ray(&ray, canvas, -angle);
 			win_3d(draw_dir_ray(canvas, &ray, -angle), canvas, &ray, j--);
-		}
 		angle += M_PI / value;
 	}
 	mlx_put_image_to_window(canvas->mlx, canvas->win->window2, canvas->win->img, 0, 0);
@@ -128,13 +125,13 @@ void	draw_squar(t_canvas *canvas, int color, int x_map, int y_map)
 	int	i;
 	int	j;
 
-	i = x_map * SQUARE;
+	i = x_map *SQUARE;
 	while (i < (x_map + 1) * SQUARE)
 	{
 		j = y_map * SQUARE;
 		while (j < (y_map + 1) * SQUARE)
 		{
-			if (i == x_map * SQUARE || i == (x_map + 1) * SQUARE - 1 || j == y_map * SQUARE || j == (y_map + 1) * SQUARE - 1)
+			if (i == x_map * SQUARE || i == (x_map + 1) * SQUARE - 1 || j == y_map * SQUARE || j == (y_map + 1) *SQUARE - 1)
 				my_mlx_pixel_put(canvas, j, i, 0x000000);
 			else
 				my_mlx_pixel_put(canvas, j, i, color);
@@ -155,7 +152,7 @@ void	draw_map(t_canvas *canvas)
 		j = 0;
 		while (j < canvas->map->row_nb)
 		{
-			//detect_block_type(canvas, i, j);
+			detect_block_type(canvas, i, j);
 			j++;
 		}
 		i++;
