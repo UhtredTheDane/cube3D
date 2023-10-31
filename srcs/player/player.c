@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:37:20 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/31 15:58:28 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/31 18:55:33 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	rotate_player(t_canvas *canvas, double angle)
 	canvas->player->dir_y = tempo_dir_x * sin(angle) + tempo_dir_y * cos(angle);
 }
 
-int	d_collision(t_canvas *canvas)
+int	dcolision(t_canvas *canvas)
 {
 	size_t	x;
 	size_t	y;
@@ -50,7 +50,7 @@ int	d_collision(t_canvas *canvas)
 	return (1);
 }
 
-int	a_collision(t_canvas *canvas)
+int	acolision(t_canvas *canvas)
 {
 	size_t	x;
 	size_t	y;
@@ -72,7 +72,7 @@ int	a_collision(t_canvas *canvas)
 	return (1);
 }
 
-int	s_collision(t_canvas *canvas)
+int	scolision(t_canvas *canvas)
 {
 	size_t	x;
 	size_t	y;
@@ -96,7 +96,7 @@ int	s_collision(t_canvas *canvas)
 	return (1);
 }
 
-int	w_collision(t_canvas *canvas)
+int	wcolision(t_canvas *canvas)
 {
 	double	x;
 	double	y;
@@ -125,17 +125,16 @@ int	move_player(int key, t_canvas *canvas)
 	if (key == 65307)
 	{
 		ft_close_win(canvas);
-		//destroy_canvas(canvas);
 		mlx_loop_end(canvas->mlx);
 		exit (0);
 	}
-	if ((key == PRESS_W || key == PRESS_ARROW_UP) && w_collision(canvas) == 1)
+	if ((key == PRESS_W || key == PRESS_ARROW_UP) && wcolision(canvas) == 1)
 		move_up(canvas);
-	if ((key == PRESS_S || key == PRESS_ARROW_DOWN) && s_collision(canvas) == 1)
+	if ((key == PRESS_S || key == PRESS_ARROW_DOWN) && scolision(canvas) == 1)
 		move_down(canvas);
-	if ((key == PRESS_A || key == PRESS_ARROW_LEFT) && a_collision(canvas) == 1)
+	if ((key == PRESS_A || key == PRESS_ARROW_LEFT) && acolision(canvas) == 1)
 		move_left(canvas);
-	if ((key == PRESS_D || key == PRESS_ARROW_RIGHT) && d_collision(canvas) == 1)
+	if ((key == PRESS_D || key == PRESS_ARROW_RIGHT) && dcolision(canvas) == 1)
 		move_right(canvas);
 	if (key == XK_q)
 		rotate_player(canvas, PI / -16);

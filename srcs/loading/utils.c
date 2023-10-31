@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 
 #include "../../includes/loading.h"
- 
-char *trim_backspace(int map_fd)
+
+char	*trim_backspace(int map_fd)
 {
 	char	*line;
 
@@ -25,9 +25,9 @@ char *trim_backspace(int map_fd)
 	return (line);
 }
 
-char *trim_space(char *line, int shifting)
+char	*trim_space(char *line, int shifting)
 {
-	char *tempo_line;
+	char	*tempo_line;
 
 	tempo_line = ft_strtrim(line + shifting, " ");
 	free(line);

@@ -18,7 +18,7 @@ t_img	**switch_face(t_map *map, char **face, int num_face)
 	if (num_face == 0)
 	{
 		*face = "NO";
-		return (&map->NO_path);	
+		return (&map->NO_path);
 	}
 	else if (num_face == 1)
 	{
@@ -37,10 +37,10 @@ t_img	**switch_face(t_map *map, char **face, int num_face)
 	}
 }
 
-int loading_texture(void *mlx, t_img **map_face, char *line)
+int	loading_texture(void *mlx, t_img **map_face, char *line)
 {
-	size_t size;
-	
+	size_t	size;
+
 	size = ft_strlen(line);
 	line[size - 1] = '\0';
 	line = trim_space(line, 0);
@@ -55,11 +55,11 @@ int loading_texture(void *mlx, t_img **map_face, char *line)
 	return (1);
 }
 
-int run_loading_texture(void *mlx, t_map *map, char *line, int num_face)
+int	run_loading_texture(void *mlx, t_map *map, char *line, int num_face)
 {
-	char *face;
-	t_img **map_face;
-	
+	char	*face;
+	t_img	**map_face;
+
 	line = trim_space(line, 3);
 	if (line)
 	{
@@ -68,4 +68,4 @@ int run_loading_texture(void *mlx, t_map *map, char *line, int num_face)
 			return (1);
 	}
 	return (0);
-}  
+}

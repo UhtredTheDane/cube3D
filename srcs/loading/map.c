@@ -32,11 +32,11 @@ char	*create_wrapper(size_t row_nb)
 
 void	add_wrappers(t_list **lst, size_t row_nb)
 {
-	char *wrapper1;
-	char *wrapper2;
+	char	*wrapper1;
+	char	*wrapper2;
 	t_list	*wrap1;
 	t_list	*wrap2;
-    
+
 	if (*lst != NULL)
 	{
 		wrapper1 = create_wrapper(row_nb);
@@ -48,9 +48,9 @@ void	add_wrappers(t_list **lst, size_t row_nb)
 	}
 }
 
-t_list *load_line(t_list **lst, char *line, size_t *row_nb)
+t_list	*load_line(t_list **lst, char *line, size_t *row_nb)
 {
-    size_t  size_line;
+	size_t	size_line;
 	char	*line_ok;
 	t_list	*elem;
 
@@ -93,7 +93,7 @@ t_list	*loading_map(int map_fd, size_t *row_nb)
 		if (line)
 		{
 			if (line[0] == '\n')
-				break;
+				break ;
 			tempo_lst = lst;
 			lst = load_line(&tempo_lst, line, row_nb);
 			if (!lst)
