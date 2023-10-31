@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:19:51 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/31 14:26:11 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/31 18:09:18 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,5 +139,6 @@ void	draw_map(t_canvas *canvas)
 	}
 	draw_player(canvas);
 	draw_ray(canvas);
-	mlx_put_image_to_window(canvas->mlx, canvas->window, canvas->data.img, 0, 0);
+	mlx_put_image_to_window(canvas->mlx, \
+		canvas->window, canvas->data.img, 0, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 23:04:12 by agengemb          #+#    #+#             */
-/*   Updated: 2023/10/31 14:21:56 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/31 18:42:08 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	destroy_canvas(t_canvas *canvas)
 {
 	destroy_map(canvas->mlx, canvas->map);
 	mlx_destroy_image(canvas->mlx, canvas->data.img);
-	mlx_destroy_window(canvas->mlx, canvas->window);
 	mlx_destroy_display(canvas->mlx);
+	mlx_destroy_window(canvas->mlx, canvas->window);
 	free(canvas->player);
 	free(canvas->mlx);
 	free(canvas);
@@ -25,8 +25,10 @@ void	destroy_canvas(t_canvas *canvas)
 
 void	new_image(t_canvas *canvas)
 {
-	canvas->data.img = mlx_new_image(canvas->mlx, canvas->map->row_nb * SQUARE, canvas->map->line_nb * SQUARE);
-	canvas->data.addr = mlx_get_data_addr(canvas->data.img, &canvas->data.bpp, &canvas->data.linlgth, &canvas->data.end);
+	canvas->data.img = mlx_new_image(canvas->mlx, \
+		canvas->map->row_nb * SQUARE, canvas->map->line_nb * SQUARE);
+	canvas->data.addr = mlx_get_data_addr(canvas->data.img, \
+		&canvas->data.bpp, &canvas->data.linlgth, &canvas->data.end);
 }
 
 t_canvas	*create_canvas(char *file_name)
@@ -57,7 +59,8 @@ t_canvas	*create_canvas(char *file_name)
 		free(new_canvas);
 		return (NULL);
 	}
-	new_canvas->window = mlx_new_window(new_canvas->mlx, new_canvas->map->row_nb * SQUARE, new_canvas->map->line_nb * SQUARE, "cube3D");
+	new_canvas->window = mlx_new_window(new_canvas->mlx, new_canvas->map->\
+	row_nb * SQUARE, new_canvas->map->line_nb * SQUARE, "cube3D");
 	if (!new_canvas->window)
 	{
 		destroy_map(new_canvas->mlx, new_canvas->map);

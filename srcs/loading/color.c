@@ -12,15 +12,15 @@
 
 #include "../../includes/loading.h"
 
-int create_trgb(int t, int r, int g, int b)
+int	create_trgb(int t, int r, int g, int b)
 {
 	return (t << 24 | r << 16 | g << 8 | b);
 }
 
-int get_value(char **line, char symbol)
+int	get_value(char **line, char symbol)
 {
-	char *virgule;
-	int color;
+	char	*virgule;
+	int		color;
 
 	virgule = ft_strchr(*line, symbol);
 	if (!virgule)
@@ -34,8 +34,8 @@ int get_value(char **line, char symbol)
 		*line += (virgule - *line) + 1;
 	return (color);
 }
- 
-int loading_trgb(char *line)
+
+int	loading_trgb(char *line)
 {
 	int	r;
 	int	g;
@@ -53,10 +53,10 @@ int loading_trgb(char *line)
 	return (create_trgb(0, r, g, b));
 }
 
-int loading_color(t_map *map, char *line, char type)
+int	loading_color(t_map *map, char *line, char type)
 {
-	char *tempo_line;
-	int *map_color;
+	char	*tempo_line;
+	int		*map_color;
 
 	line = trim_space(line, 2);
 	if (line)

@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:29:19 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/31 14:20:27 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/31 18:08:45 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,11 @@ void	win_3d(double dm, t_win *win, int i)
 
 int	ft_close_win(t_canvas *canvas)
 {
+	printf("Window closed\n");
+	free(canvas->win->window2);
+	free(canvas->win->mlx);
+	free(canvas->win);
+	destroy_canvas(canvas);
 	exit (0);
-	(void)canvas;
+	return (0);
 }
