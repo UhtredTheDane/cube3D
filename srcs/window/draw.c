@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:19:51 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/27 16:31:48 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/31 14:26:11 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	my_mlx_pixel_put(t_canvas *canvas, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = canvas->data.addr + (y * canvas->data.line_length
+	dst = canvas->data.addr + (y * canvas->data.linlgth
 			+ x * (canvas->data.bpp / 8));
 	*(unsigned int *)dst = color;
 }
@@ -85,7 +85,7 @@ void	draw_ray(t_canvas *canvas)
 	double	angle;
 	int		i;
 	int		j;
-	int value;
+	int		value;
 
 	value = 800 / 2 * 6;
 	angle = 0;
@@ -98,13 +98,14 @@ void	draw_ray(t_canvas *canvas)
 			win_3d (draw_dir_ray(canvas, -angle), canvas->win, j--);
 		angle += M_PI / value;
 	}
-	mlx_put_image_to_window(canvas->mlx, canvas->win->window2, canvas->win->img, 0, 0);
+	mlx_put_image_to_window(canvas->mlx, canvas->win->window2,
+		canvas->win->img, 0, 0);
 }
 
 void	draw_player(t_canvas *canvas)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 13;
 	while (i < 18)
@@ -118,29 +119,6 @@ void	draw_player(t_canvas *canvas)
 		}
 		++i;
 	}
-}
-
-void	draw_squar(t_canvas *canvas, int color, int x_map, int y_map)
-{
-	int	i;
-	int	j;
-
-	i = x_map *SQUARE;
-	while (i < (x_map + 1) * SQUARE)
-	{
-		j = y_map * SQUARE;
-		while (j < (y_map + 1) * SQUARE)
-		{
-			if (i == x_map * SQUARE || i == (x_map + 1) * SQUARE - 1 || j == y_map * SQUARE || j == (y_map + 1) *SQUARE - 1)
-				my_mlx_pixel_put(canvas, j, i, 0x000000);
-			else
-			my_mlx_pixel_put(canvas, j, i, color);
-			j++;
-		}
-		i++;
-	}
-	(void)color;
-	(void)canvas;
 }
 
 void	draw_map(t_canvas *canvas)

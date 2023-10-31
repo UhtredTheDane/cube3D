@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:29:19 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/31 14:18:41 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/31 14:20:27 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_win	*init_window(void *mlx)
 		return (NULL);
 	win->window2 = mlx_new_window(mlx, 800, 600, "cub3D");
 	win->img = mlx_new_image(mlx, 800, 600);
-	win->addr = mlx_get_data_addr(win->img, &win->bpp, &win->linl, &win->endian);
+	win->addr = mlx_get_data_addr(win->img, &win->bpp, &win->linl, &win->end);
 	return (win);
 }
 
