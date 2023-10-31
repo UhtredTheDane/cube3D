@@ -78,7 +78,7 @@ t_list	*loading_map(int map_fd, size_t *row_nb)
 	char	*line;
 	t_list	*lst;
 	t_list	*tempo_lst;
-	int i;
+	int 	i;
 
 	i = 0;
 	lst = NULL;

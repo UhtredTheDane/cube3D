@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:31:02 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/31 14:11:54 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/31 19:01:42 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ void	detect_block_type(t_canvas *canvas, size_t i, size_t j);
 void	init_pos_player(t_canvas *canvas, size_t i, size_t j, char dir);
 double	get_side_dist_x(t_ray *ray, double player_posx);
 double	get_side_disty(t_ray *ray, double player_posY);
+void	draw_ray(t_canvas *canvas);
 
 #endif

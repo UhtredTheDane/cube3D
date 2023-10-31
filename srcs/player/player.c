@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:37:20 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/31 18:55:33 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/31 19:09:30 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int	dcolision(t_canvas *canvas)
 	}
 	else if (canvas->player->dir_x < 0 && y <= 1)
 		return (0);
-
 	return (1);
 }
 
@@ -118,28 +117,4 @@ int	wcolision(t_canvas *canvas)
 	else if (canvas->player->dir_x > 0 && x >= canvas->map->row_nb - 2)
 		return (0);
 	return (1);
-}
-
-int	move_player(int key, t_canvas *canvas)
-{
-	if (key == 65307)
-	{
-		ft_close_win(canvas);
-		mlx_loop_end(canvas->mlx);
-		exit (0);
-	}
-	if ((key == PRESS_W || key == PRESS_ARROW_UP) && wcolision(canvas) == 1)
-		move_up(canvas);
-	if ((key == PRESS_S || key == PRESS_ARROW_DOWN) && scolision(canvas) == 1)
-		move_down(canvas);
-	if ((key == PRESS_A || key == PRESS_ARROW_LEFT) && acolision(canvas) == 1)
-		move_left(canvas);
-	if ((key == PRESS_D || key == PRESS_ARROW_RIGHT) && dcolision(canvas) == 1)
-		move_right(canvas);
-	if (key == XK_q)
-		rotate_player(canvas, PI / -16);
-	if (key == XK_e)
-		rotate_player(canvas, PI / 16);
-	draw_map(canvas);
-	return (0);
 }

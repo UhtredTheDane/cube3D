@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 16:20:03 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/31 18:17:39 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/31 19:06:03 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,4 +96,3 @@ double	get_side_disty(t_ray *ray, double player_posY)
 	}
 	return (sidedisty);
 }
-

@@ -6,14 +6,13 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:19:51 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/31 18:09:18 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/31 19:05:27 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/window.h"
 #include <math.h>
 #include "../../includes/data.h"
-#define OFFSET 15
 
 void	my_mlx_pixel_put(t_canvas *canvas, int x, int y, int color)
 {
@@ -100,45 +99,4 @@ void	draw_ray(t_canvas *canvas)
 	}
 	mlx_put_image_to_window(canvas->mlx, canvas->win->window2,
 		canvas->win->img, 0, 0);
-}
-
-void	draw_player(t_canvas *canvas)
-{
-	int	i;
-	int	j;
-
-	i = 13;
-	while (i < 18)
-	{
-		j = 13;
-		while (j < 18)
-		{
-			my_mlx_pixel_put(canvas, canvas->player->x - OFFSET + j,
-				canvas->player->y - OFFSET + i, 0x000000);
-			++j;
-		}
-		++i;
-	}
-}
-
-void	draw_map(t_canvas *canvas)
-{
-	size_t	i;
-	size_t 	j;
-
-	i = 0;
-	while (i < canvas->map->line_nb)
-	{
-		j = 0;
-		while (j < canvas->map->row_nb)
-		{
-			detect_block_type(canvas, i, j);
-			j++;
-		}
-		i++;
-	}
-	draw_player(canvas);
-	draw_ray(canvas);
-	mlx_put_image_to_window(canvas->mlx, \
-		canvas->window, canvas->data.img, 0, 0);
 }

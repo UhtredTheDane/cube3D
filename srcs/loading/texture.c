@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../../includes/loading.h"
 
 t_img	**switch_face(t_map *map, char **face, int num_face)
