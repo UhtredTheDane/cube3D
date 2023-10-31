@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:37:20 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/27 14:57:23 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/31 13:03:59 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,27 +31,22 @@ int	d_collision(t_canvas *canvas)
 {
 	size_t	x;
 	size_t	y;
-	size_t	i;
 
-	i = canvas->map->row_nb - 2;
 	x = (canvas->player->x) / SQUARE;
 	y = (canvas->player->y) / SQUARE;
-	if (canvas->player->dir_y >= 0)
+	if (canvas->player->dir_y < 0 && x >= canvas->map->row_nb - 2)
 	{
-		if (y <= 1)
-			return (0);
+		return (0);
 	}	
-	else if (canvas->player->dir_y < 0)
-		if (y >= i)
-			return (0);
-	if (canvas->player->dir_x >= 0)
+	else if (canvas->player->dir_y > 0 && x <= 1)
+		return (0);
+	else if (canvas->player->dir_x > 0 && y >= canvas->map->line_nb - 2)
 	{
-		if (x <= 1)
-			return (0);
+		return (0);
 	}
-	else if (canvas->player->dir_x < 0)
-		if (x >= i)
-			return (0);
+	else if (canvas->player->dir_x < 0 && y <= 1)
+		return (0);
+
 	return (1);
 }
 
@@ -59,29 +54,21 @@ int	a_collision(t_canvas *canvas)
 {
 	size_t	x;
 	size_t	y;
-	size_t	i;
 
-	i = canvas->map->row_nb - 2;
 	x = (canvas->player->x) / SQUARE;
 	y = (canvas->player->y) / SQUARE;
-	if (canvas->player->dir_y < 0)
+	if (canvas->player->dir_y < 0 && x <= 1)
 	{
-		if (x <= 1)
-			return (0);
+		return (0);
 	}	
-	else if (canvas->player->dir_y > 0)
+	else if (canvas->player->dir_y > 0 && x >= canvas->map->row_nb - 2)
+		return (0);
+	else if (canvas->player->dir_x > 0 && y <= 1)
 	{
-		if (x >= i)
-			return (0);
+		return (0);
 	}
-	if (canvas->player->dir_x > 0)
-	{
-		if (y <= 1)
-			return (0);
-	}
-	else if (canvas->player->dir_x < 0)
-		if (y >= i)
-			return (0);
+	else if (canvas->player->dir_x < 0 && y >= canvas->map->line_nb - 2)
+		return (0);
 	return (1);
 }
 
@@ -89,27 +76,23 @@ int	s_collision(t_canvas *canvas)
 {
 	size_t	x;
 	size_t	y;
-	size_t	i;
 
-	i = canvas->map->row_nb - 2;
-	x = (canvas->player->x) / SQUARE;
-	y = (canvas->player->y) / SQUARE;
-	if (canvas->player->dir_y > 0)
+	x = canvas->player->x / SQUARE;
+	y = canvas->player->y / SQUARE;
+	if (canvas->player->dir_y > 0 && y <= 1)
 	{
-		if (y <= 1)
-			return (0);
+		return (0);
 	}	
-	else if (canvas->player->dir_y < 0)
-		if (y >= i)
-			return (0);
-	if (canvas->player->dir_x > 0)
+	else if (canvas->player->dir_y < 0 && y >= canvas->map->line_nb - 2)
 	{
-		if (x <= 1)
-			return (0);
+		return (0);
 	}
-	else if (canvas->player->dir_x < 0)
-		if (x >= i)
-			return (0);
+	if (canvas->player->dir_x > 0 && x <= 1)
+	{
+		return (0);
+	}
+	else if (canvas->player->dir_x < 0 && x >= canvas->map->row_nb - 2)
+		return (0);
 	return (1);
 }
 
@@ -118,24 +101,22 @@ int	w_collision(t_canvas *canvas)
 	double	x;
 	double	y;
 
-	x = canvas->player->x;
-	y = canvas->player->y;
-	if (canvas->player->dir_y < 0)
+	x = canvas->player->x / SQUARE;
+	y = canvas->player->y / SQUARE;
+	if (canvas->player->dir_y < 0 && y <= 1)
 	{
-		if (y <= 1)
-			return (0);
+		return (0);
 	}	
-	else if (canvas->player->dir_y > 0)
-		if (y >= canvas->map->line_nb * 30)
-			return (0);
-	if (canvas->player->dir_x < 0)
+	else if (canvas->player->dir_y > 0 && y >= canvas->map->line_nb - 2)
 	{
-		if (x <= 1)
-			return (0);
+		return (0);
 	}
-	else if (canvas->player->dir_x > 0)
-		if (x >= canvas->map->row_nb * 30)
-			return (0);
+	if (canvas->player->dir_x < 0 && x <= 1)
+	{
+		return (0);
+	}
+	else if (canvas->player->dir_x > 0 && x >= canvas->map->row_nb - 2)
+		return (0);
 	return (1);
 }
 
