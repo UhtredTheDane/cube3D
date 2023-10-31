@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 16:33:39 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/27 16:33:46 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/31 14:18:22 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct s_win
 	char		*addr;
 	t_canvas	*canvas;
 	int			endian;
-	int			line_len;
+	int			linl;
 	int			bpp;
 }	t_win;
 

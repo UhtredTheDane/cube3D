@@ -6,11 +6,19 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 14:58:12 by agengemb          #+#    #+#             */
-/*   Updated: 2023/10/25 16:10:10 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/31 14:15:21 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/main.h"
+
+int	set_game(t_canvas *canvas)
+{
+	mlx_hook(canvas->win->window2, 2, (1L << 0), move_player, canvas);
+	mlx_hook(canvas->win->window2, 17, 0, ft_close_win, canvas);
+	canvas->player->w = 0;
+	return (0);
+}
 
 int	main(int argc, char **argv)
 {
@@ -33,10 +41,7 @@ int	main(int argc, char **argv)
 	canvas = create_canvas(argv[1]);
 	if (!canvas)
 		return (0);
-	canvas->player->w = 0;
-
-	mlx_hook(canvas->win->window2, 2, (1L << 0), move_player, canvas);
-	mlx_hook(canvas->win->window2, 17, 0, ft_close_win, canvas);
+	set_game(canvas);
 	move_player(0, canvas);
 	mlx_loop(canvas->mlx);
 	destroy_canvas(canvas);
