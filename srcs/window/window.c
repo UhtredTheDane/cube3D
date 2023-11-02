@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:29:19 by anmande           #+#    #+#             */
-/*   Updated: 2023/11/02 15:52:30 by anmande          ###   ########.fr       */
+/*   Updated: 2023/11/02 17:33:39 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,6 @@ void	my_mlx_pixel_put2(t_win *win, int x, int y, int color)
 	dst = win->addr + (y * win->line_len + x * (win->bpp / 8));
 	*(unsigned int *)dst = color;
 }
-/*
-t_win	*init_window(void *mlx)
-{
-	t_win	*win;
-
-	win = malloc(sizeof(t_win));
-	if (!win)
-		return (NULL);
-	win->window2 = mlx_new_window(mlx, 800, 600, "cub3D");
-	win->img = mlx_new_image(mlx, 800, 600);
-	win->addr = mlx_get_data_addr(win->img, &win->bpp, &win->linl, &win->end);
-	return (win);
-}*/
 
 void	win_3d(double dm, t_canvas *canvas, t_ray *ray, int i)
 {
