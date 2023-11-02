@@ -1,10 +1,10 @@
 F 76,76,76
 C 99,99,99
 
-NO textures/north.xpm
-SO textures/south.xpm
-WE textures/west.xpm
-EA textures/east.xpm
+NO textures/bricks.xpm
+SO textures/bookshelf.xpm
+WE textures/red_brick.xpm
+EA textures/eagle.xpm
 
 1111111111111111111
 10W1001001001000001

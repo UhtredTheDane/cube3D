@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   canvas.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
+/*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/07 23:04:12 by agengemb          #+#    #+#             */
-/*   Updated: 2023/10/23 18:21:40 by anmande          ###   ########.fr       */
+/*   Created: 2023/10/29 14:04:56 by agengemb          #+#    #+#             */
+/*   Updated: 2023/10/29 14:05:05 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	destroy_canvas(t_canvas *canvas)
 {
 	destroy_map(canvas->mlx, canvas->map);
 	mlx_destroy_image(canvas->mlx, canvas->data.img);
-	mlx_destroy_window(canvas->mlx, canvas->window);
+	//mlx_destroy_window(canvas->mlx, canvas->window);
 	mlx_destroy_display(canvas->mlx);
 	free(canvas->player);
 	free(canvas->mlx);
@@ -49,7 +49,7 @@ t_canvas	*create_canvas(char *file_name)
 		free(new_canvas);
 		return (NULL);
 	}
-	new_canvas->map = create_map(new_canvas->mlx, file_name);
+	new_canvas->map = create_map(new_canvas, file_name);
 	if (!new_canvas->map)
 	{
 		free(new_canvas->player);
@@ -57,7 +57,7 @@ t_canvas	*create_canvas(char *file_name)
 		free(new_canvas);
 		return (NULL);
 	}
-	new_canvas->window = mlx_new_window(new_canvas->mlx, new_canvas->map->row_nb * SQUARE, new_canvas->map->line_nb * SQUARE, "cube3D");
+	/*new_canvas->window = mlx_new_window(new_canvas->mlx, new_canvas->map->row_nb * SQUARE, new_canvas->map->line_nb * SQUARE, "cube3D");
 	if (!new_canvas->window)
 	{
 		destroy_map(new_canvas->mlx, new_canvas->map);
@@ -65,7 +65,7 @@ t_canvas	*create_canvas(char *file_name)
 		free(new_canvas->mlx);
 		free(new_canvas);
 		return (NULL);
-	}
+	}*/
 	new_canvas->win = init_window(new_canvas->mlx);
 	new_image(new_canvas);
 	return (new_canvas);
