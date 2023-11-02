@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:37:20 by anmande           #+#    #+#             */
-/*   Updated: 2023/11/02 16:59:46 by anmande          ###   ########.fr       */
+/*   Updated: 2023/11/02 17:25:36 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,17 @@ int	dcolision(t_canvas *canvas)
 
 	x = (canvas->player->x);
 	y = (canvas->player->y);
-	if (canvas->player->dir_y < 0 && x >= canvas->map->row_nb - 3.5)
+	if (canvas->player->dir_y < 0 && x >= canvas->map->row_nb - 3.)
 	{
 		return (0);
 	}	
 	else if (canvas->player->dir_y > 0 && x <= 2.2)
 		return (0);
-	else if (canvas->player->dir_x > 0 && y >= canvas->map->line_nb - 2.2)
+	else if (canvas->player->dir_x > 0 && y >= canvas->map->line_nb - 3.)
 	{
 		return (0);
 	}
-	else if (canvas->player->dir_x < 0 && y <= 2.2)
+	else if (canvas->player->dir_x < 0 && y <= 2.5)
 		return (0);
 	return (1);
 }
@@ -60,41 +60,41 @@ int	acolision(t_canvas *canvas)
 
 	x = (canvas->player->x);
 	y = (canvas->player->y);
-	if (canvas->player->dir_y < 0 && x <= 2.2)
+	if (canvas->player->dir_y < 0 && x <= 2.5)
 	{
 		return (0);
 	}	
-	else if (canvas->player->dir_y > 0 && x >= canvas->map->row_nb - 2.2)
+	else if (canvas->player->dir_y > 0 && x >= canvas->map->row_nb - 3)
 		return (0);
-	else if (canvas->player->dir_x > 0 && y <= 2.2)
+	else if (canvas->player->dir_x > 0 && y <= 2.5)
 	{
 		return (0);
 	}
-	else if (canvas->player->dir_x < 0 && y >= canvas->map->line_nb - 2.2)
+	else if (canvas->player->dir_x < 0 && y >= canvas->map->line_nb - 3.)
 		return (0);
 	return (1);
 }
 
 int	scolision(t_canvas *canvas)
 {
-	size_t	x;
-	size_t	y;
+	double	x;
+	double	y;
 
 	x = canvas->player->x;
 	y = canvas->player->y;
-	if (canvas->player->dir_y > 0 && y <= 2.2)
+	if (canvas->player->dir_y > 0 && y <= 2.5)
 	{
 		return (0);
 	}	
-	else if (canvas->player->dir_y < 0 && y >= canvas->map->line_nb - 2.2)
+	else if (canvas->player->dir_y < 0 && y >= canvas->map->line_nb - 3.)
 	{
 		return (0);
 	}
-	if (canvas->player->dir_x > 0 && x <= 2.2)
+	if (canvas->player->dir_x > 0 && x <= 2.5)
 	{
 		return (0);
 	}
-	else if (canvas->player->dir_x < 0 && x >= canvas->map->row_nb - 2.2)
+	else if (canvas->player->dir_x < 0 && x >= canvas->map->row_nb - 3.)
 		return (0);
 	return (1);
 }
@@ -106,24 +106,19 @@ int	wcolision(t_canvas *canvas)
 
 	x = canvas->player->x;
 	y = canvas->player->y;
-	printf("x = %f\n", x);
-	printf("y = %f\n", y);
-	printf("line_nb = %ld\n", canvas->map->line_nb);
-	printf("row_nb = %ld\n", canvas->map->row_nb);
-	printf("=====	=====\n");
 	if (canvas->player->dir_y < 0 && canvas->player->y <= 2.2)
 	{
 		return (0);
 	}	
-	else if (canvas->player->dir_y > 0 && y >= canvas->map->line_nb - 2.2)
+	else if (canvas->player->dir_y > 0 && y >= canvas->map->line_nb - 2.5)
 	{
 		return (0);
 	}
-	if (canvas->player->dir_x < 0 && x <= 2.2)
+	if (canvas->player->dir_x < 0 && x <= 2.5)
 	{
 		return (0);
 	}
-	else if (canvas->player->dir_x > 0 && x >= canvas->map->row_nb - 2.2)
+	else if (canvas->player->dir_x > 0 && x >= canvas->map->row_nb - 2.5)
 		return (0);
 	return (1);
 }
