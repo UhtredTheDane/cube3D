@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/27 16:33:39 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/31 14:20:17 by anmande          ###   ########.fr       */
+/*   Created: 2023/10/29 14:03:48 by agengemb          #+#    #+#             */
+/*   Updated: 2023/11/02 15:43:38 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ typedef struct s_win
 	void		*img;
 	char		*addr;
 	t_canvas	*canvas;
-	int			end;
-	int			linl;
+	int			endian;
+	int			line_len;
 	int			bpp;
 }	t_win;
 

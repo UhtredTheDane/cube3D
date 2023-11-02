@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 14:58:12 by agengemb          #+#    #+#             */
-/*   Updated: 2023/10/31 14:15:21 by anmande          ###   ########.fr       */
+/*   Updated: 2023/11/02 15:54:56 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	set_game(t_canvas *canvas)
 {
-	mlx_hook(canvas->win->window2, 2, (1L << 0), move_player, canvas);
-	mlx_hook(canvas->win->window2, 17, 0, ft_close_win, canvas);
+	mlx_hook(canvas->window, 2, (1L << 0), move_player, canvas);
+	mlx_hook(canvas->window, 17, 0, ft_close_win, canvas);
 	canvas->player->w = 0;
 	return (0);
 }

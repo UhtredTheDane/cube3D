@@ -6,34 +6,32 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 13:33:56 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/31 18:59:23 by anmande          ###   ########.fr       */
+/*   Updated: 2023/11/02 15:53:02 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/player.h"
 #include <math.h>
-#include <X11/keysym.h>
-#define PI 3.14159265359
+#define XK_q 24
+#define XK_e 26
 
 void	move_up(t_canvas *canvas)
 {
-	if (canvas->player->y > 0)
-		canvas->player->y += canvas->player->dir_y * 2.0;
-	if (canvas->player->x > 0)
-		canvas->player->x += canvas->player->dir_x * 2.0;
+		canvas->player->y += canvas->player->dir_y * 2;
+		canvas->player->x += canvas->player->dir_x * 2;
 }
 
 void	move_down(t_canvas *canvas)
 {
-	if (canvas->player->y < canvas->map->line_nb * SQUARE)
+	if (canvas->player->y < canvas->map->line_nb)
 		canvas->player->y -= canvas->player->dir_y * 2.0;
-	if (canvas->player->x < canvas->map->row_nb * SQUARE)
+	if (canvas->player->x < canvas->map->row_nb)
 		canvas->player->x -= canvas->player->dir_x * 2.0;
 }
 
 void	move_left(t_canvas *canvas)
 {
-	if (canvas->player->y < canvas->map->line_nb * SQUARE)
+	if (canvas->player->y < canvas->map->line_nb)
 		canvas->player->y -= canvas->player->dir_x * 2.0;
 	if (canvas->player->x > 0)
 		canvas->player->x += canvas->player->dir_y * 2.0;
@@ -43,7 +41,7 @@ void	move_right(t_canvas *canvas)
 {
 	if (canvas->player->y > 0)
 		canvas->player->y += canvas->player->dir_x * 2.0;
-	if (canvas->player->x < canvas->map->row_nb * SQUARE)
+	if (canvas->player->x < canvas->map->row_nb)
 		canvas->player->x -= canvas->player->dir_y * 2.0;
 }
 
@@ -64,9 +62,9 @@ int	move_player(int key, t_canvas *canvas)
 	if ((key == PRESS_D || key == PRESS_ARROW_RIGHT) && dcolision(canvas) == 1)
 		move_right(canvas);
 	if (key == XK_q)
-		rotate_player(canvas, PI / -16);
+		rotate_player(canvas, M_PI / -16);
 	if (key == XK_e)
-		rotate_player(canvas, PI / 16);
-	draw_map(canvas);
+		rotate_player(canvas, M_PI / 16);
+	draw_ray(canvas);
 	return (0);
 }

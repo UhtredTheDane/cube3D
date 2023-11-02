@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:37:20 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/31 19:09:30 by anmande          ###   ########.fr       */
+/*   Updated: 2023/11/02 15:38:57 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@ void	rotate_player(t_canvas *canvas, double angle)
 	tempo_dir_y = canvas->player->dir_y;
 	canvas->player->dir_x = tempo_dir_x * cos(angle) - tempo_dir_y * sin(angle);
 	canvas->player->dir_y = tempo_dir_x * sin(angle) + tempo_dir_y * cos(angle);
+	tempo_dir_x = canvas->player->plane_x;
+	tempo_dir_y = canvas->player->plane_y;
+	canvas->player->plane_x = tempo_dir_x * cos(angle) - tempo_dir_y * sin(angle);
+	canvas->player->plane_y = tempo_dir_x * sin(angle) + tempo_dir_y * cos(angle);
 }
 
 int	dcolision(t_canvas *canvas)
@@ -32,8 +36,8 @@ int	dcolision(t_canvas *canvas)
 	size_t	x;
 	size_t	y;
 
-	x = (canvas->player->x) / SQUARE;
-	y = (canvas->player->y) / SQUARE;
+	x = (canvas->player->x);
+	y = (canvas->player->y);
 	if (canvas->player->dir_y < 0 && x >= canvas->map->row_nb - 2)
 	{
 		return (0);
@@ -54,8 +58,8 @@ int	acolision(t_canvas *canvas)
 	size_t	x;
 	size_t	y;
 
-	x = (canvas->player->x) / SQUARE;
-	y = (canvas->player->y) / SQUARE;
+	x = (canvas->player->x);
+	y = (canvas->player->y);
 	if (canvas->player->dir_y < 0 && x <= 1)
 	{
 		return (0);
@@ -76,8 +80,8 @@ int	scolision(t_canvas *canvas)
 	size_t	x;
 	size_t	y;
 
-	x = canvas->player->x / SQUARE;
-	y = canvas->player->y / SQUARE;
+	x = canvas->player->x;
+	y = canvas->player->y;
 	if (canvas->player->dir_y > 0 && y <= 1)
 	{
 		return (0);
@@ -100,8 +104,8 @@ int	wcolision(t_canvas *canvas)
 	double	x;
 	double	y;
 
-	x = canvas->player->x / SQUARE;
-	y = canvas->player->y / SQUARE;
+	x = canvas->player->x;
+	y = canvas->player->y;
 	if (canvas->player->dir_y < 0 && y <= 1)
 	{
 		return (0);

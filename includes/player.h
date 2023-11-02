@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:39:39 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/31 18:59:03 by anmande          ###   ########.fr       */
+/*   Updated: 2023/11/02 15:51:00 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define PRESS_S 115
 # define PRESS_A 97
 # define PRESS_D 100
-# define SQUARE 30
+# define SQUARE 64
 
 typedef struct s_canvas t_canvas;
 typedef struct s_player
@@ -49,9 +49,10 @@ void	move_up(t_canvas *canvas);
 void	move_down(t_canvas *canvas);
 void	move_left(t_canvas *canvas);
 void	move_right(t_canvas *canvas);
+int	dcolision(t_canvas *canvas);
+int	acolision(t_canvas *canvas);
+int	scolision(t_canvas *canvas);
+int	wcolision(t_canvas *canvas);
 void	rotate_player(t_canvas *canvas, double angle);
-int		dcolision(t_canvas *canvas);
-int		acolision(t_canvas *canvas);
-int		scolision(t_canvas *canvas);
-int		wcolision(t_canvas *canvas);
+
 #endif

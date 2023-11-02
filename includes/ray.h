@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/27 16:29:31 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/27 16:31:48 by anmande          ###   ########.fr       */
+/*   Created: 2023/10/29 14:04:31 by agengemb          #+#    #+#             */
+/*   Updated: 2023/11/02 15:33:54 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_ray
 	int stepx;
 	int stepY;
 	int side;
+	double angle;
 }		t_ray;
 
 #endif
