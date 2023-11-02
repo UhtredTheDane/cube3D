@@ -19,7 +19,7 @@ void	my_mlx_pixel_put2(t_win *win, int x, int y, int color)
 	dst = win->addr + (y * win->line_len + x * (win->bpp / 8));
 	*(unsigned int *)dst = color;
 }
-
+/*
 t_win	*init_window(void *mlx)
 {
 	t_win	*win;
@@ -31,7 +31,7 @@ t_win	*init_window(void *mlx)
 	win->img = mlx_new_image(mlx, 800, 600);
 	win->addr = mlx_get_data_addr(win->img, &win->bpp, &win->line_len, &win->endian);
 	return (win);
-}
+}*/
 
 void	win_3d(double dm, t_canvas *canvas, t_ray *ray, int i)
 {
@@ -39,7 +39,6 @@ void	win_3d(double dm, t_canvas *canvas, t_ray *ray, int i)
 	double wallX;
 
 	t_data wall;
-	//dm *= cos(ray->angle);
 	compt = 0;
 	(void) ray;
 	if (ray->side == 0)
@@ -76,7 +75,7 @@ void	win_3d(double dm, t_canvas *canvas, t_ray *ray, int i)
 	
 	while (compt < drawStart)//lower
 	{
-		my_mlx_pixel_put2(canvas->win, i, compt, 0xFF0000);
+		my_mlx_pixel_put(canvas, i, compt, 0xFF0000);
 		compt++;
 	}
 
@@ -91,12 +90,12 @@ void	win_3d(double dm, t_canvas *canvas, t_ray *ray, int i)
 		int texY = (int)pos & (64 - 1);
 		pos += step;
 		int pixel = texY * wall.line_length + texX * (wall.bpp / 8);
-		my_mlx_pixel_put2(canvas->win, i, compt, *(int *)(wall.addr + pixel));
+		my_mlx_pixel_put(canvas, i, compt, *(int *)(wall.addr + pixel));
 		compt++;
 	}
 	while (compt < 600)
 	{
-		my_mlx_pixel_put2(canvas->win, i, compt, 0x808080);
+		my_mlx_pixel_put(canvas, i, compt, 0x808080);
 		compt++;
 	}
 }

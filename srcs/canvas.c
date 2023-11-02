@@ -16,7 +16,7 @@ void	destroy_canvas(t_canvas *canvas)
 {
 	destroy_map(canvas->mlx, canvas->map);
 	mlx_destroy_image(canvas->mlx, canvas->data.img);
-	//mlx_destroy_window(canvas->mlx, canvas->window);
+	mlx_destroy_window(canvas->mlx, canvas->window);
 	mlx_destroy_display(canvas->mlx);
 	free(canvas->player);
 	free(canvas->mlx);
@@ -25,7 +25,7 @@ void	destroy_canvas(t_canvas *canvas)
 
 void	new_image(t_canvas *canvas)
 {
-	canvas->data.img = mlx_new_image(canvas->mlx, canvas->map->row_nb * SQUARE, canvas->map->line_nb * SQUARE);
+	canvas->data.img = mlx_new_image(canvas->mlx, 800, 600);
 	canvas->data.addr = mlx_get_data_addr(canvas->data.img, &canvas->data.bpp, &canvas->data.line_length, &canvas->data.endian);
 }
 
@@ -57,7 +57,7 @@ t_canvas	*create_canvas(char *file_name)
 		free(new_canvas);
 		return (NULL);
 	}
-	/*new_canvas->window = mlx_new_window(new_canvas->mlx, new_canvas->map->row_nb * SQUARE, new_canvas->map->line_nb * SQUARE, "cube3D");
+	new_canvas->window = mlx_new_window(new_canvas->mlx, 800, 600, "cub3D");
 	if (!new_canvas->window)
 	{
 		destroy_map(new_canvas->mlx, new_canvas->map);
@@ -65,8 +65,7 @@ t_canvas	*create_canvas(char *file_name)
 		free(new_canvas->mlx);
 		free(new_canvas);
 		return (NULL);
-	}*/
-	new_canvas->win = init_window(new_canvas->mlx);
+	}
 	new_image(new_canvas);
 	return (new_canvas);
 }

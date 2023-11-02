@@ -35,8 +35,8 @@ int	main(int argc, char **argv)
 		return (0);
 	canvas->player->w = 0;
 	draw_ray(canvas);
-	mlx_hook(canvas->win->window2, 2, (1L << 0), move_player, canvas);
-	mlx_hook(canvas->win->window2, 17, 0, ft_close_win, canvas);
+	mlx_hook(canvas->window, 2, (1L << 0), move_player, canvas);
+	mlx_hook(canvas->window, 17, 0, ft_close_win, canvas);
 	mlx_loop(canvas->mlx);
 	destroy_canvas(canvas);
 	return (0);
