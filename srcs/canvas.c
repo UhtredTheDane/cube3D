@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 14:04:56 by agengemb          #+#    #+#             */
-/*   Updated: 2023/11/02 15:46:47 by anmande          ###   ########.fr       */
+/*   Updated: 2023/11/02 17:31:12 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	destroy_canvas(t_canvas *canvas)
 	destroy_map(canvas->mlx, canvas->map);
 	mlx_destroy_image(canvas->mlx, canvas->data.img);
 	mlx_destroy_display(canvas->mlx);
-	mlx_destroy_window(canvas->mlx, canvas->window);
+	//mlx_destroy_window(canvas->mlx, canvas->window);
 	free(canvas->player);
 	free(canvas->mlx);
 	free(canvas);

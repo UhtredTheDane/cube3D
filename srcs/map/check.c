@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 18:15:54 by agengemb          #+#    #+#             */
-/*   Updated: 2023/10/31 19:06:32 by anmande          ###   ########.fr       */
+/*   Updated: 2023/11/02 17:32:21 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,21 @@ int	check_block(void *mlx, t_map *map, char symbol)
 void	rec_fill(t_map *map, t_block **block_map, int i, int j)
 {
 	block_map[i][j].type = 'V';
-	if (i > 0 && block_map[i - 1][j].type != 'V' && \
-	block_map[i - 1][j].type != '1')
+	if (i > 0 && block_map[i - 1][j].type != 'V' && block_map[i - 1][j].type != '1')
 		rec_fill(map, block_map, i - 1, j);
-	if (i < (int)map->line_nb - 1 && block_map[i + 1][j].type \
-	!= 'V' && block_map[i + 1][j].type != '1')
+	if (i < (int)map->line_nb - 1 && block_map[i + 1][j].type != 'V' && block_map[i + 1][j].type != '1')
 		rec_fill(map, block_map, i + 1, j);
-	if (j < (int)map->row_nb - 1 && block_map[i][j + 1].type \
-	!= 'V' && block_map[i][j + 1].type != '1')
+	if (j < (int)map->row_nb - 1 && block_map[i][j + 1].type != 'V' && block_map[i][j + 1].type != '1')
 		rec_fill(map, block_map, i, j + 1);
-	if (j > 0 && block_map[i][j - 1].type != 'V' && \
-	block_map[i][j - 1].type != '1')
+	if (j > 0 && block_map[i][j - 1].type != 'V' && block_map[i][j - 1].type != '1')
 		rec_fill(map, block_map, i, j - 1);
 }
 
-t_block	**copy(t_map *map, t_block **block_map)
+t_block **copy(t_map *map, t_block **block_map)
 {
-	size_t	i;
-	size_t	j;
-	t_block	**back;
+	size_t i;
+	size_t j;
+	t_block **back;
 
 	back = malloc(sizeof(t_block *) * map->line_nb);
 	if (!back)
@@ -87,18 +83,19 @@ int	check_map(t_map *map, t_block **block_map, int i_start, int j_start)
 		return (0);
 	rec_fill(map, copy_map, i_start, j_start);
 	i = 0;
-	while (i++ < map->line_nb)
+	while (i < map->line_nb)
 	{
 		j = 0;
-		while (j++ < map->row_nb)
+		while (j < map->row_nb)
 		{
-			if (copy_map[i][j].type == 'E' || copy_map[i][j].type == 'W' \
-			|| copy_map[i][j].type == 'S' || copy_map[i][j].type == 'N')
+			if (copy_map[i][j].type == 'E' || copy_map[i][j].type == 'W' || copy_map[i][j].type == 'S' || copy_map[i][j].type == 'N')
 			{
 				free_block_map(copy_map, map->line_nb);
 				return (1);
 			}
+			++j;
 		}
+		++i;
 	}
 	free_block_map(copy_map, map->line_nb);
 	return (0);
