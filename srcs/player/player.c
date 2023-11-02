@@ -106,7 +106,7 @@ int	wcolision(t_canvas *canvas)
 
 	x = canvas->player->x;
 	y = canvas->player->y;
-	if (canvas->player->dir_y < 0 && y <= 1)
+	if (canvas->player->dir_y < 0 && canvas->player->y <= 1)
 	{
 		return (0);
 	}	

@@ -33,8 +33,14 @@ void	init_ray(t_ray *ray, t_canvas *canvas, int x)
 	dir_y = canvas->player->dir_y;
 	ray->dir_x = dir_x + canvas->player->plane_x * camera_x;
 	ray->dir_y = dir_y + canvas->player->plane_y * camera_x;
-	ray->deltadist_x = fabs(1 / ray->dir_x);
-	ray->deltadisty = fabs(1 / ray->dir_y);
+	if (ray->dir_x == 0)
+		ray->deltadist_x = 1e30;
+	else
+		ray->deltadist_x = fabs(1 / ray->dir_x);
+	if (ray->dir_y == 0)
+		ray->deltadisty = 1e30;
+	else
+		ray->deltadisty = fabs(1 / ray->dir_y);
 	ray->n_l_hit = floor(canvas->player->y);
 	ray->row_hit = floor(canvas->player->x);
 	ray->sidedist_x = get_side_dist_x(ray, canvas->player->x);
