@@ -1,7 +1,0 @@
-{
-    "files.associations": {
-        "window.h": "c",
-        "keysym.h": "c",
-        "player.h": "c"
-    }
-}
