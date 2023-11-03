@@ -6,13 +6,13 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 00:24:19 by agengemb          #+#    #+#             */
-/*   Updated: 2023/10/04 14:39:44 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/10/31 19:07:30 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../includes/map/map.h"
+#	include "../../includes/map/map.h"
 
-void destroy_map(void *mlx, t_map *map)
+void	destroy_map(void *mlx, t_map *map)
 {
 	if (map->block_map)
 		free_block_map(map->block_map, map->line_nb);
@@ -98,7 +98,7 @@ int	fill_map(t_canvas *canvas, t_map *map, t_block **block_map, t_list **list)
 {
 	char	*line;
 	size_t	pos[2];
-	size_t size_line;
+	size_t	size_line;
 
 	pos[0] = 0;
 	while (pos[0] < map->line_nb)
@@ -186,4 +186,3 @@ t_map	*create_map(t_canvas *canvas, char *file_name)
 	}
 	return (new_map);
 }
- 

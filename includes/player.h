@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:39:39 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/29 11:29:31 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/11/02 15:51:00 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,10 @@ void	move_up(t_canvas *canvas);
 void	move_down(t_canvas *canvas);
 void	move_left(t_canvas *canvas);
 void	move_right(t_canvas *canvas);
+int	dcolision(t_canvas *canvas);
+int	acolision(t_canvas *canvas);
+int	scolision(t_canvas *canvas);
+int	wcolision(t_canvas *canvas);
+void	rotate_player(t_canvas *canvas, double angle);
 
 #endif

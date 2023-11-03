@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 18:15:54 by agengemb          #+#    #+#             */
-/*   Updated: 2023/10/04 14:34:19 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/11/02 17:32:21 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,4 +100,3 @@ int	check_map(t_map *map, t_block **block_map, int i_start, int j_start)
 	free_block_map(copy_map, map->line_nb);
 	return (0);
 }
-

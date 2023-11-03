@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   block.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 23:04:23 by agengemb          #+#    #+#             */
-/*   Updated: 2023/09/07 23:04:25 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/10/31 14:11:06 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,9 @@ void	init_block(t_block *block, char symbol)
 void	free_block_map(t_block **block_map, size_t index)
 {
 	size_t	i;
+
 	i = 0;
 	while (i < index)
-	{
-		free(block_map[i]);
-		++i;
-	}
+		free(block_map[i++]);
 	free(block_map);
 }

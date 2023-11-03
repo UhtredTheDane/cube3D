@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   img.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 16:25:14 by agengemb          #+#    #+#             */
-/*   Updated: 2023/10/25 16:25:17 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/10/31 19:04:23 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ t_img	*init_img(void *mlx, char *path)
 	if (!new_img)
 		return (NULL);
 	new_img->path = path;
-	new_img->img = mlx_xpm_file_to_image(mlx, new_img->path, &(new_img->width), &(new_img->height));
+	new_img->img = mlx_xpm_file_to_image(mlx, new_img->path, \
+	&(new_img->width), &(new_img->height));
 	if (!new_img->img)
 	{
 		free(new_img->path);

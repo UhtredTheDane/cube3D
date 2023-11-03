@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 14:04:02 by agengemb          #+#    #+#             */
-/*   Updated: 2023/10/29 14:04:06 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/11/02 15:33:30 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ typedef struct s_data {
 	void	*img;
 	char	*addr;
 	int		bpp;
-	int		line_length;
-	int		endian;
+	int		linlgth;
+	int		end;
 }				t_data;
 
 #endif

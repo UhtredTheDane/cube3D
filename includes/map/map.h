@@ -14,16 +14,16 @@ typedef struct s_canvas t_canvas;
 
 typedef struct s_map
 {
-	int player;
-	size_t		row_nb;
-	size_t		line_nb;
-	t_img		*NO_path;
-	t_img		*SO_path;
-	t_img		*WE_path;
-	t_img		*EA_path;
+	int		player;
+	size_t	row_nb;
+	size_t	line_nb;
+	t_img	*NO_path;
+	t_img	*SO_path;
+	t_img	*WE_path;
+	t_img	*EA_path;
 	int		floor_color;
 	int		ceiling_color;
-	t_block		**block_map;
+	t_block	**block_map;
 }	t_map;
 
 t_map *init_map(void);

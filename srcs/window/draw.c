@@ -6,20 +6,19 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:19:51 by anmande           #+#    #+#             */
-/*   Updated: 2023/10/30 17:17:20 by mcombeau         ###   ########.fr       */
+/*   Updated: 2023/11/02 15:51:12 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/window.h"
 #include <math.h>
 #include "../../includes/data.h"
-#define OFFSET 15
 
 void	my_mlx_pixel_put(t_canvas *canvas, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = canvas->data.addr + (y * canvas->data.line_length
+	dst = canvas->data.addr + (y * canvas->data.linlgth
 			+ x * (canvas->data.bpp / 8));
 	*(unsigned int *)dst = color;
 }
@@ -34,8 +33,14 @@ void	init_ray(t_ray *ray, t_canvas *canvas, int x)
 	dir_y = canvas->player->dir_y;
 	ray->dir_x = dir_x + canvas->player->plane_x * camera_x;
 	ray->dir_y = dir_y + canvas->player->plane_y * camera_x;
-	ray->deltadist_x = fabs(1 / ray->dir_x);
-	ray->deltadisty = fabs(1 / ray->dir_y);
+	if (ray->dir_x == 0)
+		ray->deltadist_x = 1e30;
+	else
+		ray->deltadist_x = fabs(1 / ray->dir_x);
+	if (ray->dir_y == 0)
+		ray->deltadisty = 1e30;
+	else
+		ray->deltadisty = fabs(1 / ray->dir_y);
 	ray->n_l_hit = floor(canvas->player->y);
 	ray->row_hit = floor(canvas->player->x);
 	ray->sidedist_x = get_side_dist_x(ray, canvas->player->x);

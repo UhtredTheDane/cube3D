@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 23:25:28 by agengemb          #+#    #+#             */
-/*   Updated: 2023/10/23 16:28:13 by anmande          ###   ########.fr       */
+/*   Updated: 2023/10/31 18:26:40 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,40 +30,44 @@ int	get_textures_colors(void *mlx, t_map *map, int map_fd)
 		return (run_loading_texture(mlx, map, line, 2));
 	else if (ft_strncmp(line, "EA ", 3) == 0)
 		return (run_loading_texture(mlx, map, line, 3));
-    free(line);
+	free (line);
 	return (0);
 }
- 
-t_list *get_map(t_map *map, int map_fd)
-{
-    t_list	*lst;
 
-    lst = loading_map(map_fd, &map->row_nb);
-    close(map_fd);
-    if (!lst)
-    {
-        printf("Can't load map\n");
-    }
-    return (lst);
+t_list	*get_map(t_map *map, int map_fd)
+{
+	t_list	*lst;
+
+	lst = loading_map(map_fd, &map->row_nb);
+	close(map_fd);
+	if (!lst)
+	{
+		printf("Can't load map\n");
+	}
+	return (lst);
 }
- 
-t_list *loading_file(void *mlx, t_map *map, char *file_name)
-{
-    int		map_fd;
 
-    if ((map_fd = open(file_name, O_RDONLY)) == -1)
-    {
-            perror("Can't open map file");
-            return (NULL);
-    }
-    for (int i = 0; i < 6; ++i)
-    {
-        if (!get_textures_colors(mlx, map, map_fd))
-        {
-            printf("Erreur Chargement couleurs ou textures\n");
-            close(map_fd);
-            return (NULL);
-        }
-    }
-    return (get_map(map, map_fd));  
+t_list	*loading_file(void *mlx, t_map *map, char *file_name)
+{
+	int	map_fd;
+	int	i;
+
+	i = 0;
+	map_fd = open(file_name, O_RDONLY);
+	if (map_fd < 0)
+	{
+		perror("Can't open map file");
+		return (NULL);
+	}
+	while (i++ < 6)
+	{
+		if (!get_textures_colors(mlx, map, map_fd))
+		{
+			empty_buffer(map_fd);
+			printf("Erreur Chargement couleurs ou textures\n");
+			close(map_fd);
+			return (NULL);
+		}
+	}
+	return (get_map(map, map_fd));
 }
