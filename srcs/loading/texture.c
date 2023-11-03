@@ -17,22 +17,22 @@ t_img	**switch_face(t_map *map, char **face, int num_face)
 	if (num_face == 0)
 	{
 		*face = "NO";
-		return (&map->NO_path);
+		return (&map->no_path);
 	}
 	else if (num_face == 1)
 	{
 		*face = "SO";
-		return (&map->SO_path);
+		return (&map->so_path);
 	}
 	else if (num_face == 2)
 	{
 		*face = "WE";
-		return (&map->WE_path);
+		return (&map->we_path);
 	}
 	else
 	{
 		*face = "EA";
-		return (&map->EA_path);
+		return (&map->ea_path);
 	}
 }
 

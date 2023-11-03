@@ -6,7 +6,7 @@
 #    By: anmande <anmande@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/17 15:45:22 by agengemb          #+#    #+#              #
-#    Updated: 2023/10/23 18:07:18 by anmande          ###   ########.fr        #
+#    Updated: 2023/11/03 18:10:39 by anmande          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,16 +15,32 @@ CFLAGS = -Wall -Werror -Wextra
 NAME = cub3D
 LIBFT = ./libft/libft.a
 GET = ./get_next_line/get_next_line.a
-SRC = $(wildcard srcs/*.c)
-SRC2 = $(wildcard srcs/*/*.c)
+SRC_PATH = srcs/
 
-OBJ = $(SRC:.c=.o)
-//OBJ = $(patsubst %.cpp, $(OBJ_DIR)/%.o, $(SRCS))
-OBJ2 = $(SRC2:.c=.o)
+SRC = loading/color.c \
+		loading/file.c \
+		loading/map.c  \
+		loading/texture.c  \
+		loading/utils.c \
+		map/map.c \
+		map/map_utils.c \
+		map/check.c \
+		player/player.c \
+		player/control.c \
+		window/window.c \
+		window/draw.c \
+		window/utils.c \
+		block.c \
+		canvas.c \
+		img.c \
+		main.c \
+
+SRCS    = $(addprefix $(SRC_PATH), $(SRC))
+OBJ = $(SRCS:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(OBJ2) $(LIBFT) $(GET)
+$(NAME): $(OBJ) $(LIBFT) $(GET)
 	make -C mlx_linux
 	$(CC) $^ -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -g -o $@
 
@@ -42,7 +58,7 @@ clean:
 	make -C get_next_line clean
 	rm -rf $(LIBFT)
 	rm -rf $(GET)
-	rm -rf $(OBJ) $(OBJ2)
+	rm -rf $(OBJ)
 
 fclean: clean
 	rm -rf $(NAME)

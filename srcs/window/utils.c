@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 14:05:42 by agengemb          #+#    #+#             */
-/*   Updated: 2023/11/03 17:04:53 by anmande          ###   ########.fr       */
+/*   Updated: 2023/11/03 18:25:30 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,12 @@ double	get_side_disty(t_ray *ray, double player_posY)
 	num_line = trunc(player_posY);
 	if (ray->dir_y < 0)
 	{
-		ray->stepY = -1;
+		ray->stepy = -1;
 		sidedisty = (player_posY - num_line) * ray->deltadisty;
 	}
 	else
 	{
-		ray->stepY = 1;
+		ray->stepy = 1;
 		sidedisty = ((num_line + 1) - player_posY) * ray->deltadisty;
 	}
 	return (sidedisty);

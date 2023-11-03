@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 13:33:56 by anmande           #+#    #+#             */
-/*   Updated: 2023/11/03 17:49:56 by anmande          ###   ########.fr       */
+/*   Updated: 2023/11/03 18:07:36 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 
 void	move_up(t_canvas *canvas)
 {
-	canvas->player->y += canvas->player->dir_y * 0.3;
-	canvas->player->x += canvas->player->dir_x * 0.3;
+	canvas->player->y += canvas->player->dir_y * 0.1;
+	canvas->player->x += canvas->player->dir_x * 0.1;
 }
 
 void	move_down(t_canvas *canvas)

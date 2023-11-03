@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:19:51 by anmande           #+#    #+#             */
-/*   Updated: 2023/11/03 17:05:37 by anmande          ###   ########.fr       */
+/*   Updated: 2023/11/03 18:25:06 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 
 void	check_interval(t_ray *ray)
 {
-	if (ray->drawStart < 0)
-		ray->drawStart = 0;
-	if (ray->drawEnd > 600)
-		ray->drawEnd = 600;
+	if (ray->drawstart < 0)
+		ray->drawstart = 0;
+	if (ray->drawend > 600)
+		ray->drawend = 600;
 }
 
 void	check_ray_dir(t_ray *ray)
@@ -51,9 +51,9 @@ void	init_ray(t_ray *ray, t_canvas *canvas, int x)
 	ray->sidedist_x = get_side_dist_x(ray, canvas->player->x);
 	ray->sidedisty = get_side_disty(ray, canvas->player->y);
 	ray->dw = get_wall_dist(canvas->map, ray);
-	ray->lineHeight = (int)(600 / ray->dw);
-	ray->drawStart = (ray->lineHeight * -1) / 2 + 600 / 2;
-	ray->drawEnd = ray->lineHeight / 2 + 600 / 2;
+	ray->lineheight = (int)(600 / ray->dw);
+	ray->drawstart = (ray->lineheight * -1) / 2 + 600 / 2;
+	ray->drawend = ray->lineheight / 2 + 600 / 2;
 	check_interval(ray);
 }
 
@@ -70,7 +70,7 @@ double	get_wall_dist(t_map *map, t_ray *ray)
 		else
 		{
 			ray->sidedisty += ray->deltadisty;
-			ray->n_l_hit += ray->stepY;
+			ray->n_l_hit += ray->stepy;
 			ray->side = 1;
 		}
 		if (ray->n_l_hit < 0 || ray->n_l_hit >= (int)map->line_nb

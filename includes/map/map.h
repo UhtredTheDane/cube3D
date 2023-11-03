@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 15:19:14 by anmande           #+#    #+#             */
-/*   Updated: 2023/11/03 15:19:31 by anmande          ###   ########.fr       */
+/*   Updated: 2023/11/03 18:15:39 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ typedef struct s_map
 	int		player;
 	size_t	row_nb;
 	size_t	line_nb;
-	t_img	*NO_path;
-	t_img	*SO_path;
-	t_img	*WE_path;
-	t_img	*EA_path;
+	t_img	*no_path;
+	t_img	*so_path;
+	t_img	*we_path;
+	t_img	*ea_path;
 	int		floor_color;
 	int		ceiling_color;
 	t_block	**block_map;

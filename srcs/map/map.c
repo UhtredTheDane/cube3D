@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 00:24:19 by agengemb          #+#    #+#             */
-/*   Updated: 2023/11/03 17:53:24 by anmande          ###   ########.fr       */
+/*   Updated: 2023/11/03 18:17:57 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ void	destroy_map(void *mlx, t_map *map)
 {
 	if (map->block_map)
 		free_block_map(map->block_map, map->line_nb);
-	if (map->NO_path)
-		free_img(mlx, map->NO_path);
-	if (map->SO_path)
-		free_img(mlx, map->SO_path);
-	if (map->WE_path)
-		free_img(mlx, map->WE_path);
-	if (map->EA_path)
-		free_img(mlx, map->EA_path);
+	if (map->no_path)
+		free_img(mlx, map->no_path);
+	if (map->so_path)
+		free_img(mlx, map->so_path);
+	if (map->we_path)
+		free_img(mlx, map->we_path);
+	if (map->ea_path)
+		free_img(mlx, map->ea_path);
 	free(map);
 }
 
@@ -38,10 +38,10 @@ t_map	*init_map(void)
 	new_map->line_nb = 0;
 	new_map->row_nb = 0;
 	new_map->player = 0;
-	new_map->NO_path = NULL;
-	new_map->SO_path = NULL;
-	new_map->WE_path = NULL;
-	new_map->EA_path = NULL;
+	new_map->no_path = NULL;
+	new_map->so_path = NULL;
+	new_map->we_path = NULL;
+	new_map->ea_path = NULL;
 	return (new_map);
 }
 
