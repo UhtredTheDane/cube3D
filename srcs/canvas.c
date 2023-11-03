@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 14:04:56 by agengemb          #+#    #+#             */
-/*   Updated: 2023/11/03 15:43:13 by anmande          ###   ########.fr       */
+/*   Updated: 2023/11/03 17:06:10 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ t_canvas	*create_canvas(char *file_name)
 	if (!new_canvas->window)
 	{
 		destroy_map(new_canvas->mlx, new_canvas->map);
-		return (free(new_canvas->player), mlx_destroy_display(new_canvas->mlx), free(new_canvas->mlx), \
-		free(new_canvas), NULL);
+		return (free(new_canvas->player), mlx_destroy_display(new_canvas->mlx), \
+		free(new_canvas->mlx), free(new_canvas), NULL);
 	}
 	new_image(new_canvas);
 	return (new_canvas);

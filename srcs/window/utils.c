@@ -6,28 +6,28 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 14:05:42 by agengemb          #+#    #+#             */
-/*   Updated: 2023/11/02 15:40:36 by anmande          ###   ########.fr       */
+/*   Updated: 2023/11/03 17:04:53 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/window.h"
 
-double get_texX(t_canvas *canvas, t_ray *ray, double dm)
+double	get_tex_x(t_canvas *canvas, t_ray *ray, double dm)
 {
-	double wallX;
-	int texX;
+	double	wall_x;
+	int		tex_x;
 
 	if (ray->side == 1)
-		wallX = canvas->player->x + dm * ray->dir_x;
+		wall_x = canvas->player->x + dm * ray->dir_x;
 	else
-		wallX = canvas->player->y + dm * ray->dir_y;
-	wallX -= trunc(wallX);
-	texX = trunc(wallX * 64.);
+		wall_x = canvas->player->y + dm * ray->dir_y;
+	wall_x -= trunc(wall_x);
+	tex_x = trunc(wall_x * 64.);
 	if (ray->side == 0 && ray->dir_x < 0)
-		texX = 64 - texX - 1;
+		tex_x = 64 - tex_x - 1;
 	else if (ray->side == 1 && ray->dir_y > 0)
-		texX = 64 - texX - 1;
-	return (texX);
+		tex_x = 64 - tex_x - 1;
+	return (tex_x);
 }
 
 double	get_side_dist_x(t_ray *ray, double player_posx)

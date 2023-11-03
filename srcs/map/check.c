@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 18:15:54 by agengemb          #+#    #+#             */
-/*   Updated: 2023/11/03 15:32:21 by anmande          ###   ########.fr       */
+/*   Updated: 2023/11/03 17:01:19 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,14 +90,12 @@ int	check_map(t_map *map, t_block **block_map, int i_start, int j_start)
 	while (i < map->line_nb)
 	{
 		j = 0;
-		while (j++ < map->row_nb)
+		while (j < map->row_nb)
 		{
 			if (copy_map[i][j].type == 'E' || copy_map[i][j].type == 'W' || \
 			copy_map[i][j].type == 'S' || copy_map[i][j].type == 'N')
-			{
-				free_block_map(copy_map, map->line_nb);
-				return (1);
-			}
+				return (free_block_map(copy_map, map->line_nb), 1);
+			j++;
 		}
 		++i;
 	}

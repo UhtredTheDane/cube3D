@@ -30,7 +30,7 @@ char	*create_wrapper(size_t row_nb)
 	return (wrapper);
 }
 
-void empty_buffer(int map_fd)
+void	empty_buffer(int map_fd)
 {
 	char	*line;
 

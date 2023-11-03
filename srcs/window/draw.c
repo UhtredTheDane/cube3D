@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:19:51 by anmande           #+#    #+#             */
-/*   Updated: 2023/11/03 16:57:58 by anmande          ###   ########.fr       */
+/*   Updated: 2023/11/03 17:05:37 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,12 @@ void	check_ray_dir(t_ray *ray)
 	else
 		ray->deltadisty = fabs(1 / ray->dir_y);
 }
+
 void	init_ray(t_ray *ray, t_canvas *canvas, int x)
 {
 	double	dir_x;
 	double	dir_y;
-	double camera_x;
+	double	camera_x;
 
 	camera_x = 2 * x / (double)800 - 1;
 	dir_x = canvas->player->dir_x;

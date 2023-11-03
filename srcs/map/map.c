@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 00:24:19 by agengemb          #+#    #+#             */
-/*   Updated: 2023/11/03 15:30:43 by anmande          ###   ########.fr       */
+/*   Updated: 2023/11/03 17:13:52 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,23 +65,18 @@ int	fill_map(t_canvas *canvas, t_map *map, t_block **block_map, t_list **list)
 {
 	char	*line;
 	size_t	pos[2];
-	size_t	size_line;
 
 	pos[0] = 0;
 	while (pos[0] < map->line_nb)
 	{
 		line = (*list)->content;
-		size_line = ft_strlen(line);
 		pos[1] = 0;
 		while (pos[1] < map->row_nb)
 		{
-			if (pos[1] < size_line)
+			if (pos[1] < ft_strlen(line))
 			{
 				if (!check_block(canvas->mlx, map, line[pos[1]]))
-				{
-					ft_lstclear(list, free);
-					return (0);
-				}
+					return (ft_lstclear(list, free), 0);
 				init_block(&block_map[pos[0]][pos[1]], line[pos[1]]);
 				detect_block_type(canvas, block_map, pos[0], pos[1]);
 			}

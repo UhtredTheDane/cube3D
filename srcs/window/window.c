@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:29:19 by anmande           #+#    #+#             */
-/*   Updated: 2023/11/03 16:58:23 by anmande          ###   ########.fr       */
+/*   Updated: 2023/11/03 17:04:06 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	show_mid(t_canvas *canvas, t_ray *ray, int i, t_data *wall)
 
 	step = 1.0 * 64. / ray->lineHeight;
 	pos = (ray->drawStart - 600 / 2 + ray->lineHeight / 2) * step;
-	tex_x = get_texX(canvas, ray, ray->dw);
+	tex_x = get_tex_x(canvas, ray, ray->dw);
 	compt = ray->drawStart;
 	while (compt < ray->drawEnd)
 	{
