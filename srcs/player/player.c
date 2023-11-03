@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:37:20 by anmande           #+#    #+#             */
-/*   Updated: 2023/11/02 17:25:36 by anmande          ###   ########.fr       */
+/*   Updated: 2023/11/03 14:04:52 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,23 @@ int	dcolision(t_canvas *canvas)
 	double	x;
 	double	y;
 
-	x = (canvas->player->x);
-	y = (canvas->player->y);
-	if (canvas->player->dir_y < 0 && x >= canvas->map->row_nb - 3.)
+	x = (canvas->player->x - canvas->player->dir_y * 0.2);
+	y = (canvas->player->y + canvas->player->dir_x * 0.2);
+		printf("x = %f, y = %f\n", x, y);
+	printf("case = %c\n", canvas->map->block_map[(int)y][(int)x].type);
+	printf("====================================\n");
+
+	if (canvas->map->block_map[(int)y][(int)x].type == '1')
 	{
 		return (0);
 	}	
-	else if (canvas->player->dir_y > 0 && x <= 2.2)
+	else if (canvas->map->block_map[(int)y][(int)x].type == '1')
 		return (0);
-	else if (canvas->player->dir_x > 0 && y >= canvas->map->line_nb - 3.)
+	else if (canvas->map->block_map[(int)y][(int)x].type == '1')
 	{
 		return (0);
 	}
-	else if (canvas->player->dir_x < 0 && y <= 2.5)
+	else if (canvas->map->block_map[(int)y][(int)x].type == '1')
 		return (0);
 	return (1);
 }
@@ -58,19 +62,19 @@ int	acolision(t_canvas *canvas)
 	size_t	x;
 	size_t	y;
 
-	x = (canvas->player->x);
-	y = (canvas->player->y);
-	if (canvas->player->dir_y < 0 && x <= 2.5)
+	x = (canvas->player->x + canvas->player->dir_y * 0.2);
+	y = (canvas->player->y - canvas->player->dir_x * 0.2);
+	if (canvas->map->block_map[(int)y][(int)x].type == '1')
 	{
 		return (0);
 	}	
-	else if (canvas->player->dir_y > 0 && x >= canvas->map->row_nb - 3)
+	else if (canvas->map->block_map[(int)y][(int)x].type == '1')
 		return (0);
-	else if (canvas->player->dir_x > 0 && y <= 2.5)
+	else if (canvas->map->block_map[(int)y][(int)x].type == '1')
 	{
 		return (0);
 	}
-	else if (canvas->player->dir_x < 0 && y >= canvas->map->line_nb - 3.)
+	else if (canvas->map->block_map[(int)y][(int)x].type == '1')
 		return (0);
 	return (1);
 }
@@ -80,21 +84,21 @@ int	scolision(t_canvas *canvas)
 	double	x;
 	double	y;
 
-	x = canvas->player->x;
-	y = canvas->player->y;
-	if (canvas->player->dir_y > 0 && y <= 2.5)
+	x = (canvas->player->x - canvas->player->dir_x * 0.2);
+	y = (canvas->player->y - canvas->player->dir_y * 0.2);
+	if (canvas->player->dir_y > 0 && canvas->map->block_map[(int)y][(int)x].type == '1')
 	{
 		return (0);
 	}	
-	else if (canvas->player->dir_y < 0 && y >= canvas->map->line_nb - 3.)
+	else if (canvas->player->dir_y < 0 && canvas->map->block_map[(int)y][(int)x].type == '1')
 	{
 		return (0);
 	}
-	if (canvas->player->dir_x > 0 && x <= 2.5)
+	if (canvas->player->dir_x > 0 && canvas->map->block_map[(int)y][(int)x].type == '1')
 	{
 		return (0);
 	}
-	else if (canvas->player->dir_x < 0 && x >= canvas->map->row_nb - 3.)
+	else if (canvas->player->dir_x < 0 && canvas->map->block_map[(int)y][(int)x].type == '1')
 		return (0);
 	return (1);
 }
@@ -104,21 +108,21 @@ int	wcolision(t_canvas *canvas)
 	double	x;
 	double	y;
 
-	x = canvas->player->x;
-	y = canvas->player->y;
-	if (canvas->player->dir_y < 0 && canvas->player->y <= 2.2)
+	x = (canvas->player->x + canvas->player->dir_x * 0.2);
+	y = (canvas->player->y + canvas->player->dir_y * 0.2);
+	if (canvas->player->dir_y < 0 && canvas->map->block_map[(int)y][(int)x].type == '1')
 	{
 		return (0);
 	}	
-	else if (canvas->player->dir_y > 0 && y >= canvas->map->line_nb - 2.5)
+	else if (canvas->player->dir_y > 0 && canvas->map->block_map[(int)y][(int)x].type == '1')
 	{
 		return (0);
 	}
-	if (canvas->player->dir_x < 0 && x <= 2.5)
+	if (canvas->player->dir_x < 0 && canvas->map->block_map[(int)y][(int)x].type == '1')
 	{
 		return (0);
 	}
-	else if (canvas->player->dir_x > 0 && x >= canvas->map->row_nb - 2.5)
+	else if (canvas->player->dir_x > 0 && canvas->map->block_map[(int)y][(int)x].type == '1')
 		return (0);
 	return (1);
 }
