@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:29:19 by anmande           #+#    #+#             */
-/*   Updated: 2023/11/02 17:33:39 by anmande          ###   ########.fr       */
+/*   Updated: 2023/11/03 14:49:32 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ void	win_3d(double dm, t_canvas *canvas, t_ray *ray, int i)
     if(drawStart < 0)
 		drawStart = 0;
 	
-	while (compt < drawStart)//lower
+	while (compt < drawStart)
 	{
-		my_mlx_pixel_put(canvas, i, compt, 0xFF0000);
+		my_mlx_pixel_put(canvas, i, compt, canvas->map->ceiling_color);
 		compt++;
 	}
 
@@ -82,7 +82,7 @@ void	win_3d(double dm, t_canvas *canvas, t_ray *ray, int i)
 	}
 	while (compt < 600)
 	{
-		my_mlx_pixel_put(canvas, i, compt, 0x808080);
+		my_mlx_pixel_put(canvas, i, compt, canvas->map->floor_color);
 		compt++;
 	}
 }

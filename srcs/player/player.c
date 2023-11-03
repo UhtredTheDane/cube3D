@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:37:20 by anmande           #+#    #+#             */
-/*   Updated: 2023/11/03 14:04:52 by anmande          ###   ########.fr       */
+/*   Updated: 2023/11/03 14:45:36 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,6 @@ int	dcolision(t_canvas *canvas)
 
 	x = (canvas->player->x - canvas->player->dir_y * 0.2);
 	y = (canvas->player->y + canvas->player->dir_x * 0.2);
-		printf("x = %f, y = %f\n", x, y);
-	printf("case = %c\n", canvas->map->block_map[(int)y][(int)x].type);
-	printf("====================================\n");
-
 	if (canvas->map->block_map[(int)y][(int)x].type == '1')
 	{
 		return (0);
@@ -86,7 +82,7 @@ int	scolision(t_canvas *canvas)
 
 	x = (canvas->player->x - canvas->player->dir_x * 0.2);
 	y = (canvas->player->y - canvas->player->dir_y * 0.2);
-	if (canvas->player->dir_y > 0 && canvas->map->block_map[(int)y][(int)x].type == '1')
+	if (canvas->map->block_map[(int)y][(int)x].type == '1')
 	{
 		return (0);
 	}	
