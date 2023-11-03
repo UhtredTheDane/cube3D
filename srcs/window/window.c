@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:29:19 by anmande           #+#    #+#             */
-/*   Updated: 2023/11/03 14:49:32 by anmande          ###   ########.fr       */
+/*   Updated: 2023/11/03 14:56:49 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	win_3d(double dm, t_canvas *canvas, t_ray *ray, int i)
 	
     int drawEnd = lineHeight / 2 + 600 / 2;
     if(drawEnd >= 600)
-		drawEnd = 600 - 1;
+		drawEnd = 600;
 	double pos = (drawStart - 600 / 2 + lineHeight / 2) * step;
 	while (compt < drawEnd)//greater
 	{
