@@ -12,10 +12,11 @@
 
 #include "../../includes/loading.h"
 
-void empty_buffer(int map_fd)
+void	empty_buffer(int map_fd)
 {
-	char *line = "";
+	char	*line;
 
+	line = "";
 	while (line)
 	{
 		line = get_next_line(map_fd);
@@ -23,6 +24,7 @@ void empty_buffer(int map_fd)
 			free(line);
 	}
 }
+
 char	*trim_backspace(int map_fd)
 {
 	char	*line;

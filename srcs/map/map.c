@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 00:24:19 by agengemb          #+#    #+#             */
-/*   Updated: 2023/10/31 19:07:30 by anmande          ###   ########.fr       */
+/*   Updated: 2023/11/03 15:30:43 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ t_map	*init_map(void)
 	return (new_map);
 }
 
-void	detect_block_type(t_canvas *canvas, t_block **block_map, size_t i, size_t j)
+void	detect_block_type(t_canvas *canvas, \
+t_block **block_map, size_t i, size_t j)
 {
 	char	block_type;
 
@@ -58,40 +59,6 @@ void	detect_block_type(t_canvas *canvas, t_block **block_map, size_t i, size_t j
 		init_pos_player(canvas, i, j, 'E');
 	else if (block_type == 'W')
 		init_pos_player(canvas, i, j, 'W');
-}
-
-void	init_pos_player(t_canvas *canvas, size_t i, size_t j, char dir)
-{
-	canvas->player->x = j + 0.5;
-	canvas->player->y = i  + 0.5;
-	if (dir == 'N')
-	{
-		canvas->player->dir_x = 0;
-		canvas->player->dir_y = -1;
-		canvas->player->plane_x = 0.66;
-		canvas->player->plane_y = 0;
-	}
-	else if (dir == 'S')
-	{
-		canvas->player->dir_x = 0;
-		canvas->player->dir_y = 1;
-		canvas->player->plane_x = -0.66;
-		canvas->player->plane_y = 0;
-	}
-	else if (dir == 'E')
-	{
-		canvas->player->dir_x = 1;
-		canvas->player->dir_y = 0;
-		canvas->player->plane_x = 0.;
-		canvas->player->plane_y = 0.66;
-	}
-	else
-	{
-		canvas->player->dir_x = -1.;
-		canvas->player->dir_y = 0.;
-		canvas->player->plane_x = 0.;
-		canvas->player->plane_y = -0.66;
-	}
 }
 
 int	fill_map(t_canvas *canvas, t_map *map, t_block **block_map, t_list **list)
@@ -126,63 +93,4 @@ int	fill_map(t_canvas *canvas, t_map *map, t_block **block_map, t_list **list)
 		++pos[0];
 	}
 	return (1);
-}
-
-int	create_2d_tab(t_map *map, t_block **block_map)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < map->line_nb)
-	{
-		block_map[i] = malloc(sizeof(t_block) * map->row_nb);
-		if (!block_map[i])
-		{
-			free_block_map(block_map, i);
-			return (0);
-		}
-		++i;
-	}
-	return (1);
-}
-
-int	init_block_map(t_canvas *canvas, t_map *map, t_list **lst)
-{
-	t_block	**block_map;
-
-	block_map = malloc(sizeof(t_block *) * map->line_nb);
-	if (!block_map || !create_2d_tab(map, block_map))
-		return (0);
-	map->block_map = block_map;
-	if (!fill_map(canvas, map, block_map, lst) || !check_map(map, block_map, 0, 0))
-	{
-		printf("error map configuration\n");
-		return (0);
-	}
-	return (1);
-}
-
-t_map	*create_map(t_canvas *canvas, char *file_name)
-{
-	t_map	*new_map;
-	t_list	*lst;
-
-	new_map = init_map();
-	if (!new_map)
-		return (NULL);
-	lst = loading_file(canvas->mlx, new_map, file_name);
-	if (!lst)
-	{
-		destroy_map(canvas->mlx, new_map);
-		return (NULL);
-	}
-	new_map->line_nb = ft_lstsize(lst);
-	if (!init_block_map(canvas, new_map, &lst))
-	{
-		destroy_map(canvas->mlx, new_map);
-		while (lst)
-			ft_lstpop(&lst);
-		return (NULL);
-	}
-	return (new_map);
 }

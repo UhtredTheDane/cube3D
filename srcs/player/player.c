@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:37:20 by anmande           #+#    #+#             */
-/*   Updated: 2023/11/03 14:45:36 by anmande          ###   ########.fr       */
+/*   Updated: 2023/11/03 15:03:02 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,10 @@ void	rotate_player(t_canvas *canvas, double angle)
 	canvas->player->dir_y = tempo_dir_x * sin(angle) + tempo_dir_y * cos(angle);
 	tempo_dir_x = canvas->player->plane_x;
 	tempo_dir_y = canvas->player->plane_y;
-	canvas->player->plane_x = tempo_dir_x * cos(angle) - tempo_dir_y * sin(angle);
-	canvas->player->plane_y = tempo_dir_x * sin(angle) + tempo_dir_y * cos(angle);
+	canvas->player->plane_x = tempo_dir_x * \
+	cos(angle) - tempo_dir_y * sin(angle);
+	canvas->player->plane_y = tempo_dir_x * \
+	sin(angle) + tempo_dir_y * cos(angle);
 }
 
 int	dcolision(t_canvas *canvas)
@@ -83,18 +85,15 @@ int	scolision(t_canvas *canvas)
 	x = (canvas->player->x - canvas->player->dir_x * 0.2);
 	y = (canvas->player->y - canvas->player->dir_y * 0.2);
 	if (canvas->map->block_map[(int)y][(int)x].type == '1')
-	{
 		return (0);
-	}	
-	else if (canvas->player->dir_y < 0 && canvas->map->block_map[(int)y][(int)x].type == '1')
-	{
+	else if (canvas->player->dir_y < 0 && \
+	canvas->map->block_map[(int)y][(int)x].type == '1')
 		return (0);
-	}
-	if (canvas->player->dir_x > 0 && canvas->map->block_map[(int)y][(int)x].type == '1')
-	{
+	if (canvas->player->dir_x > 0 && \
+	canvas->map->block_map[(int)y][(int)x].type == '1')
 		return (0);
-	}
-	else if (canvas->player->dir_x < 0 && canvas->map->block_map[(int)y][(int)x].type == '1')
+	else if (canvas->player->dir_x < 0 && \
+	canvas->map->block_map[(int)y][(int)x].type == '1')
 		return (0);
 	return (1);
 }
@@ -106,19 +105,23 @@ int	wcolision(t_canvas *canvas)
 
 	x = (canvas->player->x + canvas->player->dir_x * 0.2);
 	y = (canvas->player->y + canvas->player->dir_y * 0.2);
-	if (canvas->player->dir_y < 0 && canvas->map->block_map[(int)y][(int)x].type == '1')
+	if (canvas->player->dir_y < 0 && \
+	canvas->map->block_map[(int)y][(int)x].type == '1')
 	{
 		return (0);
 	}	
-	else if (canvas->player->dir_y > 0 && canvas->map->block_map[(int)y][(int)x].type == '1')
+	else if (canvas->player->dir_y > 0 && \
+	canvas->map->block_map[(int)y][(int)x].type == '1')
 	{
 		return (0);
 	}
-	if (canvas->player->dir_x < 0 && canvas->map->block_map[(int)y][(int)x].type == '1')
+	if (canvas->player->dir_x < 0 && \
+	canvas->map->block_map[(int)y][(int)x].type == '1')
 	{
 		return (0);
 	}
-	else if (canvas->player->dir_x > 0 && canvas->map->block_map[(int)y][(int)x].type == '1')
+	else if (canvas->player->dir_x > 0 && \
+	canvas->map->block_map[(int)y][(int)x].type == '1')
 		return (0);
 	return (1);
 }

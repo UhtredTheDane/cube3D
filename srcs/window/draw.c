@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:19:51 by anmande           #+#    #+#             */
-/*   Updated: 2023/11/02 15:51:12 by anmande          ###   ########.fr       */
+/*   Updated: 2023/11/03 15:36:50 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@ void	init_ray(t_ray *ray, t_canvas *canvas, int x)
 {
 	double	dir_x;
 	double	dir_y;
+	double	camera_x;
 
-	double camera_x = 2 * x / (double)800 - 1;
+	camera_x = 2 * x / (double)800 - 1;
 	dir_x = canvas->player->dir_x;
 	dir_y = canvas->player->dir_y;
 	ray->dir_x = dir_x + canvas->player->plane_x * camera_x;
@@ -86,28 +87,16 @@ double	draw_dir_ray(t_canvas *canvas, t_ray *ray, double angle)
 
 void	draw_ray(t_canvas *canvas)
 {
-	//double	angle;
-	//int		i;
-	//int		j;
-	//int value;
-	t_ray		ray;
+	t_ray	ray;
+	int		cnt;
 
-	//value = 800 / 2 * 4;
-	//angle = 0;
-	//i = 800 / 2;
-	//j = i - 1;
-	int cnt = 0;
+	cnt = 0;
 	while (cnt < 800)
 	{
 		init_ray(&ray, canvas, cnt);
 		win_3d(get_wall_dist(canvas->map, &ray), canvas, &ray, cnt);
-		/*if (angle != 0.)
-		{
-			init_ray(&ray, canvas, -angle);
-			win_3d(draw_dir_ray(canvas, &ray, -angle), canvas, &ray, j--);
-		}*/
-		//angle += (M_PI / 4) / 400;
 		cnt++;
 	}
-	mlx_put_image_to_window(canvas->mlx, canvas->window, canvas->data.img, 0, 0);
+	mlx_put_image_to_window(canvas->mlx, canvas->window, \
+	canvas->data.img, 0, 0);
 }
