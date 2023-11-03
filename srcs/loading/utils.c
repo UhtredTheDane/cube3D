@@ -12,6 +12,24 @@
 
 #include "../../includes/loading.h"
 
+char	*create_wrapper(size_t row_nb)
+{
+	char	*wrapper;
+	size_t	i;
+
+	wrapper = malloc(sizeof(char) * (row_nb + 1));
+	if (!wrapper)
+		return (NULL);
+	i = 0;
+	while (i < row_nb)
+	{
+		wrapper[i] = ' ';
+		++i;
+	}
+	wrapper[i] = '\0';
+	return (wrapper);
+}
+
 void empty_buffer(int map_fd)
 {
 	char *line = "";

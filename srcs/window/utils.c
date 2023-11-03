@@ -12,6 +12,24 @@
 
 #include "../../includes/window.h"
 
+double get_texX(t_canvas *canvas, t_ray *ray, double dm)
+{
+	double wallX;
+	int texX;
+
+	if (ray->side == 1)
+		wallX = canvas->player->x + dm * ray->dir_x;
+	else
+		wallX = canvas->player->y + dm * ray->dir_y;
+	wallX -= trunc(wallX);
+	texX = trunc(wallX * 64.);
+	if (ray->side == 0 && ray->dir_x < 0)
+		texX = 64 - texX - 1;
+	else if (ray->side == 1 && ray->dir_y > 0)
+		texX = 64 - texX - 1;
+	return (texX);
+}
+
 double	get_side_dist_x(t_ray *ray, double player_posx)
 {
 	double	sidedist_x;
@@ -48,4 +66,13 @@ double	get_side_disty(t_ray *ray, double player_posY)
 		sidedisty = ((num_line + 1) - player_posY) * ray->deltadisty;
 	}
 	return (sidedisty);
+}
+
+void	my_mlx_pixel_put(t_canvas *canvas, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = canvas->data.addr + (y * canvas->data.linlgth
+			+ x * (canvas->data.bpp / 8));
+	*(unsigned int *)dst = color;
 }

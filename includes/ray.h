@@ -29,7 +29,10 @@ typedef struct s_ray
 	int stepx;
 	int stepY;
 	int side;
-	double angle;
+	int lineHeight;
+	int drawStart;
+	int drawEnd;
+	double dw;
 }		t_ray;
 
 #endif

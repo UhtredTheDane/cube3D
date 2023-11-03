@@ -6,29 +6,11 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 16:24:37 by agengemb          #+#    #+#             */
-/*   Updated: 2023/10/25 16:24:40 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/11/03 16:34:23 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/loading.h"
-
-char	*create_wrapper(size_t row_nb)
-{
-	char	*wrapper;
-	size_t	i;
-
-	wrapper = malloc(sizeof(char) * (row_nb + 1));
-	if (!wrapper)
-		return (NULL);
-	i = 0;
-	while (i < row_nb)
-	{
-		wrapper[i] = ' ';
-		++i;
-	}
-	wrapper[i] = '\0';
-	return (wrapper);
-}
 
 void	add_wrappers(t_list **lst, size_t row_nb)
 {
@@ -73,12 +55,55 @@ t_list	*load_line(t_list **lst, char *line, size_t *row_nb)
 	return (*lst);
 }
 
+int	line_treatment(t_list **lst, char *line, size_t *row_nb)
+{
+	t_list	*tempo_lst;
+
+	if (line)
+	{
+		if (line[0] == '\n')
+			return (-1);
+		tempo_lst = *lst;
+		*lst = load_line(&tempo_lst, line, row_nb);
+		if (!*lst)
+		{
+			while (tempo_lst)
+				ft_lstpop(&tempo_lst);
+			free(line);
+			return (0);
+		}
+	}
+	return (1);
+}
+
+t_list	*test_list(t_list **lst, char *line, int map_fd, size_t *row_nb)
+{
+	while (line)
+	{
+		free(line);
+		line = trim_backspace(map_fd);
+		if (line != NULL)
+		{
+			line = trim_space(line, 0);
+			if (line[0] != '\0' && line[0] != '\n')
+			{
+				while (*lst)
+					ft_lstpop(lst);
+				free(line);
+				return (NULL);
+			}
+		}
+	}
+	add_wrappers(lst, *row_nb);
+	return (*lst);
+}
+
 t_list	*loading_map(int map_fd, size_t *row_nb)
 {
 	char	*line;
 	t_list	*lst;
-	t_list	*tempo_lst;
-	int 	i;
+	int		i;
+	int		res;
 
 	i = 0;
 	lst = NULL;
@@ -90,38 +115,12 @@ t_list	*loading_map(int map_fd, size_t *row_nb)
 			free(line);
 			line = get_next_line(map_fd);
 		}
-		if (line)
-		{
-			if (line[0] == '\n')
-				break ;
-			tempo_lst = lst;
-			lst = load_line(&tempo_lst, line, row_nb);
-			if (!lst)
-			{
-				while (tempo_lst)
-					ft_lstpop(&tempo_lst);
-				free(line);
-				return (NULL);
-			}
-		}
+		res = line_treatment(&lst, line, row_nb);
+		if (res == 0)
+			return (NULL);
+		else if (res == -1)
+			break ;
 		++i;
 	}
-	while (line)
-	{
-		free(line);
-		line = trim_backspace(map_fd);
-		if (line != NULL)
-		{
-			line = trim_space(line, 0);
-			if (line[0] != '\0' && line[0] != '\n')
-			{
-				while (lst)
-					ft_lstpop(&lst);
-				free(line);
-				return (NULL);
-			}
-		}
-	}
-	add_wrappers(&lst, *row_nb);
-	return (lst);
+	return (test_list(&lst, line, map_fd, row_nb));
 }

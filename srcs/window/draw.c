@@ -14,25 +14,16 @@
 #include <math.h>
 #include "../../includes/data.h"
 
-void	my_mlx_pixel_put(t_canvas *canvas, int x, int y, int color)
+void	check_interval(t_ray *ray)
 {
-	char	*dst;
-
-	dst = canvas->data.addr + (y * canvas->data.linlgth
-			+ x * (canvas->data.bpp / 8));
-	*(unsigned int *)dst = color;
+	if (ray->drawStart < 0)
+		ray->drawStart = 0;
+	if (ray->drawEnd > 600)
+		ray->drawEnd = 600;
 }
 
-void	init_ray(t_ray *ray, t_canvas *canvas, int x)
+void	check_ray_dir(t_ray *ray)
 {
-	double	dir_x;
-	double	dir_y;
-
-	double camera_x = 2 * x / (double)800 - 1;
-	dir_x = canvas->player->dir_x;
-	dir_y = canvas->player->dir_y;
-	ray->dir_x = dir_x + canvas->player->plane_x * camera_x;
-	ray->dir_y = dir_y + canvas->player->plane_y * camera_x;
 	if (ray->dir_x == 0)
 		ray->deltadist_x = 1e30;
 	else
@@ -41,10 +32,28 @@ void	init_ray(t_ray *ray, t_canvas *canvas, int x)
 		ray->deltadisty = 1e30;
 	else
 		ray->deltadisty = fabs(1 / ray->dir_y);
+}
+void	init_ray(t_ray *ray, t_canvas *canvas, int x)
+{
+	double	dir_x;
+	double	dir_y;
+	double camera_x;
+	
+	camera_x = 2 * x / (double)800 - 1;
+	dir_x = canvas->player->dir_x;
+	dir_y = canvas->player->dir_y;
+	ray->dir_x = dir_x + canvas->player->plane_x * camera_x;
+	ray->dir_y = dir_y + canvas->player->plane_y * camera_x;
+	check_ray_dir(ray);
 	ray->n_l_hit = floor(canvas->player->y);
 	ray->row_hit = floor(canvas->player->x);
 	ray->sidedist_x = get_side_dist_x(ray, canvas->player->x);
 	ray->sidedisty = get_side_disty(ray, canvas->player->y);
+	ray->dw = get_wall_dist(canvas->map, ray);
+	ray->lineHeight = (int)(600 / ray->dw);
+	ray->drawStart = (ray->lineHeight * -1) / 2 + 600 / 2;
+	ray->drawEnd = ray->lineHeight / 2 + 600 / 2;
+	check_interval(ray);
 }
 
 double	get_wall_dist(t_map *map, t_ray *ray)
@@ -75,38 +84,16 @@ double	get_wall_dist(t_map *map, t_ray *ray)
 		return (ray->sidedisty - ray->deltadisty);
 }
 
-double	draw_dir_ray(t_canvas *canvas, t_ray *ray, double angle)
-{
-	double		dist_mur;
-
-	(void) angle;
-	dist_mur = get_wall_dist(canvas->map, ray);
-	return (dist_mur);
-}
-
 void	draw_ray(t_canvas *canvas)
 {
-	//double	angle;
-	//int		i;
-	//int		j;
-	//int value;
 	t_ray		ray;
-
-	//value = 800 / 2 * 4;
-	//angle = 0;
-	//i = 800 / 2;
-	//j = i - 1;
-	int cnt = 0;
+	int cnt;
+	
+	cnt = 0;
 	while (cnt < 800)
 	{
 		init_ray(&ray, canvas, cnt);
-		win_3d(get_wall_dist(canvas->map, &ray), canvas, &ray, cnt);
-		/*if (angle != 0.)
-		{
-			init_ray(&ray, canvas, -angle);
-			win_3d(draw_dir_ray(canvas, &ray, -angle), canvas, &ray, j--);
-		}*/
-		//angle += (M_PI / 4) / 400;
+		win_3d(canvas, &ray, cnt);
 		cnt++;
 	}
 	mlx_put_image_to_window(canvas->mlx, canvas->window, canvas->data.img, 0, 0);

@@ -51,7 +51,7 @@ t_canvas	*create_canvas(char *file_name)
 	if (!new_canvas->window)
 	{
 		destroy_map(new_canvas->mlx, new_canvas->map);
-		return (free(new_canvas->player), free(new_canvas->mlx), \
+		return (free(new_canvas->player), mlx_destroy_display(new_canvas->mlx), free(new_canvas->mlx), \
 		free(new_canvas), NULL);
 	}
 	new_image(new_canvas);
