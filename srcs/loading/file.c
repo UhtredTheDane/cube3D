@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 23:25:28 by agengemb          #+#    #+#             */
-/*   Updated: 2023/10/31 18:26:40 by anmande          ###   ########.fr       */
+/*   Updated: 2023/11/03 14:43:09 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ t_list	*loading_file(void *mlx, t_map *map, char *file_name)
 	{
 		if (!get_textures_colors(mlx, map, map_fd))
 		{
+			empty_buffer(map_fd);
 			printf("Erreur Chargement couleurs ou textures\n");
 			close(map_fd);
 			return (NULL);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loading.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 23:24:25 by agengemb          #+#    #+#             */
-/*   Updated: 2023/09/11 20:07:44 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/11/03 14:43:31 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ t_list	*loading_map(int map_fd, size_t *row_nb);
 
 char *trim_backspace(int map_fd);
 char *trim_space(char *line, int shifting);
+void empty_buffer(int map_fd);
 
 int get_textures(void *mlx, t_map *map, int map_fd);
 int get_colors(t_map *map, int map_fd);

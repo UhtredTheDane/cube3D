@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 14:04:56 by agengemb          #+#    #+#             */
-/*   Updated: 2023/11/02 18:16:23 by anmande          ###   ########.fr       */
+/*   Updated: 2023/11/03 14:42:30 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_canvas	*create_canvas(char *file_name)
 		return (free(new_canvas->mlx), free(new_canvas), NULL);
 	new_canvas->map = create_map(new_canvas, file_name);
 	if (!new_canvas->map)
-		return (free(new_canvas->player), free(new_canvas->mlx), \
+		return (free(new_canvas->player), mlx_destroy_display(new_canvas->mlx), free(new_canvas->mlx), \
 		free(new_canvas), NULL);
 	new_canvas->window = mlx_new_window(new_canvas->mlx, 800, 600, "cub3D");
 	if (!new_canvas->window)
