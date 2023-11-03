@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/03 15:19:14 by anmande           #+#    #+#             */
+/*   Updated: 2023/11/03 15:19:31 by anmande          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MAP_H
 # define MAP_H
- 
+
 # include <stdlib.h>
 # include <stddef.h>
 # include <unistd.h>
@@ -10,7 +22,7 @@
 # include "../img.h"
 # include "../canvas.h"
 
-typedef struct s_canvas t_canvas;
+typedef struct s_canvas	t_canvas;
 
 typedef struct s_map
 {
@@ -26,13 +38,15 @@ typedef struct s_map
 	t_block	**block_map;
 }	t_map;
 
-t_map *init_map(void);
-int create_2D_tab(t_map *map, t_block **block_map);
-int	fill_map(t_canvas *canvas, t_map *map, t_block **block_map, t_list **list);
-int	init_block_map(t_canvas *canvas, t_map *map, t_list **lst);
+t_map	*init_map(void);
+int		create_2D_tab(t_map *map, t_block **block_map);
+int		fill_map(t_canvas *canvas, t_map *map, t_block **block_map, \
+t_list **list);
+int		init_block_map(t_canvas *canvas, t_map *map, t_list **lst);
 t_map	*create_map(t_canvas *canvas, char *file_name);
-void	detect_block_type(t_canvas *canvas, t_block **block_map, size_t i, size_t j);
+void	detect_block_type(t_canvas *canvas, t_block **block_map, \
+size_t i, size_t j);
 void	init_pos_player(t_canvas *canvas, size_t i, size_t j, char dir);
-void destroy_map(void *mlx, t_map *map);
+void	destroy_map(void *mlx, t_map *map);
 
 #endif

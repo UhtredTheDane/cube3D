@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:19:51 by anmande           #+#    #+#             */
-/*   Updated: 2023/11/02 15:51:12 by anmande          ###   ########.fr       */
+/*   Updated: 2023/11/03 16:57:58 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	init_ray(t_ray *ray, t_canvas *canvas, int x)
 	double	dir_x;
 	double	dir_y;
 	double camera_x;
-	
+
 	camera_x = 2 * x / (double)800 - 1;
 	dir_x = canvas->player->dir_x;
 	dir_y = canvas->player->dir_y;
@@ -86,9 +86,9 @@ double	get_wall_dist(t_map *map, t_ray *ray)
 
 void	draw_ray(t_canvas *canvas)
 {
-	t_ray		ray;
-	int cnt;
-	
+	t_ray	ray;
+	int		cnt;
+
 	cnt = 0;
 	while (cnt < 800)
 	{
@@ -96,5 +96,6 @@ void	draw_ray(t_canvas *canvas)
 		win_3d(canvas, &ray, cnt);
 		cnt++;
 	}
-	mlx_put_image_to_window(canvas->mlx, canvas->window, canvas->data.img, 0, 0);
+	mlx_put_image_to_window(canvas->mlx, canvas->window, \
+	canvas->data.img, 0, 0);
 }
